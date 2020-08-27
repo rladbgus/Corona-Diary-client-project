@@ -1,7 +1,12 @@
-import React from "react";
+import React, { Fragment } from "react";
+import Nav from "../component/Nav/Nav";
 
 function Home() {
-  return <div>Home</div>;
+  return (
+    <Fragment>
+      <Nav>Home</Nav>
+    </Fragment>
+  );
 }
 
 export default Home;
