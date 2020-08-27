@@ -1,0 +1,9 @@
+.textinput{
+height: 200px;
+}
+
+.imgpreview{
+  height: 100px;
+  width: 100px;
+  background-color: rgb(224, 160, 163);
+}
