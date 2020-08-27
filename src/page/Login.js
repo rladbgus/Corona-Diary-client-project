@@ -1,23 +1,20 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Nav from "../component/Nav/Nav"
+import styled from "styled-components";
+import LoginView from "../component/Login/Login";
+
+const Shift = styled.div`
+  margin-top: 100px;
+`;
 
 const Login = () => {
-
   return (
     <div>
-      <Nav></Nav>
-      <center className="loginName" style={{
-        margin: '100px', border: '1px solid gray', padding: '10px 30px 40px 30px', width: '1200px'
-      }} >
-        <h1>로그인</h1>
-        <form style={{ display: 'flex', flexDirection: 'column' }}>
-          <label>이메일</label>
-          <input type="email" />
-          <label>비밀번호</label>
-          <input type="password" />
-          <button>확인</button>
-        </form>
-      </center>
+      <Fragment>
+        <Nav />
+        <Shift />
+        <LoginView />
+      </Fragment>
     </div>
   )
 }
