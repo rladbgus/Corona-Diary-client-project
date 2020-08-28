@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { withRouter } from "react-router-dom";
+
 
 const HomeContentsViewStyle = styled.div`
   background: #c2f3ee;
@@ -12,12 +14,13 @@ const HomeContentsViewStyle = styled.div`
   line-height: 30px;
 `;
 
-const HomePageContentsView = () => {
+const HomePageContentsView = ({ history }) => {
+
   return (
     <HomeContentsViewStyle>
       <div className="homeContentsView">
         <div className="homeContentsContainer">
-          <button>+</button>
+          <button onClick={() => history.push('./contentslist')}>+</button>
           <br />
           <span className="homeContentsSpan">content1</span>
           <span className="homeContentsSpan">content2</span>
@@ -32,4 +35,4 @@ const HomePageContentsView = () => {
   );
 };
 
-export default HomePageContentsView;
+export default withRouter(HomePageContentsView);
