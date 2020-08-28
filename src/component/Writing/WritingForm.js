@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -10,6 +10,23 @@ const Container = styled.div`
 `;
 
 const WritingForm = () => {
+
+  //업로드할 이미지 미리보기
+  const [img, setImg] = useState(null);
+  const [imgData, setImgData] = useState(null);
+
+  const HandleChangeImg = e => {
+    if (e.target.files[0]) {
+      console.log("picture: ", e.target.files);
+      setImg(e.target.files[0]);
+      const reader = new FileReader();
+      reader.addEventListener("load", () => {
+        setImgData(reader.result);
+      });
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  }
+
   return (
     <>
       <Container>
@@ -31,7 +48,9 @@ const WritingForm = () => {
           <input className="input_tag" type="text" />
         </div>
         <div>
-          <input className="input_file" type="file" />
+          <img className="imgpreview" src={imgData} />
+          <br />
+          <input type="file" onChange={HandleChangeImg} />
         </div>
       </Container>
     </>
