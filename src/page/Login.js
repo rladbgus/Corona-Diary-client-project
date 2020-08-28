@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import Nav from "../component/Nav/Nav"
+import Nav from "../component/Nav/Nav";
 import styled from "styled-components";
 import LoginView from "../component/Login/Login";
 
@@ -16,16 +16,10 @@ const Login = () => {
         <LoginView />
       </Fragment>
     </div>
-  )
-}
+  );
+};
 
 export default Login;
-
-
-
-
-
-
 
 // const [Email, setEmail] = useState("");
 // const [Password, setPassword] = useState("");
