@@ -1,21 +1,17 @@
 {
   "parser": "babel-eslint",
   "parserOptions": {
-      "ecmaVersion": 2020,
-      "sourceType": "module"
+    "ecmaVersion": 2020,
+    "sourceType": "module"
   },
   "env": {
-      "browser": true,
-      "node": true,
-      "es6": true
+    "browser": true,
+    "node": true,
+    "es6": true
   },
-  "extends": [
-      "eslint:recommended"
-  ],
-  "plugins": [
-      "import"
-  ],
+  "extends": ["eslint:recommended", "react-app"],
+  "plugins": ["import"],
   "rules": {
-      "no-console": 0
+    "no-console": 0
   }
 }
