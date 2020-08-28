@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { withRouter } from "react-router-dom";
 
 const Header = styled.div`
   position: fixed;
@@ -25,15 +26,15 @@ const Header = styled.div`
   }
 `;
 
-function Nav() {
+function Nav({ history }) {
   return (
     <Header>
       <img className="logo" src="" alt="" />
       <span className="home_name">Covid-19 Diary</span>
       <button className="hamberger">햄버거</button>
-      <button className="search_btn">검색</button>
+      <button className="search_btn" onClick={() => { history.push('./Search') }}>검색</button>
     </Header>
   );
 }
 
-export default Nav;
+export default withRouter(Nav);
