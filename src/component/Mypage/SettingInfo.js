@@ -65,7 +65,7 @@ const SettingInfo = ({ handleModifybutton }) => {
   const handleDelete = event => {
     event.preventDefault();
     let data = {};
-    axios.delete(url, data);
+    axios.patch(url, data);
   };
 
   return (
