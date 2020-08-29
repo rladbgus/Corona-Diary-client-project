@@ -8,7 +8,7 @@ const SignUpFunction = () => {
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const [nickName, setNickName] = useState("");
-  const [age, setAge] = useState("");
+  const [age, setAge] = useState("0");
   const [city, setCity] = useState("");
 
   const handleChange = async event => {
@@ -122,12 +122,16 @@ const SignUpFunction = () => {
       </div>
       <div>
         <label>나이대</label>
-        <input
-          className="input_age"
-          type="text"
-          name="age"
-          onChange={handleChange}
-        />
+        <select name="age" onChange={handleChange}>
+          <option value="0">10대이하</option>
+          <option value="10">10대</option>
+          <option value="20">20대</option>
+          <option value="30">30대</option>
+          <option value="40">40대</option>
+          <option value="50">50대</option>
+          <option value="60">60대</option>
+          <option value="70">70대이상</option>
+        </select>
       </div>
       <div>
         <label>격리된 지역</label>
@@ -135,6 +139,7 @@ const SignUpFunction = () => {
           className="input_location"
           type="text"
           name="city"
+          placeholder="ex) 서울 or 영주"
           onChange={handleChange}
         />
       </div>
