@@ -27,6 +27,7 @@ const Header = styled.div`
 
   .open{
   background-color: #F8EC7F;
+  float: right;
 }
 
 .close{
