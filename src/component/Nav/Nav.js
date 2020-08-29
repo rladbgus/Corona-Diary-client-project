@@ -44,23 +44,22 @@ const Header = styled.div`
 function Nav() {
 
   const [MenuState, setIsMenuOpen] = useState(false);
-  console.log(MenuState);
+  // console.log(MenuState);
 
   return (
     <Header>
       <img className="logo" src={maakImg} alt="logo" onClick={() => { window.location.href = 'http://localhost:3000' }} />
 
       <button className="search_btn" onClick={() => { window.location.href = 'http://localhost:3000/Search' }}>검색</button>
-
       <button className="menus" onClick={() => { setIsMenuOpen(!MenuState) }}>≡</button>
       <ul className={MenuState ? "open" : "close"}>
         <li>
-          <NavLink exact to="/user/login" activeClassName="selected">
+          <NavLink exact to="/user/login" className="selected">
             로그인
             </NavLink>
         </li>
         <li>
-          <NavLink to="/user/signup" activeClassName="selected">
+          <NavLink to="/user/signup" className="selected">
             회원가입
             </NavLink>
         </li>
