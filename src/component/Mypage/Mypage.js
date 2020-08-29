@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import MypageForm from "./MypageForm";
 import SettingInfo from "./SettingInfo";
-import axios from "axios";
+// import axios from "axios";
 
 const Container = styled.div`
   display: flex;
@@ -43,10 +43,10 @@ const Mypage = () => {
           <MypageForm handleSettingbutton={handleSettingbutton} />
         </Container>
       ) : (
-        <Container>
-          <SettingInfo handleModifybutton={handleModifybutton} />
-        </Container>
-      )}
+          <Container>
+            <SettingInfo handleModifybutton={handleModifybutton} />
+          </Container>
+        )}
     </>
   );
 };
