@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import SignUpFunction from "./SignUpFunction";
-import axios from "axios";
 
 const Container = styled.div`
   display: flex;

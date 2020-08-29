@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import SubmitButton from "./SubmitButton";
-import { useHistory, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const SignUpFunction = () => {
@@ -11,8 +9,7 @@ const SignUpFunction = () => {
   const [password2, setPassword2] = useState("");
   const [nickName, setNickName] = useState("");
   const [age, setAge] = useState("");
-  const [location, setLocation] = useState("");
-  const history = useHistory();
+  const [city, setCity] = useState("");
 
   const handleChange = async event => {
     if (event.target.name === "email") {
@@ -30,8 +27,8 @@ const SignUpFunction = () => {
     if (event.target.name === "nickName") {
       setNickName(event.target.value);
     }
-    if (event.target.name === "location") {
-      setLocation(event.target.value);
+    if (event.target.name === "city") {
+      setCity(event.target.value);
     }
   };
 
@@ -67,8 +64,8 @@ const SignUpFunction = () => {
     data.email = email;
     data.password = password2;
     data.nickName = nickName;
-    data.age = age;
-    data.location = location;
+    data.age = Number(age);
+    data.city = city;
     if (password1 !== password2) {
       alert("비밀번호가 틀립니다.");
       document.querySelector(".input_password1").value = "";
@@ -76,7 +73,7 @@ const SignUpFunction = () => {
       return;
     }
     console.log(data);
-    await axios.post(url, data).then(res => console.log(data));
+    await axios.post(url, data).then(res => alert(res.message));
   };
 
   return (
@@ -137,7 +134,7 @@ const SignUpFunction = () => {
         <input
           className="input_location"
           type="text"
-          name="location"
+          name="city"
           onChange={handleChange}
         />
       </div>
