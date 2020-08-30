@@ -44,11 +44,12 @@ const Header = styled.div`
 
 function Nav() {
 
+
   const [MenuState, setIsMenuOpen] = useState(false);
 
   // 테스트 위해 임의로 로그인상태 지정
-  // 로그인상태
   const [loginState, setIsLoginOpen] = useState(true);
+  console.log('로그인 상태', loginState);
 
   return (
     <Header>
@@ -97,7 +98,12 @@ function Nav() {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/" className="selected">
+            <NavLink to="/" className="selected"
+              onClick={() => {
+                setIsLoginOpen(false)
+                alert('로그아웃 되었습니다:)')
+                localStorage.clear();
+              }}>
               로그아웃
             </NavLink>
           </li>
