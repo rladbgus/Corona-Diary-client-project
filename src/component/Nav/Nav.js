@@ -1,9 +1,8 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import maakImg from "../../img/mask.jpg"
-// import { UserContextProvider } from "../Context/context";
-// import UserContext from "../Context/context";
+import getLogin from "../../Context/Context";
 
 const Header = styled.div`
   position: fixed;
@@ -41,35 +40,35 @@ const Header = styled.div`
   height: 40px;
   margin: 5px 0px 0px 10px;
 }
+.search_btn{
 
+}
 `;
 
-function Nav() {
+function Nav(props) {
 
   const [MenuState, setIsMenuOpen] = useState(false);
 
-  const [isLogged, loggedUserIn] = useState(false);
-
-  // const { loggedUserIn } = useContext(UserContext);
-  // const user = useContext(UserContext);
-
-  // const user = useContext(UserContext);
-  // console.log('로그인 상태', user);
+  const value = useContext(getLogin);
+  // console.log(value);
+  console.log('로그인 상태', value.isLogin);
 
   return (
-    // <UserContextProvider>
     <Header>
       {/* 로고 */}
-      <img className="logo" src={maakImg} alt="logo" onClick={() => { window.location.href = 'http://localhost:3000' }} />
+      <Link to="/" className="homelink">
+        <img className="logo" src={maakImg} alt="logo"></img>
+      </Link>
 
       {/* 검색버튼 */}
-      <button className="search_btn" onClick={() => { window.location.href = 'http://localhost:3000/Search' }}>검색</button>
+      <Link to="/Search" className="search_btn">검색</Link>
 
       {/* 햄버거버튼 */}
       <button className="menus" onClick={() => { setIsMenuOpen(!MenuState) }}>≡</button>
+
       {/* 로그인 전 내용 */}
       <span className="logoutstate"
-        style={isLogged ? { display: 'none' } : { display: 'block' }}>
+        style={value.isLogin ? { display: 'none' } : { display: 'block' }}>
         <ul className={MenuState ? "open" : "close"}>
           <li>
             <NavLink exact to="/user/login" className="selected">
@@ -86,7 +85,7 @@ function Nav() {
 
       {/* 로그인 후 내용 */}
       <span className="loginstate"
-        style={isLogged ? { display: 'block' } : { display: 'none' }} >
+        style={value.isLogin ? { display: 'block' } : { display: 'none' }} >
         <ul className={MenuState ? "open" : "close"}>
           <li>
             <NavLink exact to="/writing" className="selected">
@@ -106,7 +105,7 @@ function Nav() {
           <li>
             <NavLink to="/" className="selected"
               onClick={() => {
-                loggedUserIn(false);
+                value.handleLogin();
                 alert('로그아웃 되었습니다:)')
                 localStorage.clear();
               }}>
@@ -116,7 +115,6 @@ function Nav() {
         </ul>
       </span>
     </Header>
-    // </UserContextProvider>
   );
 }
 
