@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const SignUpFunction = () => {
-  const url = "";
+  const url = "http://localhost:5000/user/signup";
   const [email, setEmail] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
@@ -36,11 +36,11 @@ const SignUpFunction = () => {
     event.preventDefault();
     let checkEmail = {};
     checkEmail.email = email;
-    axios.post("http://localhost:5000/user/signup/email", checkEmail).then(res => {
+    axios.post(url + "/email", checkEmail).then(res => {
       if (res.status === 200) {
-        alert("사용가능한 이메일 입니다.");
+        alert(res.data.message);
       } else {
-        alert("사용 불가능한 이메일 입니다.");
+        alert(res.data.message);
       }
     });
   };
@@ -49,11 +49,11 @@ const SignUpFunction = () => {
     event.preventDefault();
     let checkNickName = {};
     checkNickName.nickName = nickName;
-    axios.post("http://localhost:5000/user/signup/nickName", checkNickName).then(res => {
+    axios.post(url + "/nickName", checkNickName).then(res => {
       if (res.status === 200) {
-        alert("사용가능한 닉네임 입니다.");
+        alert(res.data.message);
       } else {
-        alert("사용 불가능한 닉네임 입니다.");
+        alert(res.data.message);
       }
     });
   };
@@ -73,7 +73,7 @@ const SignUpFunction = () => {
       return;
     }
     console.log(data);
-    await axios.post("http://localhost:5000/user/signup", data).then(res => alert(res.message));
+    await axios.post(url, data).then(res => alert(res.data.message));
   };
 
   return (
