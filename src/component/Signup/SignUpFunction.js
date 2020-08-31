@@ -36,8 +36,8 @@ const SignUpFunction = () => {
     event.preventDefault();
     let checkEmail = {};
     checkEmail.email = email;
-    axios.post(url, checkEmail).then(res => {
-      if (res.status === 201) {
+    axios.post("http://localhost:5000/user/signup/email", checkEmail).then(res => {
+      if (res.status === 200) {
         alert("사용가능한 이메일 입니다.");
       } else {
         alert("사용 불가능한 이메일 입니다.");
@@ -49,8 +49,8 @@ const SignUpFunction = () => {
     event.preventDefault();
     let checkNickName = {};
     checkNickName.nickName = nickName;
-    axios.post(url, checkNickName).then(res => {
-      if (res.status === 201) {
+    axios.post("http://localhost:5000/user/signup/nickName", checkNickName).then(res => {
+      if (res.status === 200) {
         alert("사용가능한 닉네임 입니다.");
       } else {
         alert("사용 불가능한 닉네임 입니다.");
@@ -73,7 +73,7 @@ const SignUpFunction = () => {
       return;
     }
     console.log(data);
-    await axios.post(url, data).then(res => alert(res.message));
+    await axios.post("http://localhost:5000/user/signup", data).then(res => alert(res.message));
   };
 
   return (

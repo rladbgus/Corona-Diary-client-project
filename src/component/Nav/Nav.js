@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import maakImg from "../../img/mask.jpg"
+// import { UserContextProvider } from "../Context/context";
+// import UserContext from "../Context/context";
 
 const Header = styled.div`
   position: fixed;
@@ -44,14 +46,18 @@ const Header = styled.div`
 
 function Nav() {
 
-
   const [MenuState, setIsMenuOpen] = useState(false);
 
-  // 테스트 위해 임의로 로그인상태 지정
-  const [loginState, setIsLoginOpen] = useState(true);
-  console.log('로그인 상태', loginState);
+  const [isLogged, loggedUserIn] = useState(false);
+
+  // const { loggedUserIn } = useContext(UserContext);
+  // const user = useContext(UserContext);
+
+  // const user = useContext(UserContext);
+  // console.log('로그인 상태', user);
 
   return (
+    // <UserContextProvider>
     <Header>
       {/* 로고 */}
       <img className="logo" src={maakImg} alt="logo" onClick={() => { window.location.href = 'http://localhost:3000' }} />
@@ -63,7 +69,7 @@ function Nav() {
       <button className="menus" onClick={() => { setIsMenuOpen(!MenuState) }}>≡</button>
       {/* 로그인 전 내용 */}
       <span className="logoutstate"
-        style={loginState ? { display: 'none' } : { display: 'block' }}>
+        style={isLogged ? { display: 'none' } : { display: 'block' }}>
         <ul className={MenuState ? "open" : "close"}>
           <li>
             <NavLink exact to="/user/login" className="selected">
@@ -80,7 +86,7 @@ function Nav() {
 
       {/* 로그인 후 내용 */}
       <span className="loginstate"
-        style={loginState ? { display: 'block' } : { display: 'none' }} >
+        style={isLogged ? { display: 'block' } : { display: 'none' }} >
         <ul className={MenuState ? "open" : "close"}>
           <li>
             <NavLink exact to="/writing" className="selected">
@@ -100,7 +106,7 @@ function Nav() {
           <li>
             <NavLink to="/" className="selected"
               onClick={() => {
-                setIsLoginOpen(false)
+                loggedUserIn(false);
                 alert('로그아웃 되었습니다:)')
                 localStorage.clear();
               }}>
@@ -110,6 +116,7 @@ function Nav() {
         </ul>
       </span>
     </Header>
+    // </UserContextProvider>
   );
 }
 
