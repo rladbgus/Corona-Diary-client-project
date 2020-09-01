@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import getLogin from "../../Context/Context";
 
 const Container = styled.div`
   display: flex;
@@ -13,14 +14,20 @@ const Container = styled.div`
 
 const SubmitButton = ({ data }) => {
   const url = "http://localhost:5000/content";
+  const token = useContext(getLogin).token;
 
   const submitButton = event => {
     event.preventDefault();
-    console.log(data, Object.keys(data).length);
     if (Object.keys(data).length !== 12) {
       return alert("빈 항목이 있습니다. 빈 항목을 채워주세요!");
     }
-    axios.post(url, data);
+    axios
+      .post(url, data, {
+        headers: {
+          "x-access-token": token,
+        },
+      })
+      .then(res => console.log(res));
   };
 
   return (
