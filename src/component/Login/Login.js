@@ -5,7 +5,8 @@ import getLogin from "../../Context/Context";
 
 const Login = (props) => {
     const value = useContext(getLogin);
-    if (value.handleLogin === true) {
+
+    if (value.isLogin === true) {
         alert("로그인 상태입니다")
         props.history.push('/')
     }
