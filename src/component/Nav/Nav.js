@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import maakImg from "../../img/mask.jpg"
+import getLogin from "../../Context/Context";
 
 const Header = styled.div`
   position: fixed;
@@ -39,31 +40,80 @@ const Header = styled.div`
   height: 40px;
   margin: 5px 0px 0px 10px;
 }
+.search_btn{
+
+}
 `;
 
-function Nav() {
+function Nav(props) {
 
   const [MenuState, setIsMenuOpen] = useState(false);
-  // console.log(MenuState);
+
+  const value = useContext(getLogin);
+  // console.log(value);
+  console.log('로그인 상태', value.isLogin);
 
   return (
     <Header>
-      <img className="logo" src={maakImg} alt="logo" onClick={() => { window.location.href = 'http://localhost:3000' }} />
+      {/* 로고 */}
+      <Link to="/" className="homelink">
+        <img className="logo" src={maakImg} alt="logo"></img>
+      </Link>
 
-      <button className="search_btn" onClick={() => { window.location.href = 'http://localhost:3000/Search' }}>검색</button>
+      {/* 검색버튼 */}
+      <Link to="/Search" className="search_btn">검색</Link>
+
+      {/* 햄버거버튼 */}
       <button className="menus" onClick={() => { setIsMenuOpen(!MenuState) }}>≡</button>
-      <ul className={MenuState ? "open" : "close"}>
-        <li>
-          <NavLink exact to="/user/login" className="selected">
-            로그인
+
+      {/* 로그인 전 내용 */}
+      <span className="logoutstate"
+        style={value.isLogin ? { display: 'none' } : { display: 'block' }}>
+        <ul className={MenuState ? "open" : "close"}>
+          <li>
+            <NavLink exact to="/user/login" className="selected">
+              로그인
             </NavLink>
-        </li>
-        <li>
-          <NavLink to="/user/signup" className="selected">
-            회원가입
+          </li>
+          <li>
+            <NavLink to="/user/signup" className="selected">
+              회원가입
             </NavLink>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </span>
+
+      {/* 로그인 후 내용 */}
+      <span className="loginstate"
+        style={value.isLogin ? { display: 'block' } : { display: 'none' }} >
+        <ul className={MenuState ? "open" : "close"}>
+          <li>
+            <NavLink exact to="/writing" className="selected">
+              일기쓰기
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/mypage" className="selected">
+              회원정보
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/mycontentslist" className="selected">
+              내가 쓴 글 보기
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/" className="selected"
+              onClick={() => {
+                value.handleLogin();
+                alert('로그아웃 되었습니다:)')
+                localStorage.clear();
+              }}>
+              로그아웃
+            </NavLink>
+          </li>
+        </ul>
+      </span>
     </Header>
   );
 }
