@@ -3,8 +3,11 @@ import { withRouter } from "react-router-dom";
 import axios from "axios";
 import getLogin from "../../Context/Context";
 
+
 const Login = (props) => {
     const value = useContext(getLogin);
+    // console.log('value', value);
+    // console.log(value.handleToken(9))
 
     if (value.isLogin === true) {
         alert("로그인 상태입니다")
@@ -29,10 +32,10 @@ const Login = (props) => {
                 password: password
             })
             .then(res => {
-                console.log(res);
                 if (res.status === 200) {
                     alert('로그인에 성공하셨습니다');
                     value.handleLogin();
+                    value.handleToken(res.data.token);
                     props.history.push('/')
                 } else if (res.status === 409) {
                     alert('아이디,비밀번호를 확인해주세요')

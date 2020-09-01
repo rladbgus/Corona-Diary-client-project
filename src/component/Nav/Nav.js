@@ -40,9 +40,7 @@ const Header = styled.div`
   height: 40px;
   margin: 5px 0px 0px 10px;
 }
-.search_btn{
 
-}
 `;
 
 function Nav(props) {
@@ -50,7 +48,7 @@ function Nav(props) {
   const [MenuState, setIsMenuOpen] = useState(false);
 
   const value = useContext(getLogin);
-  // console.log(value);
+  console.log(value.token);
   console.log('로그인 상태', value.isLogin);
 
   return (
@@ -65,7 +63,6 @@ function Nav(props) {
 
       {/* 햄버거버튼 */}
       <button className="menus" onClick={() => { setIsMenuOpen(!MenuState) }}>≡</button>
-
       {/* 로그인 전 내용 */}
       <span className="logoutstate"
         style={value.isLogin ? { display: 'none' } : { display: 'block' }}>
@@ -107,7 +104,7 @@ function Nav(props) {
               onClick={() => {
                 value.handleLogin();
                 alert('로그아웃 되었습니다:)')
-                localStorage.clear();
+                value.handleToken('');
               }}>
               로그아웃
             </NavLink>
