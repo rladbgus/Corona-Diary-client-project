@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 
-const SignUpFunction = () => {
+const SignUpFunction = (props) => {
   const url = "http://localhost:5000/user/signup";
   const [email, setEmail] = useState("");
   const [password1, setPassword1] = useState("");
@@ -73,7 +73,12 @@ const SignUpFunction = () => {
       return;
     }
     console.log(data);
-    await axios.post(url, data).then(res => alert(res.data.message));
+    await axios.post(url, data)
+      .then(res =>
+        console.log(res)
+      );
+    alert('회원가입이 완료되었습니다.')
+    props.history.push('./login')
   };
 
   return (
@@ -153,4 +158,4 @@ const SignUpFunction = () => {
   );
 };
 
-export default SignUpFunction;
+export default withRouter(SignUpFunction);
