@@ -16,7 +16,10 @@ const SubmitButton = ({ data }) => {
 
   const submitButton = event => {
     event.preventDefault();
-    console.log(data);
+    console.log(data, Object.keys(data).length);
+    if (Object.keys(data).length !== 12) {
+      return alert("빈 항목이 있습니다. 빈 항목을 채워주세요!");
+    }
     axios.post(url, data);
   };
 
