@@ -139,7 +139,7 @@ const SignUpFunction = () => {
           className="input_location"
           type="text"
           name="city"
-          placeholder="ex) 서울 or 영주"
+          placeholder="ex) Seoul or Busan"
           onChange={handleChange}
         />
       </div>
