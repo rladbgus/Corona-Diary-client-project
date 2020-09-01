@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -27,11 +26,10 @@ const SettingInfo = ({ handleModifybutton, token, userInfo }) => {
       document.querySelector(".input_password2").value = "";
     }
     let data = {};
-    data.email = "";
+    data.email = userInfo.email;
     data.password = password2;
     data.age = age;
     data.city = city;
-    console.log(data);
     await axios
       .patch(url + "/mypage", data, {
         headers: {
@@ -44,7 +42,6 @@ const SettingInfo = ({ handleModifybutton, token, userInfo }) => {
         } else {
           alert("수정실패 다시 시도 바랍니다.");
         }
-        console.log(res);
       });
     await setChange(!change);
     await handleModifybutton(change);
@@ -69,13 +66,11 @@ const SettingInfo = ({ handleModifybutton, token, userInfo }) => {
 
   const handleDelete = event => {
     event.preventDefault();
-    axios
-      .patch(url + "/signout", {
-        headers: {
-          "x-access-token": token,
-        },
-      })
-      .then(res => console.log(res));
+    axios.get(url + "/user/signout", {
+      headers: {
+        "x-access-token": token,
+      },
+    });
   };
 
   const handleClick = event => {
