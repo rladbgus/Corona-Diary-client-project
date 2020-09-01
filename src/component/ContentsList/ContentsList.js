@@ -26,9 +26,7 @@ const ContentsListView = () => {
                 setContentList([...res.data.contentList]);
             })
     }
-    console.log(contentList);
     // console.log(contentList[0].title);
-
 
     // console.log("contentList", contentList);
     // console.log(contentList[0])
