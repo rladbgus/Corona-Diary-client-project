@@ -14,70 +14,120 @@ const SurveyContainer = styled.span`
   flex-direction: row;
 `;
 
-const SurveyForm = ({ data }) => {
+const SurveyForm = ({ data, handleClick }) => {
   return (
     <>
       <Container>
-        <div>{data.data}</div>
+        <div className={data.name}>{data.data}</div>
         <SurveyContainer>
           <span>
             약1
             <div>
-              <input type="radio" name={`question${data.id}`} value="1" />
+              <input
+                type="radio"
+                name={`question${data.id}`}
+                value="1"
+                onClick={e => handleClick(data.name, e.target.value)}
+              />
             </div>
           </span>
           <span>
             <br></br>
             <div>
-              <input type="radio" name={`question${data.id}`} value="2" />
+              <input
+                type="radio"
+                name={`question${data.id}`}
+                value="2"
+                onClick={e => handleClick(data.name, e.target.value)}
+              />
             </div>
           </span>
           <span>
             <br></br>
             <div>
-              <input type="radio" name={`question${data.id}`} value="3" />
+              <input
+                type="radio"
+                name={`question${data.id}`}
+                value="3"
+                onClick={e => handleClick(data.name, e.target.value)}
+              />
             </div>
           </span>
           <span>
             <br></br>
             <div>
-              <input type="radio" name={`question${data.id}`} value="4" />
+              <input
+                type="radio"
+                name={`question${data.id}`}
+                value="4"
+                onClick={e => handleClick(data.name, e.target.value)}
+              />
             </div>
           </span>
           <span>
             <br></br>
             <div>
-              <input type="radio" name={`question${data.id}`} value="5" />
+              <input
+                type="radio"
+                name={`question${data.id}`}
+                value="5"
+                onClick={e => handleClick(data.name, e.target.value)}
+              />
             </div>
           </span>
           <span>
             <br></br>
             <div>
-              <input type="radio" name={`question${data.id}`} value="6" />
+              <input
+                type="radio"
+                name={`question${data.id}`}
+                value="6"
+                onClick={e => handleClick(data.name, e.target.value)}
+              />
             </div>
           </span>
           <span>
             <br></br>
             <div>
-              <input type="radio" name={`question${data.id}`} value="7" />
+              <input
+                type="radio"
+                name={`question${data.id}`}
+                value="7"
+                onClick={e => handleClick(data.name, e.target.value)}
+              />
             </div>
           </span>
           <span>
             <br></br>
             <div>
-              <input type="radio" name={`question${data.id}`} value="8" />
+              <input
+                type="radio"
+                name={`question${data.id}`}
+                value="8"
+                onClick={e => handleClick(data.name, e.target.value)}
+              />
             </div>
           </span>
           <span>
             <br></br>
             <div>
-              <input type="radio" name={`question${data.id}`} value="9" />
+              <input
+                type="radio"
+                name={`question${data.id}`}
+                value="9"
+                onClick={e => handleClick(data.name, e.target.value)}
+              />
             </div>
           </span>
           <span>
             강10
             <div>
-              <input type="radio" name={`question${data.id}`} value="10" />
+              <input
+                type="radio"
+                name={`question${data.id}`}
+                value="10"
+                onClick={e => handleClick(data.name, e.target.value)}
+              />
             </div>
           </span>
         </SurveyContainer>
