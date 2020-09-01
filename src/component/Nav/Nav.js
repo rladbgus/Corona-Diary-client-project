@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { NavLink, Link } from "react-router-dom";
-import maakImg from "../../img/mask.jpg"
+import logo from "../../img/corona_logo.png"
 import getLogin from "../../Context/Context";
 
 const Header = styled.div`
@@ -55,7 +55,7 @@ function Nav(props) {
     <Header>
       {/* 로고 */}
       <Link to="/" className="homelink">
-        <img className="logo" src={maakImg} alt="logo"></img>
+        <img className="logo" src={logo} alt="logo"></img>
       </Link>
 
       {/* 검색버튼 */}

@@ -10,7 +10,7 @@ const Login = (props) => {
     // console.log(value.handleToken(9))
 
     if (value.isLogin === true) {
-        alert("로그인 상태입니다")
+        // alert("로그인 상태입니다")
         props.history.push('/')
     }
 
@@ -33,10 +33,10 @@ const Login = (props) => {
             })
             .then(res => {
                 if (res.status === 200) {
-                    alert('로그인에 성공하셨습니다');
+                    // alert('로그인에 성공하셨습니다');
                     value.handleLogin();
                     value.handleToken(res.data.token);
-                    props.history.push('/')
+                    props.history.push('/contentslist')
                 } else if (res.status === 409) {
                     alert('아이디,비밀번호를 확인해주세요')
                 }
