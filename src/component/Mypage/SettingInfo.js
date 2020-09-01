@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -10,13 +11,13 @@ const Container = styled.div`
   margin: 10px;
 `;
 
-const SettingInfo = ({ handleModifybutton }) => {
+const SettingInfo = ({ handleModifybutton, token, userInfo }) => {
   const [change, setChange] = useState(false);
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const [age, setAge] = useState("");
-  const [location, setLocation] = useState("");
-  const url = "http://localhost:3001";
+  const [city, setCity] = useState("");
+  const url = "http://localhost:5000";
 
   const handleModifiedButton = async event => {
     event.preventDefault();
@@ -26,18 +27,25 @@ const SettingInfo = ({ handleModifybutton }) => {
       document.querySelector(".input_password2").value = "";
     }
     let data = {};
+    data.email = "";
     data.password = password2;
     data.age = age;
-    data.location = location;
+    data.city = city;
     console.log(data);
-    await axios.put(url, data).then(res => {
-      if (res.status === 201) {
-        alert("수정완료~!");
-      } else {
-        alert("수정실패 다시 시도 바랍니다.");
-      }
-      console.log(res);
-    });
+    await axios
+      .patch(url + "/mypage", data, {
+        headers: {
+          "x-access-token": token,
+        },
+      })
+      .then(res => {
+        if (res.status === 201) {
+          alert("수정완료~!");
+        } else {
+          alert("수정실패 다시 시도 바랍니다.");
+        }
+        console.log(res);
+      });
     await setChange(!change);
     await handleModifybutton(change);
   };
@@ -54,18 +62,24 @@ const SettingInfo = ({ handleModifybutton }) => {
     if (event.target.name === "password2") {
       setPassword2(event.target.value);
     }
-    if (event.target.name === "age") {
-      setAge(event.target.value);
-    }
-    if (event.target.name === "location") {
-      setLocation(event.target.value);
+    if (event.target.name === "city") {
+      setCity(event.target.value);
     }
   };
 
   const handleDelete = event => {
     event.preventDefault();
-    let data = {};
-    axios.patch(url, data);
+    axios
+      .patch(url + "/signout", {
+        headers: {
+          "x-access-token": token,
+        },
+      })
+      .then(res => console.log(res));
+  };
+
+  const handleClick = event => {
+    setAge(Number(event.target.value));
   };
 
   return (
@@ -74,7 +88,7 @@ const SettingInfo = ({ handleModifybutton }) => {
         <h1 title="mypage">정보수정</h1>
         <div>
           <label>이메일 : </label>
-          <label>blah@naver.com</label>
+          <label>{userInfo.email}</label>
         </div>
         <div>
           <label>비밀번호</label>
@@ -96,23 +110,27 @@ const SettingInfo = ({ handleModifybutton }) => {
         </div>
         <div>
           <label>닉네임 : </label>
-          <label>blahblah</label>
+          <label>{userInfo.nickName}</label>
         </div>
         <div>
           <label>나이대 : </label>
-          <input
-            className="input_age"
-            type="text"
-            name="age"
-            onChange={handleChange}
-          />
+          <select name="age" onClick={handleClick}>
+            <option value="0">10대이하</option>
+            <option value="10">10대</option>
+            <option value="20">20대</option>
+            <option value="30">30대</option>
+            <option value="40">40대</option>
+            <option value="50">50대</option>
+            <option value="60">60대</option>
+            <option value="70">70대이상</option>
+          </select>
         </div>
         <div>
           <label>격리된 지역 : </label>
           <input
             className="input_location"
             type="text"
-            name="location"
+            name="city"
             onChange={handleChange}
           />
         </div>
