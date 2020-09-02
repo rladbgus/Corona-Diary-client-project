@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { NavLink, Link } from "react-router-dom";
-import maakImg from "../../img/mask.jpg"
+import logo from "../../img/corona_logo.png"
 import getLogin from "../../Context/Context";
 
 const Header = styled.div`
@@ -48,14 +48,14 @@ function Nav(props) {
   const [MenuState, setIsMenuOpen] = useState(false);
 
   const value = useContext(getLogin);
-  console.log(value.token);
+  console.log(value.googleToken);
   console.log('로그인 상태', value.isLogin);
 
   return (
     <Header>
       {/* 로고 */}
       <Link to="/" className="homelink">
-        <img className="logo" src={maakImg} alt="logo"></img>
+        <img className="logo" src={logo} alt="logo"></img>
       </Link>
 
       {/* 검색버튼 */}
@@ -105,6 +105,7 @@ function Nav(props) {
                 value.handleLogin();
                 alert('로그아웃 되었습니다:)')
                 value.handleToken('');
+                value.handleGoogleToken('');
               }}>
               로그아웃
             </NavLink>
