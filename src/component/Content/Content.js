@@ -59,8 +59,6 @@ const ContentView = () => {
     )
       .then(res => {
         console.log(res);
-        e.preventDefault()
-        e.target.reset()
       })
   }
 
