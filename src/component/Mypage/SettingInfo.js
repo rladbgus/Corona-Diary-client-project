@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import getLogin from "../../Context/Context";
 
 const Container = styled.div`
   display: flex;
@@ -10,13 +11,13 @@ const Container = styled.div`
   margin: 10px;
 `;
 
-const SettingInfo = ({ handleModifybutton, token, userInfo }) => {
-  const [change, setChange] = useState(false);
+const SettingInfo = ({ token, userInfo }) => {
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const [age, setAge] = useState("");
   const [city, setCity] = useState("");
   const url = "http://localhost:5000";
+  const value = useContext(getLogin);
 
   const handleModifiedButton = async event => {
     event.preventDefault();
@@ -30,6 +31,9 @@ const SettingInfo = ({ handleModifybutton, token, userInfo }) => {
     data.password = password2;
     data.age = age;
     data.city = city;
+    if (password2 === "" || age === "" || city === "") {
+      return alert("빈항목이 있습니다.");
+    }
     await axios
       .patch(url + "/mypage", data, {
         headers: {
@@ -43,13 +47,11 @@ const SettingInfo = ({ handleModifybutton, token, userInfo }) => {
           alert("수정실패 다시 시도 바랍니다.");
         }
       });
-    await setChange(!change);
-    await handleModifybutton(change);
+    value.handleIsChecking();
   };
 
   const handleCancel = () => {
-    setChange(!change);
-    handleModifybutton(change);
+    value.handleIsChecking();
   };
 
   const handleChange = event => {
