@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import "../../style.css"
 import axios from "axios";
@@ -14,22 +14,39 @@ const CommentBox = styled.div`
 
 const ContentView = () => {
 
+  const value = useContext(getLogin);
+  // console.log(value.token);
+
+  //해당 아이디값 가져오기
+  let splitUrl = window.location.href.split('/')
+  console.log(splitUrl);
+  let contentId = splitUrl[4];
+  console.log(contentId);
+
+  //불러온 content 저장할 변수
+  const [content, setContent] = useState([]);
+
+  //해당 content 불러오기
+  useEffect(() => {
+    axios.get(`http://localhost:5000/content/${contentId}`,
+      {
+        headers:
+          { "x-access-token": value.token }
+      })
+      .then(res => {
+        // console.log(res.data.result);
+        setContent(res.data.result);
+      });
+  }, []);
+
+  console.log(content);
+
+
   //댓글 업로드 기능
   const [comment, changeComment] = useState('');
 
   //기존댓글 불러오기(작성된글 불러와 댓글가져오기)
   const [commented, changeCommneted] = useState(['안녕하세요', '반갑습니다', '식사하셨습니까'])
-
-  // const getComment = () {
-  //   axios.get("http://localhost:5000/content/:1",
-  //     {
-
-  //     })
-  // }
-
-  const value = useContext(getLogin);
-  console.log(value.token);
-
 
   const postCommnet = (e) => {
     e.preventDefault();
@@ -50,8 +67,8 @@ const ContentView = () => {
     <center className="ContentViewBox">
       <ContentBox>
         <div className="Content">
-          <h1>제목</h1>
-          <div className="TextArea">내용(사진 첨부)</div>
+          <h1>{content.title}</h1>
+          <div className="TextArea">{content.text}</div>
           <br />
           <div>태그목록</div>
           <button>좋아요</button>
@@ -77,11 +94,3 @@ const ContentView = () => {
 }
 
 export default ContentView;
-
-
-//Post Content  
-//작성한유저의 nickname, time, comment
-
-//Get Content  
-//해당유저의 title, text
-//저장되있는(nickname,time, comment)

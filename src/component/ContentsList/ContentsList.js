@@ -3,6 +3,7 @@ import styled from "styled-components";
 import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import getLogin from "../../Context/Context";
+// import Contentpage from "../Content/Content";
 
 const Content = styled.div`
   background: #FFAC9A;
@@ -33,6 +34,10 @@ const ContentsListView = () => {
             <div className="ContentListBox">
                 {contentList.map(data => (
                     <Content>
+
+                        {/* <Contentpage key={data.id} /> */}
+                        {/* contentpage로 id값 넘겨주는 법 구현하기 */}
+
                         <Link to={`/content/${data.id}`}>
                             <h1>{data.title}</h1>
                             <p>{data.text}</p>
