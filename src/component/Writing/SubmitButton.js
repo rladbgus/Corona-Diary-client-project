@@ -18,7 +18,7 @@ const SubmitButton = ({ data }) => {
 
   const submitButton = event => {
     event.preventDefault();
-    if (Object.keys(data).length !== 12) {
+    if (Object.keys(data).length !== 11) {
       return alert("빈 항목이 있습니다. 빈 항목을 채워주세요!");
     }
     axios

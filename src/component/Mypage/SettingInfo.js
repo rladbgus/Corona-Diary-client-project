@@ -66,11 +66,17 @@ const SettingInfo = ({ handleModifybutton, token, userInfo }) => {
 
   const handleDelete = event => {
     event.preventDefault();
-    axios.get(url + "/user/signout", {
-      headers: {
-        "x-access-token": token,
+    axios.patch(
+      url + "/user/signout",
+      {
+        email: "deleted@deleted.com",
       },
-    });
+      {
+        headers: {
+          "x-access-token": token,
+        },
+      }
+    );
   };
 
   const handleClick = event => {
