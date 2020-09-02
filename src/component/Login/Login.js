@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import getLogin from "../../Context/Context";
-import GoogleLogin from 'react-google-login';
+import { GoogleLogin } from 'react-google-login';
 
 const Login = (props) => {
     const value = useContext(getLogin);
@@ -25,20 +25,35 @@ const Login = (props) => {
                 password: password
             })
             .then(res => {
+                console.log(res);
                 if (res.status === 200) {
                     alert('로그인에 성공했습니다');
                     value.handleLogin();
                     value.handleToken(res.data.token);
                     props.history.push('/')
-                } else if (res.status === 409) {
-                    alert('아이디,비밀번호를 확인해주세요')
                 }
+                // else if (res.status === 409) {
+                //     alert('아이디,비밀번호를 확인해주세요')
+                // }
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.log(err)
+                alert('아이디,비밀번호를 확인해주세요')
+            })
     }
+    // const onSignIn = (googleUser) => {
+    //     var profile = googleUser.getBasicProfile();
+    //     console.log('ID: ' + profile.getId());
+    //     console.log('Name: ' + profile.getName());
+    //     console.log('Image URL: ' + profile.getImageUrl());
+    //     console.log('Email: ' + profile.getEmail());
+    // }
 
     return (
         <center className="loginName" >
+            {/* <script src="https://apis.google.com/js/platform.js" async defer></script>
+            <meta name="google-signin-client_id" content="333133070398-amgnp101osuduqvjn2vacf3p20j2kmgn.apps.googleusercontent.com"></meta> */}
+
             <h1>로그인</h1>
             <form>
                 <div>
@@ -50,9 +65,11 @@ const Login = (props) => {
                     <input type="password" value={password} onChange={passwordHandler} />
                 </div>
                 <button onClick={submitHandler}>확인</button>
+                {/* <button className="g-signin2" onClick={onSignIn}>Google Login</button> */}
+
                 <div>
                     <GoogleLogin
-                        clientId="333133070398-92gim5nmigfd43cbp7sp0m7ss6t26enj.apps.googleusercontent.com"
+                        clientId="333133070398-amgnp101osuduqvjn2vacf3p20j2kmgn.apps.googleusercontent.com"
                         onSuccess={(res) => {
                             // console.log(res);
                             value.handleLogin();
