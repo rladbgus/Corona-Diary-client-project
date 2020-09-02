@@ -15,7 +15,6 @@ const Container = styled.div`
 const WritingPageForm = () => {
   const [data, getData] = useState({
     referenceFile: "file",
-    like: 0,
   });
 
   const handleClick = (name, value) => {
