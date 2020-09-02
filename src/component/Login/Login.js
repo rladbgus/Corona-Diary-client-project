@@ -4,7 +4,6 @@ import axios from "axios";
 import getLogin from "../../Context/Context";
 import GoogleLogin from 'react-google-login';
 
-
 const Login = (props) => {
     const value = useContext(getLogin);
 
@@ -30,14 +29,14 @@ const Login = (props) => {
                     alert('로그인에 성공했습니다');
                     value.handleLogin();
                     value.handleToken(res.data.token);
-                    props.history.push('/contentslist')
+                    props.history.push('/')
                 } else if (res.status === 409) {
                     alert('아이디,비밀번호를 확인해주세요')
                 }
             })
             .catch(err => console.log(err));
-
     }
+
     return (
         <center className="loginName" >
             <h1>로그인</h1>
