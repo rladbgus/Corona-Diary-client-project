@@ -7,12 +7,12 @@ const Shift = styled.div`
   margin-top: 50px;
 `;
 
-function Writing() {
+function Writing({ history }) {
   return (
     <Fragment>
       <Nav />
       <Shift />
-      <WritingPageForm />
+      <WritingPageForm history={history} />
     </Fragment>
   );
 }

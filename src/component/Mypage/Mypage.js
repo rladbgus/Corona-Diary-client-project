@@ -13,7 +13,7 @@ const Container = styled.div`
   margin: 10px;
 `;
 
-const Mypage = () => {
+const Mypage = ({ history }) => {
   const [change, setChange] = useState(true);
   const [data, getData] = useState("");
   const token = useContext(getLogin).token;
@@ -49,7 +49,11 @@ const Mypage = () => {
     <>
       {change ? (
         <Container>
-          <MypageForm token={token} handleSettingbutton={handleSettingbutton} />
+          <MypageForm
+            token={token}
+            handleSettingbutton={handleSettingbutton}
+            history={history}
+          />
         </Container>
       ) : (
         <Container>

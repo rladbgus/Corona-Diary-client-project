@@ -12,7 +12,7 @@ const Container = styled.div`
   margin: 10px;
 `;
 
-const SubmitButton = ({ data }) => {
+const SubmitButton = ({ data, history }) => {
   const url = "http://localhost:5000/content";
   const token = useContext(getLogin).token;
 
@@ -28,6 +28,7 @@ const SubmitButton = ({ data }) => {
         },
       })
       .then(res => console.log(res));
+    history.push("/content");
   };
 
   return (

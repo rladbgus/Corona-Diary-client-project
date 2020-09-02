@@ -12,7 +12,7 @@ const Container = styled.div`
   margin: 10px;
 `;
 
-const WritingPageForm = () => {
+const WritingPageForm = ({ history }) => {
   const [data, getData] = useState({
     referenceFile: "file",
   });
@@ -45,7 +45,7 @@ const WritingPageForm = () => {
         handleClick={handleClick}
         handleNumberChange={handleNumberChange}
       />
-      <SubmitButton data={data} />
+      <SubmitButton data={data} history={history} />
     </>
   );
 };
