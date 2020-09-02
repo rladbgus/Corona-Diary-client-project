@@ -2,11 +2,7 @@ import React, { useState } from "react";
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 
-<<<<<<< HEAD
-const SignUpFunction = (props) => {
-=======
 const SignUpFunction = ({ history }) => {
->>>>>>> e0ad7002c18eae5c448d1c12d833fc4371b56dee
   const url = "http://localhost:5000/user/signup";
   const [email, setEmail] = useState("");
   const [password1, setPassword1] = useState("");
@@ -77,17 +73,8 @@ const SignUpFunction = ({ history }) => {
       return;
     }
     console.log(data);
-<<<<<<< HEAD
-    await axios.post(url, data)
-      .then(res =>
-        console.log(res)
-      );
-    alert('회원가입이 완료되었습니다.')
-    props.history.push('./login')
-=======
     await axios.post(url, data).then(res => alert(res.data.message));
     history.push("/user/login");
->>>>>>> e0ad7002c18eae5c448d1c12d833fc4371b56dee
   };
 
   return (
