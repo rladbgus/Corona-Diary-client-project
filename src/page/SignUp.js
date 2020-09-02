@@ -7,12 +7,12 @@ const Shift = styled.div`
   margin-top: 50px;
 `;
 
-function SignUp() {
+function SignUp({ history }) {
   return (
     <Fragment>
       <Nav />
       <Shift />
-      <Signupform />
+      <Signupform history={history} />
     </Fragment>
   );
 }

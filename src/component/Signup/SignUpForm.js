@@ -10,12 +10,12 @@ const Container = styled.div`
   margin: 10px;
 `;
 
-const Signupform = () => {
+const Signupform = ({ history }) => {
   return (
     <>
       <Container>
         <h1 title="signup">회원가입</h1>
-        <SignUpFunction />
+        <SignUpFunction history={history} />
       </Container>
     </>
   );

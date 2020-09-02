@@ -7,13 +7,13 @@ const Shift = styled.div`
   margin-top: 50px;
 `;
 
-function MyPage() {
+function MyPage({ history }) {
   return (
     <>
       <Fragment>
         <Nav />
         <Shift />
-        <Mypage />
+        <Mypage history={history} />
       </Fragment>
     </>
   );

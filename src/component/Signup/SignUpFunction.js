@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const SignUpFunction = () => {
+const SignUpFunction = ({ history }) => {
   const url = "http://localhost:5000/user/signup";
   const [email, setEmail] = useState("");
   const [password1, setPassword1] = useState("");
@@ -74,6 +74,7 @@ const SignUpFunction = () => {
     }
     console.log(data);
     await axios.post(url, data).then(res => alert(res.data.message));
+    history.push("/user/login");
   };
 
   return (

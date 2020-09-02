@@ -64,21 +64,6 @@ const SettingInfo = ({ handleModifybutton, token, userInfo }) => {
     }
   };
 
-  const handleDelete = event => {
-    event.preventDefault();
-    axios.patch(
-      url + "/user/signout",
-      {
-        email: "deleted@deleted.com",
-      },
-      {
-        headers: {
-          "x-access-token": token,
-        },
-      }
-    );
-  };
-
   const handleClick = event => {
     setAge(Number(event.target.value));
   };
@@ -139,7 +124,6 @@ const SettingInfo = ({ handleModifybutton, token, userInfo }) => {
           수정완료
         </button>
         <button onClick={handleCancel}>취소</button>
-        <button onClick={handleDelete}>회원탈퇴</button>
       </Container>
     </>
   );
