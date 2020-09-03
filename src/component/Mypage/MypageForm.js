@@ -4,18 +4,9 @@ import axios from "axios";
 import getLogin from "../../Context/Context";
 import CheckingModal from "../../Modal/CheckingModal";
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-`;
-
-const MypageForm = ({ token, history }) => {
+const MypageForm = ({ token }) => {
   const [data, getData] = useState("");
   const url = "http://localhost:5000";
-  const value = useContext(getLogin);
 
   useEffect(() => {
     axios
@@ -57,3 +48,11 @@ const MypageForm = ({ token, history }) => {
 };
 
 export default MypageForm;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+`;

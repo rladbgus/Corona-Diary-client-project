@@ -1,7 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import getLogin from "../../Context/Context";
+import AlertModal from "../../Modal/AlertModal";
 
 const Container = styled.div`
   display: flex;
@@ -18,13 +19,26 @@ const SettingInfo = ({ token, userInfo }) => {
   const [city, setCity] = useState("");
   const url = "http://localhost:5000";
   const value = useContext(getLogin);
+  const [modal, getModal] = useState(false);
+  const [children, getChildren] = useState("");
+  const [className, getClassName] = useState("");
+
+  const openModal = () => {
+    getModal(!modal);
+  };
+
+  const closeModal = () => {
+    getModal(!modal);
+  };
 
   const handleModifiedButton = async event => {
     event.preventDefault();
     if (password1 !== password2) {
-      alert("비밀번호가 틀립니다.");
+      getChildren("비밀번호가 틀립니다.");
+      getClassName("password");
       document.querySelector(".input_password1").value = "";
       document.querySelector(".input_password2").value = "";
+      return openModal();
     }
     let data = {};
     data.email = userInfo.email;
@@ -32,7 +46,9 @@ const SettingInfo = ({ token, userInfo }) => {
     data.age = age;
     data.city = city;
     if (password2 === "" || age === "" || city === "") {
-      return alert("빈항목이 있습니다.");
+      getChildren("빈 항목이 있습니다. 채워주세요~");
+      getClassName("empty");
+      return openModal();
     }
     await axios
       .patch(url + "/mypage", data, {
@@ -42,12 +58,18 @@ const SettingInfo = ({ token, userInfo }) => {
       })
       .then(res => {
         if (res.status === 201) {
-          alert("수정완료~!");
-        } else {
-          alert("수정실패 다시 시도 바랍니다.");
+          getChildren("수정완료!!");
+          getClassName("complete");
+          openModal();
+        }
+      })
+      .catch(err => {
+        if (err) {
+          children = "서버오류입니다!";
+          className = "error";
+          return openModal();
         }
       });
-    value.handleIsChecking();
   };
 
   const handleCancel = () => {
@@ -127,6 +149,9 @@ const SettingInfo = ({ token, userInfo }) => {
         </button>
         <button onClick={handleCancel}>취소</button>
       </Container>
+      <AlertModal visible={modal} onClose={closeModal} className={className}>
+        {children}
+      </AlertModal>
     </>
   );
 };
