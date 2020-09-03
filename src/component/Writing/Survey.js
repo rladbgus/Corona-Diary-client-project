@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import SurveyForm from "./SurveyForm";
 import { surveydata } from "./surveydata";
@@ -11,26 +11,32 @@ const Container = styled.div`
   margin: 10px;
 `;
 
-const Survey = () => {
+const Survey = ({ handleClick, handleNumberChange }) => {
   return (
     <>
       <Container>
         <div title="signup">설문조사</div>
         <div>
           <label>코로나걸린시기</label>
-          <input className="input_since" type="text" />
+          <input
+            name="covid_date"
+            className="input_since"
+            type="text"
+            onChange={handleNumberChange}
+          />
         </div>
         <div>
           <label>질문1: 현재 체온은 어떠신가요?</label>
-          <input className="input_temperature" type="text" />
+          <input
+            name="q_temp"
+            className="input_temperature"
+            type="text"
+            onChange={handleNumberChange}
+          />
         </div>
         {surveydata.map(list => (
-          <SurveyForm data={list} key={list.id} />
+          <SurveyForm data={list} key={list.id} handleClick={handleClick} />
         ))}
-        <form>
-          <button type="submit">일기등록</button>
-          <button>취소</button>
-        </form>
       </Container>
     </>
   );

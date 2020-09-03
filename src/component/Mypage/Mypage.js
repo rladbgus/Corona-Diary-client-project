@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import MypageForm from "./MypageForm";
 import SettingInfo from "./SettingInfo";
-// import axios from "axios";
+import axios from "axios";
+import getLogin from "../../Context/Context";
 
 const Container = styled.div`
   display: flex;
@@ -12,41 +13,34 @@ const Container = styled.div`
   margin: 10px;
 `;
 
-const Mypage = () => {
-  const [change, setChange] = useState(true);
-  // const url = "";
+const Mypage = ({ history }) => {
+  const [data, getData] = useState("");
+  const value = useContext(getLogin);
+  const url = "http://localhost:5000/mypage";
 
-  // useEffect(() => {
-  //   axios.get(url).then(res => console.log(res));
-  //data를 확인해서 들어오는거 MypageForm에 넘겨주기
-  // }, []);
-
-  const handleSettingbutton = () => {
-    let checking = window.prompt("닉네임을 입력하세요");
-    if (checking === "닉네임") {
-      //일단 닉네임으로 설정
-      setChange(!change);
-    } else {
-      return alert("닉네임을 잘못 입력했습니다!!");
-    }
-    setChange(!change);
-  };
-
-  const handleModifybutton = () => {
-    setChange(!change);
-  };
+  useEffect(() => {
+    axios
+      .get(url, {
+        headers: {
+          "x-access-token": value.token,
+        },
+      })
+      .then(res => {
+        getData(res.data);
+      });
+  }, []);
 
   return (
     <>
-      {change ? (
+      {!value.isChecking ? (
         <Container>
-          <MypageForm handleSettingbutton={handleSettingbutton} />
+          <MypageForm token={value.token} history={history} />
         </Container>
       ) : (
-          <Container>
-            <SettingInfo handleModifybutton={handleModifybutton} />
-          </Container>
-        )}
+        <Container>
+          <SettingInfo userInfo={data} token={value.token} />
+        </Container>
+      )}
     </>
   );
 };
