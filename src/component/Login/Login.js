@@ -25,7 +25,7 @@ const Login = (props) => {
                 password: password
             })
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res.status === 200) {
                     alert('로그인에 성공했습니다');
                     value.handleLogin();
@@ -59,9 +59,9 @@ const Login = (props) => {
                         onSuccess={(res) => {
                             // console.log(res);
                             value.handleLogin();
-                            value.handleGoogleToken(res.accessToken)
+                            value.handleToken(res.accessToken)
                             alert('로그인에 성공했습니다')
-                            props.history.push('/')
+                            props.history.push('/mycontentslist')
                         }}
                         onFailure={(err) => {
                             console.log(err);

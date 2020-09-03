@@ -17,9 +17,6 @@ const LoginProvider = ({ children }) => {
   const handleToken = value => {
     setToken(value);
   };
-  const handleGoogleToken = value => {
-    setGoogleToken(value);
-  };
 
   return (
     <getLogin.Provider
@@ -28,8 +25,6 @@ const LoginProvider = ({ children }) => {
         handleLogin,
         token,
         handleToken,
-        googleToken,
-        handleGoogleToken,
         isChecking,
         handleIsChecking,
       }}

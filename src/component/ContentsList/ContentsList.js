@@ -12,7 +12,7 @@ const Content = styled.div`
 
 const ContentsListView = () => {
     const value = useContext(getLogin);
-    const [contentList, setContentList] = useState([]);
+    const [contentList, setContentList] = useState(null);
 
     useEffect(() => {
         axios.get("http://localhost:5000/contentList",
@@ -32,7 +32,7 @@ const ContentsListView = () => {
                 <input type="text" placeholder="검색어를 입력하시오" ></input>
             </div>
             <div className="ContentListBox">
-                {contentList.map(data => (
+                {contentList?.map(data => (
                     <Content>
 
                         {/* <Contentpage key={data.id} /> */}
@@ -40,6 +40,7 @@ const ContentsListView = () => {
 
                         <Link to={`/content/${data.id}`}>
                             <h1>{data.title}</h1>
+                            <span>{data.createdAt}</span>
                             <p>{data.text}</p>
                         </Link>
                     </Content>
