@@ -3,7 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 
 const SignUpFunction = ({ history }) => {
-  const url = "http://localhost:5000/user/signup";
+  const url = "http://54.180.108.57:5000/user/signup";
   const [email, setEmail] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");

@@ -8,7 +8,7 @@ const CheckingModal = ({ children }) => {
   const [trigger, setTrigger] = useState(false);
   const [password, getPassWord] = useState("");
   const value = useContext(getLogin);
-  const url = "http://localhost:5000";
+  const url = "http://54.180.108.57:5000/";
   let history = useHistory();
 
   const handleOpen = () => {

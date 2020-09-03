@@ -16,7 +16,7 @@ const SettingInfo = ({ token, userInfo }) => {
   const [password2, setPassword2] = useState("");
   const [age, setAge] = useState("");
   const [city, setCity] = useState("");
-  const url = "http://localhost:5000";
+  const url = "http://54.180.108.57:5000/";
   const value = useContext(getLogin);
 
   const handleModifiedButton = async event => {

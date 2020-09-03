@@ -19,7 +19,7 @@ const Login = (props) => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        axios.post("http://localhost:5000/user/login",
+        axios.post("http://54.180.108.57:5000/user/login",
             {
                 email: email,
                 password: password
@@ -61,7 +61,7 @@ const Login = (props) => {
                             value.handleLogin();
                             value.handleToken(res.accessToken)
                             alert('로그인에 성공했습니다')
-                            props.history.push('/mycontentslist')
+                            props.history.push('/')
                         }}
                         onFailure={(err) => {
                             console.log(err);

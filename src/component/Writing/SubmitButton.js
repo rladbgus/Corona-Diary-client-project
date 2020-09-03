@@ -13,7 +13,7 @@ const Container = styled.div`
 `;
 
 const SubmitButton = ({ data, history }) => {
-  const url = "http://localhost:5000/content";
+  const url = "http://54.180.108.57:5000/content";
   const token = useContext(getLogin).token;
 
   const submitButton = event => {

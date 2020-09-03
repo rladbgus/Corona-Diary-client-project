@@ -15,7 +15,7 @@ const ContentsListView = () => {
     const [contentList, setContentList] = useState(null);
 
     useEffect(() => {
-        axios.get("http://localhost:5000/contentList",
+        axios.get("http://54.180.108.57:5000/contentList",
             {
                 headers:
                     { "x-access-token": value.token }

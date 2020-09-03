@@ -30,7 +30,7 @@ const ContentView = () => {
 
   useEffect(() => {
     console.log('useEffect')
-    axios.get(`http://localhost:5000/content/${contentId}`,
+    axios.get(`http://54.180.108.57:5000/content/${contentId}`,
       {
         headers:
           { "x-access-token": value.token }
@@ -47,7 +47,7 @@ const ContentView = () => {
     console.log('postComment')
     e.preventDefault();
     setCommneted([comment, ...content.comment,]);
-    axios.post("http://localhost:5000/comment",
+    axios.post("http://54.180.108.57:5000/comment",
       {
         contentId: contentId,
         comment: comment
@@ -64,7 +64,6 @@ const ContentView = () => {
       <ContentBox>
         <div className="Content">
           <h1>{content.title}</h1>
-          <span>{content.createdAt}</span>
           <div className="TextArea">{content.text}</div>
           <br />
           <div>태그목록</div>

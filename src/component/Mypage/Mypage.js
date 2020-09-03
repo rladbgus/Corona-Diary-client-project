@@ -16,7 +16,7 @@ const Container = styled.div`
 const Mypage = ({ history }) => {
   const [data, getData] = useState("");
   const value = useContext(getLogin);
-  const url = "http://localhost:5000/mypage";
+  const url = "http://54.180.108.57:5000/mypage";
 
   useEffect(() => {
     axios
@@ -37,10 +37,10 @@ const Mypage = ({ history }) => {
           <MypageForm token={value.token} history={history} />
         </Container>
       ) : (
-        <Container>
-          <SettingInfo userInfo={data} token={value.token} />
-        </Container>
-      )}
+          <Container>
+            <SettingInfo userInfo={data} token={value.token} />
+          </Container>
+        )}
     </>
   );
 };
