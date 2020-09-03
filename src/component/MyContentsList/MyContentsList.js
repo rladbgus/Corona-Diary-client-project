@@ -43,7 +43,7 @@ const MyContentsListView = () => {
           { "x-access-token": value.token }
       })
       .then(res => {
-        console.log(res);
+        // console.log(res);
         setMyContentList([...res.data.contentList])
       });
   }, []);
@@ -53,7 +53,7 @@ const MyContentsListView = () => {
     <Border1>
       <Border2>
         {myContentList?.map(data => (
-          <ContentStyle>
+          <ContentStyle key={data.id}>
             <Link to={`/content/${data.id}`}>
               <h1>{data.title}</h1>
               <span>{data.createdAt}</span>

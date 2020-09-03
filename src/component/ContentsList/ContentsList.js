@@ -33,7 +33,7 @@ const ContentsListView = () => {
             </div>
             <div className="ContentListBox">
                 {contentList?.map(data => (
-                    <Content>
+                    <Content key={data.id}>
 
                         {/* <Contentpage key={data.id} /> */}
                         {/* contentpage로 id값 넘겨주는 법 구현하기 */}
