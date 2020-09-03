@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import getLogin from "../../Context/Context";
+import CheckingModal from "../../Modal/CheckingModal";
 
 const Container = styled.div`
   display: flex;
@@ -11,8 +12,7 @@ const Container = styled.div`
   margin: 10px;
 `;
 
-const MypageForm = ({ handleSettingbutton, token, history }) => {
-  const [change, setChange] = useState(true);
+const MypageForm = ({ token, history }) => {
   const [data, getData] = useState("");
   const url = "http://localhost:5000";
   const value = useContext(getLogin);
@@ -28,30 +28,6 @@ const MypageForm = ({ handleSettingbutton, token, history }) => {
         getData(res.data);
       });
   }, []);
-
-  const handlebutton = () => {
-    setChange(!change);
-    handleSettingbutton(change);
-  };
-
-  const handleDelete = event => {
-    event.preventDefault();
-    axios.patch(
-      url + "/user/signout",
-      {
-        email: "deleted@deleted.com",
-      },
-      {
-        headers: {
-          "x-access-token": token,
-        },
-      }
-    );
-    value.handleLogin();
-    value.handleToken("");
-    value.handleGoogleToken("");
-    history.push("/");
-  };
 
   return (
     <>
@@ -73,8 +49,8 @@ const MypageForm = ({ handleSettingbutton, token, history }) => {
           <label>격리된 지역 : </label>
           <label>{data.city}</label>
         </div>
-        <button onClick={handlebutton}>정보수정</button>
-        <button onClick={handleDelete}>회원탈퇴</button>
+        <CheckingModal>정보수정</CheckingModal>
+        <CheckingModal>회원탈퇴</CheckingModal>
       </Container>
     </>
   );
