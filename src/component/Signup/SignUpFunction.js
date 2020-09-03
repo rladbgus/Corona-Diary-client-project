@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
+import AlertModal from "../../Modal/AlertModal";
 
 const SignUpFunction = ({ history }) => {
   const url = "http://localhost:5000/user/signup";
@@ -10,6 +11,17 @@ const SignUpFunction = ({ history }) => {
   const [nickName, setNickName] = useState("");
   const [age, setAge] = useState("0");
   const [city, setCity] = useState("");
+  const [modal, getModal] = useState(false);
+  const [children, getChildren] = useState("");
+  const [className, getClassName] = useState("");
+
+  const openModal = () => {
+    getModal(!modal);
+  };
+
+  const closeModal = () => {
+    getModal(!modal);
+  };
 
   const handleChange = async event => {
     if (event.target.name === "email") {
@@ -36,26 +48,44 @@ const SignUpFunction = ({ history }) => {
     event.preventDefault();
     let checkEmail = {};
     checkEmail.email = email;
-    axios.post(url + "/email", checkEmail).then(res => {
-      if (res.status === 200) {
-        alert(res.data.message);
-      } else {
-        alert(res.data.message);
-      }
-    });
+    axios
+      .post(url + "/email", checkEmail)
+      .then(res => {
+        if (res.status === 200) {
+          getChildren(res.data.message);
+          getClassName("emailcheck");
+          return openModal();
+        }
+      })
+      .catch(err => {
+        if (err) {
+          getChildren("서버에러입니다");
+          getClassName("emailcheckerror");
+          return openModal();
+        }
+      });
   };
 
   const nickNameCheckingButton = event => {
     event.preventDefault();
     let checkNickName = {};
     checkNickName.nickName = nickName;
-    axios.post(url + "/nickName", checkNickName).then(res => {
-      if (res.status === 200) {
-        alert(res.data.message);
-      } else {
-        alert(res.data.message);
-      }
-    });
+    axios
+      .post(url + "/nickName", checkNickName)
+      .then(res => {
+        if (res.status === 200) {
+          getChildren(res.data.message);
+          getClassName("emailcheck");
+          return openModal();
+        }
+      })
+      .catch(err => {
+        if (err) {
+          getChildren("서버에러입니다");
+          getClassName("emailcheckerror");
+          return openModal();
+        }
+      });
   };
 
   const handleSubmit = async event => {
@@ -67,14 +97,20 @@ const SignUpFunction = ({ history }) => {
     data.age = Number(age);
     data.city = city;
     if (password1 !== password2) {
-      alert("비밀번호가 틀립니다.");
+      getChildren("비밀번호가 일치하지 않습니다.");
+      getClassName("passwordchecke");
       document.querySelector(".input_password1").value = "";
       document.querySelector(".input_password2").value = "";
-      return;
+      return openModal();
     }
     console.log(data);
-    await axios.post(url, data).then(res => alert(res.data.message));
-    history.push("/user/login");
+    await axios.post(url, data).then(res => {
+      alert(res.data.message);
+      getChildren(res.data.message);
+      getClassName("signup");
+      return openModal();
+    });
+    // history.push("/user/login");
   };
 
   return (
@@ -150,6 +186,9 @@ const SignUpFunction = ({ history }) => {
           <button>취소</button>
         </Link>
       </form>
+      <AlertModal visible={modal} onClose={closeModal} className={className}>
+        {children}
+      </AlertModal>
     </>
   );
 };
