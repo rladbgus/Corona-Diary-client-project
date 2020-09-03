@@ -1,13 +1,22 @@
 import React, { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import getLogin from "../Context/Context";
 
 const AlertModal = ({ children, visible, onClose, className }) => {
   const value = useContext(getLogin);
+  let history = useHistory();
+
   const handleClose = () => {
     if (className === "complete") {
       onClose();
       value.handleIsChecking();
+    } else if (className === "login" || className === "logout") {
+      onClose();
+      history.push("/");
+    } else if (className === "signup") {
+      onClose();
+      history.push("/user/login");
     } else {
       onClose();
     }
