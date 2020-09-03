@@ -40,15 +40,12 @@ const ContentView = () => {
         setContent(res.data.contentDetail);
       });
   }, [commented]);
-  // console.log('content', content.comment);
-  // console.log('새로운 댓글', comment);
-  // console.log('누적 댓글', commented);
+
   const allComment = content.comment;
 
   const postComment = (e) => {
     console.log('postComment')
     e.preventDefault();
-    //실제로 여기로 넣어준걸 렌더링하진 않지만, 변화이용해 리랜더링용임
     setCommneted([comment, ...content.comment,]);
     axios.post("http://localhost:5000/comment",
       {

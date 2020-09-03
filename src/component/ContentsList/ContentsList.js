@@ -12,7 +12,7 @@ const Content = styled.div`
 
 const ContentsListView = () => {
     const value = useContext(getLogin);
-    const [contentList, setContentList] = useState([]);
+    const [contentList, setContentList] = useState(null);
 
     useEffect(() => {
         axios.get("http://localhost:5000/contentList",

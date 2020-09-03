@@ -46,7 +46,7 @@ function Nav(props) {
   const [MenuState, setIsMenuOpen] = useState(false);
 
   const value = useContext(getLogin);
-  console.log(value.googleToken);
+  // console.log(value.token);
   console.log("로그인 상태", value.isLogin);
 
   return (
@@ -118,7 +118,6 @@ function Nav(props) {
                 value.handleLogin();
                 alert("로그아웃 되었습니다:)");
                 value.handleToken("");
-                value.handleGoogleToken("");
               }}
             >
               로그아웃
