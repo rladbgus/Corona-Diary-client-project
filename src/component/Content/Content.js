@@ -41,6 +41,12 @@ const ContentView = () => {
 
   const allComment = content.comment;
 
+  //댓글창 초기화
+  const commentInput = () => {
+    newComment('');
+  }
+
+  //댓글기능
   const postComment = e => {
     console.log("postComment");
     e.preventDefault();
@@ -56,6 +62,7 @@ const ContentView = () => {
       )
       .then(res => {
         console.log(res);
+        commentInput();
       });
   };
 
@@ -82,7 +89,7 @@ const ContentView = () => {
           <button onClick={postComment}>댓글 작성</button>
           <div>
             {allComment?.map(data => (
-              <CommentLi>
+              <CommentLi key={data.id}>
                 {data.user.nickName}
                 <br />
                 {data.createdAt}
