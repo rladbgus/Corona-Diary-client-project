@@ -89,7 +89,7 @@ const CheckingModal = ({ children }) => {
             placeholder="비밀번호를 입력하세요!"
             onChange={handleChange}
           />
-          <div>
+          <div className="buttons">
             <button onClick={handleClose}>Close</button>
             <button onClick={check}>Checking</button>
           </div>
@@ -133,10 +133,34 @@ const ModalInner = styled.div`
   border-radius: 10px;
   width: 360px;
   max-width: 480px;
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%);
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 0px 20px;
+  padding-top: 25px;
+  padding-bottom: 40px;
+
+  button {
+    float: right;
+    margin-right: 5px;
+    margin-left: 5px;
+    color: tomato;
+    background-color: transparent;
+    border: 0.5px solid tomato;
+    border-radius: 5px;
+    padding: 5px 7px;
+    box-shadow: 2px 2px 2px;
+    transition: all 0.3s ease 0s;
+  }
+
+  button:hover {
+    background-color: crimson;
+    color: black;
+    transform: translate(0, -5px);
+  }
 `;
 
-const ModalInput = styled.input``;
+const ModalInput = styled.input`
+  width: 250px;
+  margin-bottom: 15px;
+`;
