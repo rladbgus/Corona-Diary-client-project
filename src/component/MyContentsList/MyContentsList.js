@@ -43,7 +43,7 @@ const MyContentsListView = () => {
           { "x-access-token": value.token }
       })
       .then(res => {
-        console.log(res);
+        // console.log(res);
         setMyContentList([...res.data.contentList])
       });
   }, []);
