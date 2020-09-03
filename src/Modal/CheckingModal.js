@@ -16,7 +16,12 @@ const CheckingModal = ({ children }) => {
   };
 
   const handleClose = () => {
+    getPassWord("");
     setTrigger(false);
+    //input 내용 초기화
+    // document.querySelector('.modal-input').value===''
+    // let query = document.querySelector(".modal-input");
+    // console.log(query); // <input> ~~ <input> value는 없음
   };
 
   const check = () => {
@@ -87,6 +92,7 @@ const CheckingModal = ({ children }) => {
             type="password"
             className="modal-input"
             placeholder="비밀번호를 입력하세요!"
+            value={password}
             onChange={handleChange}
           />
           <div className="buttons">

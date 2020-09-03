@@ -123,23 +123,26 @@ function Nav(props) {
             </NavLink>
           </li>
           <li>
-            <NavLink
-              to="/"
+            <a
+              href="#"
               className="selected"
               onClick={() => {
+                getChildren("로그아웃 되었습니다:)");
+                getClassName("logout");
+                openModal();
                 value.handleLogin();
                 // alert("로그아웃 되었습니다:)");
                 value.handleToken("");
-                getChildren("로그아웃 되었습니다:)");
-                getClassName("logout");
-                return openModal();
               }}
             >
               로그아웃
-            </NavLink>
+            </a>
           </li>
         </ul>
       </span>
+      <AlertModal visible={modal} onClose={closeModal} className={className}>
+        {children}
+      </AlertModal>
     </Header>
   );
 }
