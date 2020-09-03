@@ -44,18 +44,30 @@ const ContentView = () => {
 
   const allComment = content.comment;
 
+  //댓글창 초기화
+  const commentInput = () => {
+    newComment('');
+  }
+
+  //댓글기능
   const postComment = e => {
     console.log("postComment");
     e.preventDefault();
     setCommneted([comment, ...content.comment]);
-    axios.post(
-      "http://localhost:5000/comment",
-      {
-        contentId: contentId,
-        comment: comment,
-      },
-      { headers: { "x-access-token": value.token } }
-    );
+    axios
+      .post(
+        "http://localhost:5000/comment",
+        {
+          contentId: contentId,
+          comment: comment,
+        },
+        { headers: { "x-access-token": value.token } }
+      )
+      .then(res => {
+        console.log(res);
+        commentInput();
+      });
+
   };
 
   return (
@@ -76,12 +88,13 @@ const ContentView = () => {
           <input
             type="text"
             placeholder="댓글을 작성하세요"
+            value = {comment}
             onChange={e => newComment(e.target.value)}
           />
           <button onClick={postComment}>댓글 작성</button>
           <div>
             {allComment?.map(data => (
-              <CommentLi>
+              <CommentLi key={data.id}>
                 {data.user.nickName}
                 <br />
                 {data.createdAt}

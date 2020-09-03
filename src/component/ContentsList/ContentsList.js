@@ -29,16 +29,14 @@ const ContentsListView = () => {
   }, []);
   // console.log(contentList);
 
-  return (
-    <center className="ContentsList">
-      <div className="SerchInput">
-        <input type="text" placeholder="검색어를 입력하시오"></input>
-      </div>
-      <div className="ContentListBox">
-        {contentList?.map(data => (
-          <Content key={data.id}>
-            {/* <Contentpage key={data.id} /> */}
-            {/* contentpage로 id값 넘겨주는 법 구현하기 */}
+    return (
+        <center className="ContentsList">
+            <div className="SerchInput">
+                <input type="text" placeholder="검색어를 입력하시오" ></input>
+            </div>
+            <div className="ContentListBox">
+                {contentList?.map(data => (
+                    <Content key={data.id}>
 
             <Link to={`/content/${data.id}`}>
               <h1>{data.title}</h1>
