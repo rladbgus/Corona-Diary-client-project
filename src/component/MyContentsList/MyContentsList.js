@@ -56,6 +56,7 @@ const MyContentsListView = () => {
           <ContentStyle>
             <Link to={`/content/${data.id}`}>
               <h1>{data.title}</h1>
+              <span>{data.createdAt}</span>
               <p>{data.text}</p>
             </Link>
           </ContentStyle>

@@ -64,6 +64,7 @@ const ContentView = () => {
       <ContentBox>
         <div className="Content">
           <h1>{content.title}</h1>
+          <span>{content.createdAt}</span>
           <div className="TextArea">{content.text}</div>
           <br />
           <div>태그목록</div>
