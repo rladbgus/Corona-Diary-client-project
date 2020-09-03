@@ -28,17 +28,20 @@ const SubmitButton = ({ data, history }) => {
 
   const submitButton = event => {
     event.preventDefault();
-    if (Object.keys(data).length !== 11) {
+    if (Object.keys(data).length !== 12) {
       return openModal();
     }
+    console.log(data);
     axios
       .post(url, data, {
         headers: {
           "x-access-token": value.token,
         },
       })
-      .then(res => console.log(res));
-    history.push("/content");
+      .then(res => {
+        console.log(res.data);
+        history.push(`/content/${res.data.contentId}`);
+      });
   };
 
   return (
