@@ -6,6 +6,7 @@ const LoginProvider = ({ children }) => {
   const [isChecking, setIsChecking] = useState(false);
   const [token, setToken] = useState("");
   const [googleToken, setGoogleToken] = useState("");
+  const [nickName, setNickName] = useState('')
 
   const handleLogin = () => {
     setIsLogin(!isLogin);
@@ -27,6 +28,8 @@ const LoginProvider = ({ children }) => {
         handleToken,
         isChecking,
         handleIsChecking,
+        nickName,
+        setNickName
       }}
     >
       {children}
