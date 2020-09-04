@@ -5,13 +5,15 @@ import getLogin from "../../Context/Context";
 import { GoogleLogin } from "react-google-login";
 import AlertModal from "../../Modal/AlertModal";
 
-const Login = props => {
+const Login = () => {
   const value = useContext(getLogin);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [modal, getModal] = useState(false);
   const [children, getChildren] = useState("");
   const [className, getClassName] = useState("");
+
+  // console.log(value);
 
   const openModal = () => {
     getModal(!modal);
@@ -38,18 +40,15 @@ const Login = props => {
       .then(res => {
         // console.log(res);
         if (res.status === 200) {
-          //   alert("로그인에 성공했습니다");
+          value.setNickName(res.data.nickName);
           getChildren("로그인에 성공했습니다");
           getClassName("login");
           value.handleLogin();
           value.handleToken(res.data.token);
-          //   props.history.push("/");
           openModal();
         }
       })
-      .catch(err => {
-        // console.log(err);
-        // alert("아이디,비밀번호를 확인해주세요");
+      .catch( () => {
         getChildren("아이디,비밀번호를 확인해주세요");
         getClassName("error");
         return openModal();
@@ -77,8 +76,6 @@ const Login = props => {
               // console.log(res);
               value.handleLogin();
               value.handleToken(res.accessToken);
-              //   alert("로그인에 성공했습니다");
-              //   props.history.push("/mycontentslist");
               getChildren("로그인에 성공했습니다");
               getClassName("login");
               openModal();
