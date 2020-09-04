@@ -17,6 +17,8 @@ const SubmitButton = ({ data, history }) => {
   const url = "http://localhost:5000/content";
   const value = useContext(getLogin);
   const [modal, getModal] = useState(false);
+  const [children, getChildren] = useState("");
+  const [className, getClassName] = useState("");
 
   const openModal = () => {
     getModal(!modal);
@@ -29,6 +31,16 @@ const SubmitButton = ({ data, history }) => {
   const submitButton = event => {
     event.preventDefault();
     if (Object.keys(data).length !== 12) {
+      return openModal();
+    }
+    if (data.title === "") {
+      getChildren("제목을 채워주세요");
+      getClassName("checktitle");
+      return openModal();
+    }
+    if (data.text === "") {
+      getChildren("내용을 채워주세요");
+      getClassName("checktext");
       return openModal();
     }
     console.log(data);
@@ -54,8 +66,8 @@ const SubmitButton = ({ data, history }) => {
           </Link>
         </form>
       </Container>
-      <AlertModal visible={modal} onClose={closeModal} className="writing">
-        "빈 항목이 있습니다. 빈 항목을 채워주세요!"
+      <AlertModal visible={modal} onClose={closeModal} className={className}>
+        {children}
       </AlertModal>
     </>
   );

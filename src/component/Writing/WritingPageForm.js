@@ -14,6 +14,7 @@ const Container = styled.div`
 
 const WritingPageForm = ({ history }) => {
   const [data, getData] = useState({
+    tags: [],
     referenceFile: "file",
   });
 
@@ -27,7 +28,7 @@ const WritingPageForm = ({ history }) => {
   const handleChange = event => {
     getData({
       ...data,
-      [event.target.name]: event.target.value,
+      [event.target.name]: event.target.value.trim(),
     });
   };
 
