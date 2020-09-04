@@ -44,7 +44,7 @@ const ContentView = () => {
   };
 
   useEffect(() => {
-    console.log("useEffect");
+    const ac = new AbortController();
     axios
       .get(`http://localhost:5000/content/${contentId}`, {
         headers: { "x-access-token": value.token },
@@ -55,6 +55,9 @@ const ContentView = () => {
         setnickName(res.data.contentDetail.user.nickName);
         deleteButton();
       });
+    return () => {
+      ac.abort();
+    };
   }, [commented, nickName]);
 
   const allComment = content.comment;
@@ -82,6 +85,7 @@ const ContentView = () => {
         console.log(res);
         commentInput();
       });
+
   };
   console.log(nickName)
 
