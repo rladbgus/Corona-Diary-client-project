@@ -52,7 +52,7 @@ const SignUpFunction = ({ history }) => {
       .post(url + "/email", checkEmail)
       .then(res => {
         if (res.status === 200) {
-          getChildren(res.data.message);
+          getChildren("사용할 수 있는 이메일주소입니다");
           getClassName("emailcheck");
           return openModal();
         }
@@ -74,7 +74,7 @@ const SignUpFunction = ({ history }) => {
       .post(url + "/nickName", checkNickName)
       .then(res => {
         if (res.status === 200) {
-          getChildren(res.data.message);
+          getChildren('사용할 수 있는 닉네임입니다');
           getClassName("emailcheck");
           return openModal();
         }
@@ -105,12 +105,10 @@ const SignUpFunction = ({ history }) => {
     }
     console.log(data);
     await axios.post(url, data).then(res => {
-      alert(res.data.message);
-      getChildren(res.data.message);
+      getChildren("회원가입이 완료되었습니다:)");
       getClassName("signup");
       return openModal();
     });
-    // history.push("/user/login");
   };
 
   return (
