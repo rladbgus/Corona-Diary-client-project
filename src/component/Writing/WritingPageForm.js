@@ -38,9 +38,16 @@ const WritingPageForm = ({ history }) => {
     });
   };
 
+  const handleTags = getTags => {
+    getData({
+      ...data,
+      tags: getTags,
+    });
+  };
+
   return (
     <>
-      <WritingForm handleChange={handleChange} />
+      <WritingForm handleChange={handleChange} handleTags={handleTags} />
       <Survey
         handleClick={handleClick}
         handleNumberChange={handleNumberChange}

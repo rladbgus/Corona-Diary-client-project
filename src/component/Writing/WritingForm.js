@@ -9,10 +9,12 @@ const Container = styled.div`
   margin: 10px;
 `;
 
-const WritingForm = ({ handleChange }) => {
+const WritingForm = ({ handleChange, handleTags }) => {
   //업로드할 이미지 미리보기
   const [img, setImg] = useState(null);
   const [imgData, setImgData] = useState(null);
+  const [tags, getTags] = useState("");
+  const [arrayTags, getArrayTasgs] = useState([]);
 
   const HandleChangeImg = e => {
     if (e.target.files[0]) {
@@ -23,6 +25,21 @@ const WritingForm = ({ handleChange }) => {
         setImgData(reader.result);
       });
       reader.readAsDataURL(e.target.files[0]);
+    }
+  };
+
+  const handleValue = event => {
+    getTags(event.target.value);
+  };
+
+  const handleKey = event => {
+    if (event.key === "Enter") {
+      getArrayTasgs(() => {
+        arrayTags.push(tags);
+        return arrayTags;
+      });
+      handleTags(arrayTags);
+      getTags("");
     }
   };
 
@@ -50,10 +67,19 @@ const WritingForm = ({ handleChange }) => {
             onChange={handleChange}
           />
         </div>
-        {/* <div>
+        추가된 태그 :
+        {arrayTags.length === 0 ? "" : arrayTags.map(list => `#${list} `)}
+        <div>
           <label>태그</label>
-          <input className="input_tag" type="text" />
-        </div> */}
+          <input
+            className="input_tag"
+            name="tags"
+            type="text"
+            value={tags}
+            onChange={handleValue}
+            onKeyDown={handleKey}
+          />
+        </div>
         <div>
           <img className="imgpreview" src={imgData} />
           <br />

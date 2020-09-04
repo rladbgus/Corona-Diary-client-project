@@ -59,7 +59,7 @@ function Nav(props) {
 
   const value = useContext(getLogin);
   // console.log(value.token);
-  console.log("로그인 상태", value.isLogin);
+  // console.log("로그인 상태", value.isLogin);
 
   return (
     <Header>
