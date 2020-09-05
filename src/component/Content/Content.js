@@ -36,10 +36,10 @@ const ContentView = () => {
   const value = useContext(getLogin);
   // console.log('토큰 유무: ', value.token);
   // console.log('닉네임', value.nickName);
-  
+
   let splitUrl = window.location.href.split("/");
   let contentId = splitUrl[4];
-  
+
   const [content, setContent] = useState("");
   const [comment, newComment] = useState("");
   const [commented, setCommneted] = useState([]);
@@ -47,7 +47,7 @@ const ContentView = () => {
   const [children, getChildren] = useState("");
   const [className, getClassName] = useState("");
   const [deleteState, getDelete] = useState(true);
-  const [nickName, setnickName] =useState('');
+  const [nickName, setnickName] = useState('');
 
   const openModal = () => {
     getModal(!modal);
@@ -67,7 +67,12 @@ const ContentView = () => {
         setContent(res.data.contentDetail);
         setnickName(res.data.contentDetail.user.nickName);
         deleteButton();
-      });
+      })
+      .catch(err => {
+        getChildren("로그인 후 이용하실 수 있습니다^^");
+        getClassName("content");
+        openModal();
+      })
     return () => {
       ac.abort();
     };
@@ -120,7 +125,7 @@ const ContentView = () => {
 
   //일기 삭제버튼 생성유무
   const deleteButton = () => {
-    if( value.nickName === nickName){
+    if (value.nickName === nickName) {
       getDelete(!deleteState);
     }
   };
@@ -128,19 +133,19 @@ const ContentView = () => {
   //일기 삭제
   const deleteContent = () => {
     axios.delete(`http://localhost:5000/content/${contentId}`,
-    { headers:{"x-access-token": value.token} }
+      { headers: { "x-access-token": value.token } }
     )
-    .then(res => {
-      if(res.status === 200){
-        getChildren('일기가 삭제되었습니다');
-        getClassName('deleteCotent');
-        openModal();
-      }
-    })
-    .catch( () => {
-      getClassName("deleteCotentError");
-      return openModal();
-    })
+      .then(res => {
+        if (res.status === 200) {
+          getChildren('일기가 삭제되었습니다');
+          getClassName('deleteCotent');
+          openModal();
+        }
+      })
+      .catch(() => {
+        getClassName("deleteCotentError");
+        return openModal();
+      })
   };
 
   return (
@@ -153,7 +158,7 @@ const ContentView = () => {
           <br />
           <div>태그목록</div>
 
-           <LikeButton>
+          <LikeButton>
             <img className="LikeImg" src={likeButton} alt="" onClick={setLikeBtn} />
           </LikeButton>
 
@@ -166,7 +171,7 @@ const ContentView = () => {
           <input
             type="text"
             placeholder="댓글을 작성하세요"
-            value = {comment}
+            value={comment}
             onChange={e => newComment(e.target.value)}
           />
           <button onClick={postComment}>댓글 작성</button>
