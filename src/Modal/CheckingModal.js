@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
@@ -9,7 +9,15 @@ const CheckingModal = ({ children }) => {
   const [password, getPassWord] = useState("");
   const value = useContext(getLogin);
   const url = "http://localhost:5000";
+  const getToken = window.sessionStorage.getItem("token");
   let history = useHistory();
+
+  useEffect(() => {
+    const ac = new AbortController();
+    return () => {
+      ac.abort();
+    };
+  });
 
   const handleOpen = () => {
     setTrigger(true);
@@ -18,10 +26,6 @@ const CheckingModal = ({ children }) => {
   const handleClose = () => {
     getPassWord("");
     setTrigger(false);
-    //input 내용 초기화
-    // document.querySelector('.modal-input').value===''
-    // let query = document.querySelector(".modal-input");
-    // console.log(query); // <input> ~~ <input> value는 없음
   };
 
   const check = () => {
@@ -39,7 +43,7 @@ const CheckingModal = ({ children }) => {
     axios
       .post(url + "/mypage", data, {
         headers: {
-          "x-access-token": value.token,
+          "x-access-token": getToken,
         },
       })
       .then(res => {
@@ -61,7 +65,7 @@ const CheckingModal = ({ children }) => {
         },
         {
           headers: {
-            "x-access-token": value.token,
+            "x-access-token": getToken,
           },
         }
       )

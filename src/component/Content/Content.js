@@ -20,19 +20,17 @@ const CommentLi = styled.li`
 `;
 
 const LikeButton = styled.div`
-
-  .likeBtn{
-    background-color:#f0cdcd;
-    border:none;
+  .likeBtn {
+    background-color: #f0cdcd;
+    border: none;
   }
 
-  .LikeImg{
-    height:30px;
+  .LikeImg {
+    height: 30px;
   }
 `;
 
 const ContentView = () => {
-
   const value = useContext(getLogin);
   // console.log('토큰 유무: ', value.token);
   // console.log('닉네임', value.nickName);
@@ -47,7 +45,8 @@ const ContentView = () => {
   const [children, getChildren] = useState("");
   const [className, getClassName] = useState("");
   const [deleteState, getDelete] = useState(true);
-  const [nickName, setnickName] = useState('');
+  const [nickName, setnickName] = useState("");
+  const getToken = window.sessionStorage.getItem("token");
 
   const openModal = () => {
     getModal(!modal);
@@ -61,7 +60,7 @@ const ContentView = () => {
     const ac = new AbortController();
     axios
       .get(`http://localhost:5000/content/${contentId}`, {
-        headers: { "x-access-token": value.token },
+        headers: { "x-access-token": getToken },
       })
       .then(res => {
         setContent(res.data.contentDetail);
@@ -72,7 +71,7 @@ const ContentView = () => {
         getChildren("로그인 후 이용하실 수 있습니다^^");
         getClassName("content");
         openModal();
-      })
+      });
     return () => {
       ac.abort();
     };
@@ -92,15 +91,14 @@ const ContentView = () => {
       setIsLike(!isLike);
       setLikeButton(heart);
     }
-  }
-  console.log('isLike', isLike);
-  console.log('likeButton', likeButton);
-
+  };
+  console.log("isLike", isLike);
+  console.log("likeButton", likeButton);
 
   //댓글창 초기화
   const commentInput = () => {
-    newComment('');
-  }
+    newComment("");
+  };
 
   //댓글기능
   const postComment = e => {
@@ -114,13 +112,12 @@ const ContentView = () => {
           contentId: contentId,
           comment: comment,
         },
-        { headers: { "x-access-token": value.token } }
+        { headers: { "x-access-token": getToken } }
       )
       .then(res => {
         console.log(res);
         commentInput();
       });
-
   };
 
   //일기 삭제버튼 생성유무
@@ -132,20 +129,21 @@ const ContentView = () => {
 
   //일기 삭제
   const deleteContent = () => {
-    axios.delete(`http://localhost:5000/content/${contentId}`,
-      { headers: { "x-access-token": value.token } }
-    )
+    axios
+      .delete(`http://localhost:5000/content/${contentId}`, {
+        headers: { "x-access-token": getToken },
+      })
       .then(res => {
         if (res.status === 200) {
-          getChildren('일기가 삭제되었습니다');
-          getClassName('deleteCotent');
+          getChildren("일기가 삭제되었습니다");
+          getClassName("deleteCotent");
           openModal();
         }
       })
       .catch(() => {
         getClassName("deleteCotentError");
         return openModal();
-      })
+      });
   };
 
   return (
@@ -159,10 +157,20 @@ const ContentView = () => {
           <div>태그목록</div>
 
           <LikeButton>
-            <img className="LikeImg" src={likeButton} alt="" onClick={setLikeBtn} />
+            <img
+              className="LikeImg"
+              src={likeButton}
+              alt=""
+              onClick={setLikeBtn}
+            />
           </LikeButton>
 
-          <button onClick={deleteContent} style={deleteState ? { display: "none" } : { display: "block" }}>일기 삭제</button>
+          <button
+            onClick={deleteContent}
+            style={deleteState ? { display: "none" } : { display: "block" }}
+          >
+            일기 삭제
+          </button>
         </div>
       </ContentBox>
 

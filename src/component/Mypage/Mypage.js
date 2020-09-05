@@ -17,28 +17,33 @@ const Mypage = ({ history }) => {
   const [data, getData] = useState("");
   const value = useContext(getLogin);
   const url = "http://localhost:5000/mypage";
+  const getToken = window.sessionStorage.getItem("token");
 
   useEffect(() => {
+    let ac = new AbortController();
     axios
       .get(url, {
         headers: {
-          "x-access-token": value.token,
+          "x-access-token": getToken,
         },
       })
       .then(res => {
         getData(res.data);
       });
+    return () => {
+      ac.abort();
+    };
   }, []);
 
   return (
     <>
       {!value.isChecking ? (
         <Container>
-          <MypageForm token={value.token} history={history} />
+          <MypageForm token={getToken} history={history} />
         </Container>
       ) : (
         <Container>
-          <SettingInfo userInfo={data} token={value.token} />
+          <SettingInfo userInfo={data} token={getToken} />
         </Container>
       )}
     </>
