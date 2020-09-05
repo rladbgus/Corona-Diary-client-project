@@ -3,11 +3,20 @@ import styled from "styled-components";
 import axios from "axios";
 import CheckingModal from "../../Modal/CheckingModal";
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+`;
+
 const MypageForm = ({ token }) => {
   const [data, getData] = useState("");
   const url = "http://localhost:5000";
 
   useEffect(() => {
+    let mounted = true;
     axios
       .get(url + "/mypage", {
         headers: {
@@ -15,8 +24,13 @@ const MypageForm = ({ token }) => {
         },
       })
       .then(res => {
-        getData(res.data);
+        if (mounted) {
+          getData(res.data);
+        }
       });
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   return (
@@ -39,19 +53,11 @@ const MypageForm = ({ token }) => {
           <label>격리된 지역 : </label>
           <label>{data.city}</label>
         </div>
-        <CheckingModal>정보수정</CheckingModal>
-        <CheckingModal>회원탈퇴</CheckingModal>
       </Container>
+      <CheckingModal>정보수정</CheckingModal>
+      <CheckingModal>회원탈퇴</CheckingModal>
     </>
   );
 };
 
 export default MypageForm;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-`;

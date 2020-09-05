@@ -11,6 +11,7 @@ const LoginProvider = ({ children }) => {
   const handleLogin = () => {
     setIsLogin(!isLogin);
   };
+
   const handleIsChecking = () => {
     setIsChecking(!isChecking);
   };

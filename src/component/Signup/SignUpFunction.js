@@ -73,8 +73,8 @@ const SignUpFunction = ({ history }) => {
     axios
       .post(url + "/nickName", checkNickName)
       .then(res => {
-        if (res.status === 200) {
-          getChildren('사용할 수 있는 닉네임입니다');
+        if (res.status === 201) {
+          getChildren("사용할 수 있는 닉네임입니다");
           getClassName("emailcheck");
           return openModal();
         }

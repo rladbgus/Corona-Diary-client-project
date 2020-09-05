@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import getLogin from "../Context/Context";
 
 const AlertModal = ({ children, visible, onClose, className }) => {
   const value = useContext(getLogin);
   let history = useHistory();
+  let location = useLocation();
 
   const handleClose = () => {
     if (className === "complete") {
@@ -13,12 +14,18 @@ const AlertModal = ({ children, visible, onClose, className }) => {
       value.handleIsChecking();
     } else if (
       className === "login" ||
-      className === "logout" ||
       className === "deleteCotent" ||
       className === "deleteCotentError"
     ) {
       onClose();
       history.push("/");
+    } else if (className === "logout") {
+      onClose();
+      if (location.pathname === "/") {
+        history.go("/");
+      } else {
+        history.push("/");
+      }
     } else if (className === "signup" || className === "content") {
       onClose();
       history.push("/user/login");
