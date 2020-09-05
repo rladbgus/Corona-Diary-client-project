@@ -4,6 +4,8 @@ import "../../style.css";
 import axios from "axios";
 import getLogin from "../../Context/Context";
 import AlertModal from "../../Modal/AlertModal";
+import heart from "../../img/heart.png";
+import unheart from "../../img/unheart.png";
 
 const ContentBox = styled.div`
   background: #f0cdcd;
@@ -15,6 +17,18 @@ const CommentBox = styled.div`
 
 const CommentLi = styled.li`
   background: #f7ffaf;
+`;
+
+const LikeButton = styled.div`
+
+  .likeBtn{
+    background-color:#f0cdcd;
+    border:none;
+  }
+
+  .LikeImg{
+    height:30px;
+  }
 `;
 
 const ContentView = () => {
@@ -50,7 +64,6 @@ const ContentView = () => {
         headers: { "x-access-token": value.token },
       })
       .then(res => {
-        console.log(res.data.contentDetail)
         setContent(res.data.contentDetail);
         setnickName(res.data.contentDetail.user.nickName);
         deleteButton();
@@ -61,6 +74,23 @@ const ContentView = () => {
   }, [commented, nickName]);
 
   const allComment = content.comment;
+
+  //좋아요버튼
+  const [isLike, setIsLike] = useState(false);
+  const [likeButton, setLikeButton] = useState(unheart);
+
+  const setLikeBtn = () => {
+    if (isLike) {
+      setIsLike(!isLike);
+      setLikeButton(unheart);
+    } else {
+      setIsLike(!isLike);
+      setLikeButton(heart);
+    }
+  }
+  console.log('isLike', isLike);
+  console.log('likeButton', likeButton);
+
 
   //댓글창 초기화
   const commentInput = () => {
@@ -87,19 +117,13 @@ const ContentView = () => {
       });
 
   };
-  console.log(nickName)
 
   //일기 삭제버튼 생성유무
   const deleteButton = () => {
-    console.log(value.nickName)
-    console.log(nickName)
-
-    console.log(value.nickName === nickName)
     if( value.nickName === nickName){
       getDelete(!deleteState);
     }
   };
-  // console.log('deleteState', deleteState);
 
   //일기 삭제
   const deleteContent = () => {
@@ -128,7 +152,10 @@ const ContentView = () => {
           <div className="TextArea">{content.text}</div>
           <br />
           <div>태그목록</div>
-          <button>좋아요</button>
+
+           <LikeButton>
+            <img className="LikeImg" src={likeButton} alt="" onClick={setLikeBtn} />
+          </LikeButton>
 
           <button onClick={deleteContent} style={deleteState ? { display: "none" } : { display: "block" }}>일기 삭제</button>
         </div>
