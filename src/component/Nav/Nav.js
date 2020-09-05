@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useHistory, Redirect } from "react-router-dom";
 import styled from "styled-components";
 import { NavLink, Link } from "react-router-dom";
 import logo from "../../img/corona_logo.png";
@@ -48,6 +49,7 @@ function Nav(props) {
   const [modal, getModal] = useState(false);
   const [children, getChildren] = useState("");
   const [className, getClassName] = useState("");
+  let history = useHistory();
 
   const openModal = () => {
     getModal(!modal);
@@ -123,8 +125,7 @@ function Nav(props) {
             </NavLink>
           </li>
           <li>
-            <a
-              href="#"
+            <div
               className="selected"
               onClick={() => {
                 getChildren("로그아웃 되었습니다:)");
@@ -136,7 +137,7 @@ function Nav(props) {
               }}
             >
               로그아웃
-            </a>
+            </div>
           </li>
         </ul>
       </span>

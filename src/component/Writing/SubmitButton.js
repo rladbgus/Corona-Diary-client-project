@@ -19,6 +19,7 @@ const SubmitButton = ({ data, history }) => {
   const [modal, getModal] = useState(false);
   const [children, getChildren] = useState("");
   const [className, getClassName] = useState("");
+  const getToken = window.sessionStorage.getItem("token");
 
   const openModal = () => {
     getModal(!modal);
@@ -31,6 +32,8 @@ const SubmitButton = ({ data, history }) => {
   const submitButton = event => {
     event.preventDefault();
     if (Object.keys(data).length !== 12) {
+      getChildren("빈 항목이 있습니다. 채워주세요");
+      getClassName("checktdata");
       return openModal();
     }
     if (data.title === "") {
@@ -47,7 +50,7 @@ const SubmitButton = ({ data, history }) => {
     axios
       .post(url, data, {
         headers: {
-          "x-access-token": value.token,
+          "x-access-token": getToken,
         },
       })
       .then(res => {

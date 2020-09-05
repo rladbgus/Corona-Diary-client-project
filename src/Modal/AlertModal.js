@@ -11,7 +11,12 @@ const AlertModal = ({ children, visible, onClose, className }) => {
     if (className === "complete") {
       onClose();
       value.handleIsChecking();
-    } else if (className === "login" || className === "logout" || className === "deleteCotent" || className === "deleteCotentError") {
+    } else if (
+      className === "login" ||
+      className === "logout" ||
+      className === "deleteCotent" ||
+      className === "deleteCotentError"
+    ) {
       onClose();
       history.push("/");
     } else if (className === "signup" || className === "content") {

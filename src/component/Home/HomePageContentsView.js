@@ -1,8 +1,7 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { withRouter, Link } from "react-router-dom";
 import axios from "axios";
-import getLogin from "../../Context/Context";
 
 const HomeContentsViewStyle = styled.div`
   background: #c2f3ee;
@@ -16,33 +15,37 @@ const HomeContentsViewStyle = styled.div`
 `;
 
 const MainContent = styled.div`
-  background: #FFAC9A;
-  border-style : solid 3px;
+  background: #ffac9a;
+  border-style: solid 3px;
 `;
 
 const HomePageContentsView = ({ history }) => {
-
-  const value = useContext(getLogin);
   const [mainContentList, setMainCotentList] = useState(null);
+  const getToken = window.sessionStorage.getItem("token");
 
   useEffect(() => {
-    axios.get("http://localhost:5000/mainContentList",
-    {
-      headers: { "x-access-token": value.token }
-    })
-    .then( res => {
-      console.log(res);
-      setMainCotentList( [...res.data.contentList] );
-    })
+    let ac = new AbortController();
+    axios
+      .get("http://localhost:5000/mainContentList", {
+        headers: { "x-access-token": getToken },
+      })
+      .then(res => {
+        console.log(res);
+        setMainCotentList([...res.data.contentList]);
+      });
+    return () => {
+      ac.abort();
+    };
   }, []);
 
   return (
     <HomeContentsViewStyle>
       <div className="homeContentsView">
         <div className="homeContentsContainer">
-
           <div className="addButton">
-          <button onClick={() => history.push('./contentslist')}>+더보기</button>
+            <button onClick={() => history.push("./contentslist")}>
+              +더보기
+            </button>
           </div>
 
           {mainContentList?.map(data => (

@@ -1,13 +1,12 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import getToken from "../../Context/Context";
 import { Link } from "react-router-dom";
 
 const Border1 = styled.div`
   width: 100%;
   border: 1px solid #444444;
-  background-color:#B7A7F6;
+  background-color: #b7a7f6;
 `;
 
 const Border2 = styled.div`
@@ -19,7 +18,7 @@ const Border2 = styled.div`
   padding-bottom: 20px;
   padding-left: 30px;
   padding-right: 30px;
-  background-color:#D7D0F1;
+  background-color: #d7d0f1;
 `;
 
 const ContentStyle = styled.span`
@@ -32,20 +31,22 @@ const ContentStyle = styled.span`
 `;
 
 const MyContentsListView = () => {
-
-  const value = useContext(getToken);
   const [myContentList, setMyContentList] = useState(null);
+  const getToken = window.sessionStorage.getItem("token");
 
   useEffect(() => {
-    axios.get("http://localhost:5000/myContentList",
-      {
-        headers:
-          { "x-access-token": value.token }
+    let ac = new AbortController();
+    axios
+      .get("http://localhost:5000/myContentList", {
+        headers: { "x-access-token": getToken },
       })
       .then(res => {
         // console.log(res);
-        setMyContentList([...res.data.contentList])
+        setMyContentList([...res.data.contentList]);
       });
+    return () => {
+      ac.abort();
+    };
   }, []);
   console.log(myContentList);
 
