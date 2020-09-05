@@ -5,7 +5,6 @@ const LoginProvider = ({ children }) => {
   const [isLogin, setIsLogin] = useState(false);
   const [isChecking, setIsChecking] = useState(false);
   const [token, setToken] = useState("");
-  const [googleToken, setGoogleToken] = useState("");
   const [nickName, setNickName] = useState('')
 
   const handleLogin = () => {

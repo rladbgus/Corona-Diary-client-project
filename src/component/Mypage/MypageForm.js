@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import getLogin from "../../Context/Context";
 import CheckingModal from "../../Modal/CheckingModal";
 
 const MypageForm = ({ token }) => {

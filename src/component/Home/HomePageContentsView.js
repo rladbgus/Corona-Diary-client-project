@@ -32,7 +32,7 @@ const HomePageContentsView = ({ history }) => {
     })
     .then( res => {
       console.log(res);
-      setMainCotentList([...res.data.contentList]);
+      setMainCotentList( [...res.data.contentList] );
     })
   }, []);
 
@@ -42,7 +42,7 @@ const HomePageContentsView = ({ history }) => {
         <div className="homeContentsContainer">
 
           <div className="addButton">
-          <button onClick={() => history.push('./contentslist')}>+</button>
+          <button onClick={() => history.push('./contentslist')}>+더보기</button>
           </div>
 
           {mainContentList?.map(data => (
