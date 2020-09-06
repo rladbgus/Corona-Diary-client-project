@@ -21,16 +21,20 @@ const Mypage = ({ history }) => {
 
   useEffect(() => {
     let ac = new AbortController();
-    axios
-      .get(url, {
-        headers: {
-          "x-access-token": getToken,
-        },
-      })
-      .then(res => {
-        getData(res.data);
-      });
+    let mounted = true;
+    if (mounted) {
+      axios
+        .get(url, {
+          headers: {
+            "x-access-token": getToken,
+          },
+        })
+        .then(res => {
+          getData(res.data);
+        });
+    }
     return () => {
+      mounted = false;
       ac.abort();
     };
   }, []);

@@ -13,11 +13,8 @@ const CheckingModal = ({ children }) => {
   let history = useHistory();
 
   useEffect(() => {
-    const ac = new AbortController();
-    return () => {
-      ac.abort();
-    };
-  });
+    return () => {};
+  }, []);
 
   const handleOpen = () => {
     setTrigger(true);
@@ -28,7 +25,8 @@ const CheckingModal = ({ children }) => {
     setTrigger(false);
   };
 
-  const check = () => {
+  const check = event => {
+    event.preventDefault();
     if (children === "정보수정") {
       handleChecking();
     }
@@ -50,8 +48,6 @@ const CheckingModal = ({ children }) => {
         if (res.status === 200) {
           value.handleIsChecking();
           handleClose();
-        } else {
-          return alert("잘못된 비밀번호 입니다.");
         }
       });
   };
@@ -76,8 +72,6 @@ const CheckingModal = ({ children }) => {
           value.handleGoogleToken("");
           history.push("/");
           handleClose();
-        } else {
-          return alert("잘못된 비밀번호 입니다.");
         }
       });
   };

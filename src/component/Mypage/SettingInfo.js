@@ -1,8 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import getLogin from "../../Context/Context";
 import AlertModal from "../../Modal/AlertModal";
+import { useLocation } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -22,6 +23,13 @@ const SettingInfo = ({ token, userInfo }) => {
   const [modal, getModal] = useState(false);
   const [children, getChildren] = useState("");
   const [className, getClassName] = useState("");
+  const location = useLocation();
+
+  useEffect(() => {
+    return () => {
+      value.handleIsChecking();
+    };
+  }, [location]);
 
   const openModal = () => {
     getModal(!modal);
