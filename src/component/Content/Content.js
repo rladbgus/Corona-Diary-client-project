@@ -9,6 +9,7 @@ import unheart from "../../img/unheart.png";
 import EditContentModal from "../../Modal/EditContentModal";
 import EditContent from "./EditContent";
 import Tags from "./Tags";
+import { useHistory } from "react-router-dom";
 
 const ContentBox = styled.div`
   background: #f0cdcd;
@@ -40,7 +41,7 @@ const Container = styled.div`
   margin: 10px;
 `;
 
-const ContentView = ({ history }) => {
+const ContentView = () => {
   const value = useContext(getLogin);
   // console.log('토큰 유무: ', value.token);
 
@@ -64,6 +65,7 @@ const ContentView = ({ history }) => {
   // const [commentId, getCommentId] = useState("");
   // const [userComment, setUserComment] = useState(true);
   // const [commentUser, getCommentUser] = useState('');
+  let history = useHistory();
 
   const openModal = () => {
     getModal(!modal);
@@ -100,8 +102,6 @@ const ContentView = ({ history }) => {
       ac.abort();
     };
   }, [commented, nickName]);
-
-
 
   const allComment = content.comment;
   // console.log(allComment);
@@ -181,22 +181,22 @@ const ContentView = ({ history }) => {
   };
 
   //댓글 삭제
-  const deleteComment = (value) => {
-    axios.delete(`http://localhost:5000/comment/${value}`,
-      { headers: { "x-access-token": getToken } }
-    )
+  const deleteComment = value => {
+    axios
+      .delete(`http://localhost:5000/comment/${value}`, {
+        headers: { "x-access-token": getToken },
+      })
       .then(res => {
-        console.log(res)
         getChildren("댓글이 삭제되었습니다");
         getClassName("deleteComment");
         openModal();
-        history.push(`/comment/${value}`)
+        history.go(`/comment/${value}`);
       })
-      .catch(() => {
+      .catch(res => {
         getChildren("삭제 권한이 없습니다");
         getClassName("deleteComment");
         openModal();
-      })
+      });
   };
 
   // 댓글 삭제,수정버튼 생성유무
@@ -217,7 +217,7 @@ const ContentView = ({ history }) => {
   const deleteContent = () => {
     axios
       .delete(`http://localhost:5000/content/${contentId}`, {
-        headers: { "x-access-token": getToken }
+        headers: { "x-access-token": getToken },
       })
       .then(res => {
         if (res.status === 200) {
@@ -291,12 +291,13 @@ const ContentView = ({ history }) => {
                       {data.comment}
                       <br />
 
-                      <button onClick={() => deleteComment(data.id)} >댓글 삭제</button>
+                      <button onClick={() => deleteComment(data.id)}>
+                        댓글 삭제
+                      </button>
 
                       {/* style={
                         userComment ? { display: "none" } : { display: "block" }
                       } */}
-
                     </CommentLi>
                   ))}
                 </div>
@@ -304,10 +305,10 @@ const ContentView = ({ history }) => {
             </CommentBox>
           </>
         ) : (
-            <Container>
-              <EditContent userInfo={data} token={getToken} />
-            </Container>
-          )}
+          <Container>
+            <EditContent userInfo={data} token={getToken} />
+          </Container>
+        )}
       </>
       <AlertModal visible={modal} onClose={closeModal} className={className}>
         {children}
