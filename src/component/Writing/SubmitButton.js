@@ -20,6 +20,7 @@ const SubmitButton = ({ data, history }) => {
   const [children, getChildren] = useState("");
   const [className, getClassName] = useState("");
   const getToken = window.sessionStorage.getItem("token");
+  const [alldata, setAllData] = useState({ data: data });
 
   const openModal = () => {
     getModal(!modal);
@@ -31,11 +32,12 @@ const SubmitButton = ({ data, history }) => {
 
   const submitButton = event => {
     event.preventDefault();
-    if (Object.keys(data).length !== 12) {
-      getChildren("빈 항목이 있습니다. 채워주세요");
-      getClassName("checktdata");
-      return openModal();
-    }
+    // setAllData(alldata.data = data);
+    // if (Object.keys(data).length !== 11) {
+    //   getChildren("빈 항목이 있습니다. 채워주세요");
+    //   getClassName("checktdata");
+    //   return openModal();
+    // }
     if (data.title === "") {
       getChildren("제목을 채워주세요");
       getClassName("checktitle");
@@ -48,9 +50,10 @@ const SubmitButton = ({ data, history }) => {
     }
     console.log(data);
     axios
-      .post(url, data, {
+      .post(url, alldata, {
         headers: {
           "x-access-token": getToken,
+          "Content-Type": "mutipart/form-data"
         },
       })
       .then(res => {
