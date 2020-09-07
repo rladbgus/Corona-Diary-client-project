@@ -151,11 +151,6 @@ const ContentView = () => {
       });
   };
 
-  //댓글창 초기화
-  const commentInput = () => {
-    newComment("");
-  };
-
   //댓글기능
   const postComment = e => {
     console.log("postComment");
@@ -172,7 +167,7 @@ const ContentView = () => {
       )
       .then(res => {
         // console.log(res);
-        commentInput();
+        newComment("");
       });
   };
 
@@ -266,10 +261,10 @@ const ContentView = () => {
             </CommentBox>
           </>
         ) : (
-          <Container>
-            <EditContent userInfo={data} token={getToken} />
-          </Container>
-        )}
+            <Container>
+              <EditContent userInfo={data} token={getToken} />
+            </Container>
+          )}
       </>
       <AlertModal visible={modal} onClose={closeModal} className={className}>
         {children}

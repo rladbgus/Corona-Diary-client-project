@@ -46,7 +46,7 @@ const WritingForm = ({ handleChange, handleTags }) => {
   return (
     <>
       <Container>
-        <h1 title="signup">일기쓰기</h1>
+        <h1 title="signup">일기 쓰기</h1>
         <div>
           <label>제목</label>
           <input
@@ -70,7 +70,7 @@ const WritingForm = ({ handleChange, handleTags }) => {
         추가된 태그 :
         {arrayTags.length === 0 ? "" : arrayTags.map(list => `#${list} `)}
         <div>
-          <label>태그</label>
+          <label>태그 추가</label>
           <input
             className="input_tag"
             name="tags"
