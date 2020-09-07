@@ -11,8 +11,6 @@ const Container = styled.div`
 `;
 
 const Tags = ({ data }) => {
-  console.log(data[0]);
-
   return (
     <>
       {data.length === 0
