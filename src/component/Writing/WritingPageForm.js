@@ -5,8 +5,7 @@ import SubmitButton from "./SubmitButton";
 
 const WritingPageForm = ({ history }) => {
   const [data, getData] = useState({
-    tags: [],
-    referenceFile: "file",
+    tags: []
   });
 
   const handleClick = (name, value) => {
