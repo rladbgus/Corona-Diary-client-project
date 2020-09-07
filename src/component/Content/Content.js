@@ -76,7 +76,7 @@ const ContentView = () => {
         headers: { "x-access-token": getToken },
       })
       .then(res => {
-        console.log(res);
+        // console.log(res);
         setContent(res.data.contentDetail);
         setnickName(res.data.contentDetail.user.nickName);
         deleteButton();
@@ -125,8 +125,6 @@ const ContentView = () => {
 
     }
   };
-  console.log("isLike", isLike);
-  console.log('countLike: ', countLike);
 
   // 좋아요 증가
   const plusLike = () => {
@@ -148,11 +146,6 @@ const ContentView = () => {
       })
   }
 
-  //댓글창 초기화
-  const commentInput = () => {
-    newComment("");
-  };
-
   //댓글기능
   const postComment = e => {
     console.log("postComment");
@@ -169,7 +162,7 @@ const ContentView = () => {
       )
       .then(res => {
         // console.log(res);
-        commentInput();
+        newComment("");
       });
   };
 
