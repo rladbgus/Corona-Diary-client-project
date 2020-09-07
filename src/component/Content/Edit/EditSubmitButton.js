@@ -2,8 +2,8 @@ import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-import getLogin from "../../Context/Context";
-import AlertModal from "../../Modal/AlertModal";
+import getLogin from "../../../Context/Context";
+import AlertModal from "../../../Modal/AlertModal";
 
 const Container = styled.div`
   display: flex;
@@ -13,13 +13,15 @@ const Container = styled.div`
   margin: 10px;
 `;
 
-const SubmitButton = ({ data, history }) => {
-  const url = "http://localhost:5000/content";
+const EditSubmitButton = ({ data, history }) => {
   const value = useContext(getLogin);
   const [modal, getModal] = useState(false);
   const [children, getChildren] = useState("");
   const [className, getClassName] = useState("");
   const getToken = window.sessionStorage.getItem("token");
+  let splitUrl = window.location.href.split("/");
+  let contentId = splitUrl[4];
+  const url = `http://localhost:5000/content/${contentId}`;
 
   const openModal = () => {
     getModal(!modal);
@@ -31,7 +33,7 @@ const SubmitButton = ({ data, history }) => {
 
   const submitButton = event => {
     event.preventDefault();
-    if (Object.keys(data).length !== 11) {
+    if (Object.keys(data).length !== 12) {
       getChildren("빈 항목이 있습니다. 채워주세요");
       getClassName("checktdata");
       return openModal();
@@ -46,6 +48,7 @@ const SubmitButton = ({ data, history }) => {
       getClassName("checktext");
       return openModal();
     }
+
     console.log(data);
     axios
       .post(url, data, {
@@ -54,7 +57,6 @@ const SubmitButton = ({ data, history }) => {
         },
       })
       .then(res => {
-        console.log(res.data);
         history.push(`/content/${res.data.contentId}`);
       });
   };
@@ -76,4 +78,4 @@ const SubmitButton = ({ data, history }) => {
   );
 };
 
-export default SubmitButton;
+export default EditSubmitButton;

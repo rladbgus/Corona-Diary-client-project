@@ -7,7 +7,7 @@ import AlertModal from "../../Modal/AlertModal";
 import heart from "../../img/heart.png";
 import unheart from "../../img/unheart.png";
 import EditContentModal from "../../Modal/EditContentModal";
-import EditContent from "./EditContent";
+import EditWritingPageForm from "./Edit/EditWritingPageForm";
 import Tags from "./Tags";
 
 const ContentBox = styled.div`
@@ -61,6 +61,7 @@ const ContentView = () => {
   const [countLike, setCountLike] = useState(0);
   const [isLike, setIsLike] = useState(false); //db에 저장 필요! (true/false)
   const [tags, getTags] = useState([]);
+  const [contentData, getContentData] = useState("");
 
   const openModal = () => {
     getModal(!modal);
@@ -261,10 +262,10 @@ const ContentView = () => {
             </CommentBox>
           </>
         ) : (
-            <Container>
-              <EditContent userInfo={data} token={getToken} />
-            </Container>
-          )}
+          <Container>
+            <EditWritingPageForm content={content} token={getToken} />
+          </Container>
+        )}
       </>
       <AlertModal visible={modal} onClose={closeModal} className={className}>
         {children}
