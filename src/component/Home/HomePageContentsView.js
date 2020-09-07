@@ -30,7 +30,6 @@ const HomePageContentsView = ({ history }) => {
         headers: { "x-access-token": getToken },
       })
       .then(res => {
-        console.log(res);
         setMainCotentList([...res.data.contentList]);
       });
     return () => {

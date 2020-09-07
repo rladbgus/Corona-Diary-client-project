@@ -8,6 +8,7 @@ import heart from "../../img/heart.png";
 import unheart from "../../img/unheart.png";
 import EditContentModal from "../../Modal/EditContentModal";
 import EditContent from "./EditContent";
+import Tags from "./Tags";
 
 const ContentBox = styled.div`
   background: #f0cdcd;
@@ -39,7 +40,6 @@ const Container = styled.div`
   margin: 10px;
 `;
 
-
 const ContentView = () => {
   const value = useContext(getLogin);
   // console.log('토큰 유무: ', value.token);
@@ -60,6 +60,7 @@ const ContentView = () => {
   const [likeButton, setLikeButton] = useState(unheart);
   const [countLike, setCountLike] = useState(0);
   const [isLike, setIsLike] = useState(false); //db에 저장 필요! (true/false)
+  const [tags, getTags] = useState([]);
 
   const openModal = () => {
     getModal(!modal);
@@ -76,9 +77,9 @@ const ContentView = () => {
         headers: { "x-access-token": getToken },
       })
       .then(res => {
-        // console.log(res);
         setContent(res.data.contentDetail);
         setnickName(res.data.contentDetail.user.nickName);
+        getTags(res.data.contentDetail.tag);
         deleteButton();
         setCountLike(res.data.contentDetail.like);
       })
@@ -86,7 +87,7 @@ const ContentView = () => {
         getChildren("로그인 후 이용하실 수 있습니다^^");
         getClassName("content");
         openModal();
-        userInfo()
+        userInfo();
       });
     return () => {
       ac.abort();
@@ -117,34 +118,38 @@ const ContentView = () => {
       setIsLike(!isLike);
       setLikeButton(unheart);
       minusLike();
-
     } else {
       setIsLike(!isLike);
       setLikeButton(heart);
       plusLike();
-
     }
   };
 
   // 좋아요 증가
   const plusLike = () => {
-    axios.post(`http://localhost:5000/content/${contentId}/like`,
-      { like: countLike },
-      { headers: { "x-access-token": getToken } })
+    axios
+      .post(
+        `http://localhost:5000/content/${contentId}/like`,
+        { like: countLike },
+        { headers: { "x-access-token": getToken } }
+      )
       .then(res => {
         setCountLike(res.data.like);
-      })
-  }
+      });
+  };
 
   // 좋아요 감소
   const minusLike = () => {
-    axios.patch(`http://localhost:5000/content/${contentId}/like`,
-      { like: countLike },
-      { headers: { "x-access-token": getToken } })
+    axios
+      .patch(
+        `http://localhost:5000/content/${contentId}/like`,
+        { like: countLike },
+        { headers: { "x-access-token": getToken } }
+      )
       .then(res => {
         setCountLike(res.data.like);
-      })
-  }
+      });
+  };
 
   //댓글기능
   const postComment = e => {
@@ -195,64 +200,67 @@ const ContentView = () => {
   return (
     <center className="ContentViewBox">
       <>
-        {!value.isChecking ?
-          (
-            <>
-              <ContentBox>
-                <div className="Content">
-                  <h1>{content.title}</h1>
-                  <span>{content.createdAt}</span>
-                  <div className="TextArea">{content.text}</div>
-                  <br />
-
-                  <div>태그목록</div>
-
-                  <LikeButton>
-                    <img
-                      className="LikeImg"
-                      src={likeButton}
-                      alt=""
-                      onClick={setLikeBtn}
-                    />
-                    <span>{countLike}</span>
-                  </LikeButton>
-
-                  <EditContentModal style={deleteState ? { display: "none" } : { display: "block" }}>
-                    일기 수정
-          </EditContentModal>
-
-                  <button
-                    onClick={deleteContent}
-                    style={deleteState ? { display: "none" } : { display: "block" }}
-                  >
-                    일기 삭제
-          </button>
+        {!value.isChecking ? (
+          <>
+            <ContentBox>
+              <div className="Content">
+                <h1>{content.title}</h1>
+                <span>{content.createdAt}</span>
+                <div className="TextArea">{content.text}</div>
+                <br />
+                <div>
+                  <Tags data={tags} />
                 </div>
-              </ContentBox>
-
-              <CommentBox>
-                <div className="Comment">
-                  <input
-                    type="text"
-                    placeholder="댓글을 작성하세요"
-                    value={comment}
-                    onChange={e => newComment(e.target.value)}
+                <LikeButton>
+                  <img
+                    className="LikeImg"
+                    src={likeButton}
+                    alt=""
+                    onClick={setLikeBtn}
                   />
-                  <button onClick={postComment}>댓글 작성</button>
-                  <div>
-                    {allComment?.map(data => (
-                      <CommentLi key={data.id}>
-                        {data.user.nickName}
-                        <br />
-                        {data.createdAt}
-                        <br />
-                        {data.comment}
-                      </CommentLi>
-                    ))}
-                  </div>
+                  <span>{countLike}</span>
+                </LikeButton>
+                <EditContentModal
+                  style={
+                    deleteState ? { display: "none" } : { display: "block" }
+                  }
+                >
+                  일기 수정
+                </EditContentModal>
+                <button
+                  onClick={deleteContent}
+                  style={
+                    deleteState ? { display: "none" } : { display: "block" }
+                  }
+                >
+                  일기 삭제
+                </button>
+              </div>
+            </ContentBox>
+            <CommentBox>
+              <div className="Comment">
+                <input
+                  type="text"
+                  placeholder="댓글을 작성하세요"
+                  value={comment}
+                  onChange={e => newComment(e.target.value)}
+                />
+                <button onClick={postComment}>댓글 작성</button>
+                <div>
+                  {allComment?.map(data => (
+                    <CommentLi key={data.id}>
+                      {data.user.nickName}
+                      <br />
+                      {data.createdAt}
+                      <br />
+                      {data.comment}
+                    </CommentLi>
+                  ))}
                 </div>
-              </CommentBox>
-            </>) : (
+              </div>
+            </CommentBox>
+          </>
+        ) : (
             <Container>
               <EditContent userInfo={data} token={getToken} />
             </Container>
