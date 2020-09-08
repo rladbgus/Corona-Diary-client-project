@@ -54,8 +54,6 @@ const MypageForm = ({ token }) => {
           <label>{data.city}</label>
         </div>
       </Container>
-      <CheckingModal>정보수정</CheckingModal>
-      <CheckingModal>회원탈퇴</CheckingModal>
     </>
   );
 };

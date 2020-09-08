@@ -3,9 +3,9 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import getLogin from "../Context/Context";
+import Portal from "./Portal";
 
-const CheckingModal = ({ children }) => {
-  const [trigger, setTrigger] = useState(false);
+const CheckingModal = ({ children, visible, onClose }) => {
   const [password, getPassWord] = useState("");
   const value = useContext(getLogin);
   const url = "http://localhost:5000";
@@ -13,21 +13,19 @@ const CheckingModal = ({ children }) => {
   let history = useHistory();
 
   useEffect(() => {
-    return () => {};
+    let ac = new AbortController();
+    return () => {
+      ac.abort();
+    };
   }, []);
-
-  const handleOpen = () => {
-    setTrigger(true);
-  };
 
   const handleClose = () => {
     getPassWord("");
-    setTrigger(false);
+    onClose();
   };
 
-  const check = event => {
-    event.preventDefault();
-    if (children === "정보수정") {
+  const check = () => {
+    if (children === "정보수정" || children === "일기수정") {
       handleChecking();
     }
     if (children === "회원탈퇴") {
@@ -47,7 +45,7 @@ const CheckingModal = ({ children }) => {
       .then(res => {
         if (res.status === 200) {
           value.handleIsChecking();
-          handleClose();
+          onClose();
         }
       });
   };
@@ -71,7 +69,7 @@ const CheckingModal = ({ children }) => {
           value.handleToken("");
           value.handleGoogleToken("");
           history.push("/");
-          handleClose();
+          onClose();
         }
       });
   };
@@ -81,10 +79,9 @@ const CheckingModal = ({ children }) => {
   };
 
   return (
-    <>
-      <button onClick={handleOpen}>{children}</button>
-      <ModalOverlay visible={trigger} />
-      <ModalWrapper tabIndex="-1" visible={trigger}>
+    <Portal elementId={"modal-root"}>
+      <ModalOverlay visible={visible} />
+      <ModalWrapper tabIndex="-1" visible={visible}>
         <ModalInner tabIndex="0" className="modal-inner">
           <ModalInput
             type="password"
@@ -99,7 +96,7 @@ const CheckingModal = ({ children }) => {
           </div>
         </ModalInner>
       </ModalWrapper>
-    </>
+    </Portal>
   );
 };
 
