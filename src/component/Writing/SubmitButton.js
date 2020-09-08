@@ -20,6 +20,7 @@ const SubmitButton = ({ data, history }) => {
   const [children, getChildren] = useState("");
   const [className, getClassName] = useState("");
   const getToken = window.sessionStorage.getItem("token");
+  const [alldata, setAllData] = useState({ data: data });
 
   const openModal = () => {
     getModal(!modal);
@@ -48,9 +49,10 @@ const SubmitButton = ({ data, history }) => {
     }
     console.log(data);
     axios
-      .post(url, data, {
+      .post(url, alldata, {
         headers: {
           "x-access-token": getToken,
+          "Content-Type": "mutipart/form-data"
         },
       })
       .then(res => {

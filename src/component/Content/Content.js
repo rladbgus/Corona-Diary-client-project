@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import "../../style.css";
 import axios from "axios";
@@ -87,11 +87,15 @@ const ContentView = () => {
         headers: { "x-access-token": getToken },
       })
       .then(res => {
+        console.log(res.data.contentDetail);
+        console.log(res.data.contentDetail.comment);
         setContent(res.data.contentDetail);
         setnickName(res.data.contentDetail.user.nickName);
         getTags(res.data.contentDetail.tag);
         deleteButton();
-        setCountLike(res.data.contentDetail.like);
+        // userCommentBtn();
+        // getCommentUser(res.data.contentDetail.comment.user.id);
+        // setCountLike();
       })
       .catch(() => {
         getChildren("로그인 후 이용하실 수 있습니다^^");
@@ -105,6 +109,7 @@ const ContentView = () => {
   }, [commented, nickName]);
 
   const allComment = content.comment;
+  // console.log(allComment);
 
   const userInfo = () => {
     let ac = new AbortController();
@@ -175,11 +180,36 @@ const ContentView = () => {
         },
         { headers: { "x-access-token": getToken } }
       )
-      .then(res => {
-        // console.log(res);
+      .then(() => {
         newComment("");
       });
   };
+
+  //댓글 삭제
+  const deleteComment = value => {
+    axios
+      .delete(`http://localhost:5000/comment/${value}`, {
+        headers: { "x-access-token": getToken },
+      })
+      .then(res => {
+        getChildren("댓글이 삭제되었습니다");
+        getClassName("deleteComment");
+        openModal();
+        history.go(`/comment/${value}`);
+      })
+      .catch(res => {
+        getChildren("삭제 권한이 없습니다");
+        getClassName("deleteComment");
+        openModal();
+      });
+  };
+
+  // 댓글 삭제,수정버튼 생성유무
+  // const userCommentBtn = () => {
+  //   if (value.nickName === commentUser) {
+  //     setUserComment(!userComment)
+  //   }
+  // }
 
   //일기 삭제버튼 생성유무
   const deleteButton = () => {
@@ -268,6 +298,15 @@ const ContentView = () => {
                       {data.createdAt}
                       <br />
                       {data.comment}
+                      <br />
+
+                      <button onClick={() => deleteComment(data.id)}>
+                        댓글 삭제
+                      </button>
+
+                      {/* style={
+                        userComment ? { display: "none" } : { display: "block" }
+                      } */}
                     </CommentLi>
                   ))}
                 </div>
