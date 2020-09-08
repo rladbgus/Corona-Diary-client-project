@@ -305,10 +305,10 @@ const ContentView = () => {
             </CommentBox>
           </>
         ) : (
-          <Container>
-            <EditContent userInfo={data} token={getToken} />
-          </Container>
-        )}
+            <Container>
+              <EditContent userInfo={data} token={getToken} />
+            </Container>
+          )}
       </>
       <AlertModal visible={modal} onClose={closeModal} className={className}>
         {children}

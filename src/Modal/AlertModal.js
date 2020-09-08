@@ -15,7 +15,8 @@ const AlertModal = ({ children, visible, onClose, className }) => {
     } else if (
       className === "login" ||
       className === "deleteCotent" ||
-      className === "deleteCotentError"
+      className === "deleteCotentError" ||
+      className === "content"
     ) {
       onClose();
       history.push("/");
