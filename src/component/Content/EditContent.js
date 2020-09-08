@@ -25,7 +25,7 @@ const EditContent = ({ history }) => {
 
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
-  const [tag, getTag] = useState('');
+  const [tag, getTag] = useState("");
   const [arrayTags, getArrayTasgs] = useState([]);
   const [img, setImg] = useState(null);
   const [imgData, setImgData] = useState(null);
@@ -58,39 +58,38 @@ const EditContent = ({ history }) => {
         // setTime(res.data.contentDetail);
         // setTemp(res.data.contentDetail);
       })
-      .catch(() => {
-      });
+      .catch(() => {});
     return () => {
       ac.abort();
     };
   }, []);
 
-  const titleHandleChange = (e) => {
+  const titleHandleChange = e => {
     setTitle(e.target.value);
   };
 
-  const textHandleChange = (e) => {
+  const textHandleChange = e => {
     setText(e.target.value);
-  }
+  };
 
-  const tagHandleChange = (e) => {
+  const tagHandleChange = e => {
     getTag(e.target.value);
-  }
+  };
 
-  const handleKey = (e) => {
+  const handleKey = e => {
     if (e.key === "Enter") {
-      getArrayTasgs([...arrayTags, { tag: tag }])
+      getArrayTasgs([...arrayTags, { tag: tag }]);
       getTag("");
     }
   };
 
-  const handleTime = (e) => {
+  const handleTime = e => {
     setTime(e.target.value);
-  }
+  };
 
-  const handleTemp = (e) => {
+  const handleTemp = e => {
     setTemp(e.target.value);
-  }
+  };
 
   const submitButton = event => {
     event.preventDefault();
@@ -105,13 +104,15 @@ const EditContent = ({ history }) => {
       return openModal();
     }
     axios
-      .post(`http://localhost:5000/content/${contentId}`,
-        // data , 
+      .post(
+        `http://localhost:5000/content/${contentId}`,
+        // data ,
         {
           headers: {
             "x-access-token": getToken,
           },
-        })
+        }
+      )
       .then(res => {
         console.log(res.data);
         history.push(`/content/${contentId}`);
@@ -129,7 +130,6 @@ const EditContent = ({ history }) => {
       reader.readAsDataURL(e.target.files[0]);
     }
   };
-
 
   return (
     <>
@@ -155,9 +155,8 @@ const EditContent = ({ history }) => {
             onChange={textHandleChange}
           />
         </div>
-
         추가된 태그 :
-      {arrayTags.length === 0 ? "" : arrayTags.map(list => `#${list.tag} `)}
+        {arrayTags.length === 0 ? "" : arrayTags.map(list => `#${list.tag} `)}
         <div>
           <label>태그 추가</label>
           <input
@@ -170,20 +169,17 @@ const EditContent = ({ history }) => {
             value={tag}
           />
         </div>
-
         <div>
           <img className="imgpreview" src={imgData} />
           <br />
           <input type="file" onChange={HandleChangeImg} />
         </div>
-
         <form onSubmit={submitButton}>
           <button type="submit"> 수정완료 </button>
           <Link to="/">
             <button>취소</button>
           </Link>
         </form>
-
         {/* 설문조사 */}
         <div title="signup">설문조사</div>
         <div>
@@ -206,11 +202,6 @@ const EditContent = ({ history }) => {
             onChange={handleTemp}
           />
         </div>
-
-        {/* {surveydata.map(list => (
-          <SurveyForm data={list} key={list.id} handleClick={handleClick} />
-        ))} */}
-
       </Container>
       <AlertModal visible={modal} onClose={closeModal} className={className}>
         {children}
