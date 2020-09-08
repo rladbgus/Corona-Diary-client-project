@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useCallback } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import "../../style.css";
 import axios from "axios";
@@ -28,11 +28,11 @@ const LikeButton = styled.div`
     background-color: #f0cdcd;
     border: none;
   }
-
   .LikeImg {
     height: 30px;
   }
 `;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -42,11 +42,11 @@ const Container = styled.div`
 `;
 
 const ContentView = () => {
-  const value = useContext(getLogin);
-  // console.log('토큰 유무: ', value.token);
 
   let splitUrl = window.location.href.split("/");
   let contentId = splitUrl[4];
+
+  const value = useContext(getLogin);
 
   const [content, setContent] = useState("");
   const [comment, newComment] = useState("");
@@ -89,17 +89,17 @@ const ContentView = () => {
         headers: { "x-access-token": getToken },
       })
       .then(res => {
-        console.log(res.data.contentDetail);
-        console.log(res.data.contentDetail.comment);
-        setContent(res.data.contentDetail);
-        setnickName(res.data.contentDetail.user.nickName);
-        getTags(res.data.contentDetail.tag);
+        // console.log(res.data.Content);
+        setContent(res.data.Content);
+        setnickName(res.data.Content.user.nickName);
+        getTags(res.data.Content.tag);
         deleteButton();
         // userCommentBtn();
         // getCommentUser(res.data.contentDetail.comment.user.id);
         // setCountLike();
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err)
         getChildren("로그인 후 이용하실 수 있습니다^^");
         getClassName("content");
         openModal();
@@ -111,7 +111,6 @@ const ContentView = () => {
   }, [commented, nickName]);
 
   const allComment = content.comment;
-  // console.log(allComment);
 
   const userInfo = () => {
     let ac = new AbortController();

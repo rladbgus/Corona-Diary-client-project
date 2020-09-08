@@ -1,12 +1,7 @@
-import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ContentListForm from "./ContentListForm";
-
-const Content = styled.div`
-  background: #ffac9a;
-  border-style: solid 3px;
-`;
+// import styled from "styled-components";
 
 const ContentsListView = () => {
   const [contentList, setContentList] = useState(null);
@@ -20,6 +15,7 @@ const ContentsListView = () => {
         headers: { "x-access-token": getToken },
       })
       .then(res => {
+        console.log(res);
         setContentList(res.data.contentList);
         setSearchList(res.data.contentList);
       });
@@ -49,8 +45,8 @@ const ContentsListView = () => {
       <div className="ContentListBox">
         {searchList
           ? searchList.map(list => (
-              <ContentListForm data={list} key={list.id} />
-            ))
+            <ContentListForm data={list} key={list.id} />
+          ))
           : ""}
       </div>
     </center>
