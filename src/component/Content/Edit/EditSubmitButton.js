@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import getLogin from "../../../Context/Context";
@@ -13,7 +13,7 @@ const Container = styled.div`
   margin: 10px;
 `;
 
-const EditSubmitButton = ({ data, history }) => {
+const EditSubmitButton = ({ data }) => {
   const value = useContext(getLogin);
   const [modal, getModal] = useState(false);
   const [children, getChildren] = useState("");
@@ -22,6 +22,14 @@ const EditSubmitButton = ({ data, history }) => {
   let splitUrl = window.location.href.split("/");
   let contentId = splitUrl[4];
   const url = `http://localhost:5000/content/${contentId}`;
+  let history = useHistory();
+  let location = useLocation();
+
+  useEffect(() => {
+    return () => {
+      value.handleIsChecking();
+    };
+  }, [location]);
 
   const openModal = () => {
     getModal(!modal);
@@ -29,6 +37,12 @@ const EditSubmitButton = ({ data, history }) => {
 
   const closeModal = () => {
     getModal(!modal);
+  };
+
+  const handleCancle = event => {
+    event.preventDefault();
+    value.handleIsChecking();
+    history.push(`/content/${contentId}`);
   };
 
   const submitButton = event => {
@@ -51,7 +65,7 @@ const EditSubmitButton = ({ data, history }) => {
 
     console.log(data);
     axios
-      .post(url, data, {
+      .patch(url, data, {
         headers: {
           "x-access-token": getToken,
         },
@@ -64,11 +78,11 @@ const EditSubmitButton = ({ data, history }) => {
   return (
     <>
       <Container>
-        <form onSubmit={submitButton}>
-          <button type="submit">일기등록</button>
-          <Link to="/">
-            <button>취소</button>
-          </Link>
+        <form>
+          <button type="submit" onSubmit={submitButton}>
+            일기등록
+          </button>
+          <button onClick={handleCancle}>취소</button>
         </form>
       </Container>
       <AlertModal visible={modal} onClose={closeModal} className={className}>

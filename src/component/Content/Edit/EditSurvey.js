@@ -45,7 +45,7 @@ const EditSurvey = ({ handleClick, handleNumberChange, content }) => {
             data={list}
             key={list.id}
             handleClick={handleClick}
-            value={data[list.name]}
+            name={list.name}
           />
         ))}
       </Container>

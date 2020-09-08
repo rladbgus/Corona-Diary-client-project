@@ -6,9 +6,9 @@ import getLogin from "../../Context/Context";
 import AlertModal from "../../Modal/AlertModal";
 import heart from "../../img/heart.png";
 import unheart from "../../img/unheart.png";
-import EditContentModal from "../../Modal/EditContentModal";
 import EditWritingPageForm from "./Edit/EditWritingPageForm";
 import Tags from "./Tags";
+import CheckingModal from "../../Modal/CheckingModal";
 
 const ContentBox = styled.div`
   background: #f0cdcd;
@@ -55,13 +55,22 @@ const ContentView = () => {
   const [className, getClassName] = useState("");
   const [deleteState, getDelete] = useState(true);
   const [nickName, setnickName] = useState("");
-  const getToken = window.sessionStorage.getItem("token");
   const [data, getData] = useState("");
+  const getToken = window.sessionStorage.getItem("token");
   const [likeButton, setLikeButton] = useState(unheart);
   const [countLike, setCountLike] = useState(0);
   const [isLike, setIsLike] = useState(false); //db에 저장 필요! (true/false)
   const [tags, getTags] = useState([]);
-  const [contentData, getContentData] = useState("");
+  const [checkModal, getCheckModal] = useState(false);
+
+  const openModalModify = () => {
+    getCheckModal(!checkModal);
+    getChildren("일기수정");
+  };
+
+  const closeCheckModal = () => {
+    getCheckModal(!checkModal);
+  };
 
   const openModal = () => {
     getModal(!modal);
@@ -221,20 +230,24 @@ const ContentView = () => {
                   />
                   <span>{countLike}</span>
                 </LikeButton>
-                <EditContentModal
+                <button
+                  onClick={openModalModify}
                   style={
                     deleteState ? { display: "none" } : { display: "block" }
                   }
                 >
-                  일기 수정
-                </EditContentModal>
+                  일기수정
+                </button>
+                <CheckingModal visible={checkModal} onClose={closeCheckModal}>
+                  {children}
+                </CheckingModal>
                 <button
                   onClick={deleteContent}
                   style={
                     deleteState ? { display: "none" } : { display: "block" }
                   }
                 >
-                  일기 삭제
+                  일기삭제
                 </button>
               </div>
             </ContentBox>
