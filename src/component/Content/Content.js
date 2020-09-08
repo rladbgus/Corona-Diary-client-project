@@ -47,6 +47,7 @@ const ContentView = () => {
   let contentId = splitUrl[4];
 
   const value = useContext(getLogin);
+  let history = useHistory();
 
   const [content, setContent] = useState("");
   const [comment, newComment] = useState("");
@@ -58,12 +59,9 @@ const ContentView = () => {
   const [nickName, setnickName] = useState("");
   const [data, getData] = useState("");
   const getToken = window.sessionStorage.getItem("token");
-  const [likeButton, setLikeButton] = useState(unheart);
   const [countLike, setCountLike] = useState(0);
-  const [isLike, setIsLike] = useState(false); //db에 저장 필요! (true/false)
   const [tags, getTags] = useState([]);
   const [checkModal, getCheckModal] = useState(false);
-  let history = useHistory();
 
   const openModalModify = () => {
     getCheckModal(!checkModal);
@@ -89,17 +87,16 @@ const ContentView = () => {
         headers: { "x-access-token": getToken },
       })
       .then(res => {
-        // console.log(res.data.Content);
         setContent(res.data.Content);
         setnickName(res.data.Content.user.nickName);
         getTags(res.data.Content.tag);
         deleteButton();
+        setCountLike(res.data.like);
+        value.setIsLike(res.data.Content.like[0].like)
         // userCommentBtn();
         // getCommentUser(res.data.contentDetail.comment.user.id);
-        // setCountLike();
       })
-      .catch((err) => {
-        console.log(err)
+      .catch(() => {
         getChildren("로그인 후 이용하실 수 있습니다^^");
         getClassName("content");
         openModal();
@@ -130,18 +127,14 @@ const ContentView = () => {
 
   //좋아요버튼
   const setLikeBtn = () => {
-    if (isLike) {
-      setIsLike(!isLike);
-      setLikeButton(unheart);
-      minusLike();
+    if (value.isLike) {
+      plusLike();
     } else {
-      setIsLike(!isLike);
-      setLikeButton(heart);
       plusLike();
     }
   };
 
-  // 좋아요 증가
+  // 좋아요 증감
   const plusLike = () => {
     axios
       .post(
@@ -150,26 +143,13 @@ const ContentView = () => {
         { headers: { "x-access-token": getToken } }
       )
       .then(res => {
-        setCountLike(res.data.like);
-      });
-  };
-
-  // 좋아요 감소
-  const minusLike = () => {
-    axios
-      .patch(
-        `http://localhost:5000/content/${contentId}/like`,
-        { like: countLike },
-        { headers: { "x-access-token": getToken } }
-      )
-      .then(res => {
-        setCountLike(res.data.like);
+        setCountLike(res.data.count);
+        value.setIsLike(res.data.like)
       });
   };
 
   //댓글기능
   const postComment = e => {
-    console.log("postComment");
     e.preventDefault();
     setCommneted([comment, ...content.comment]);
     axios
@@ -192,13 +172,13 @@ const ContentView = () => {
       .delete(`http://localhost:5000/comment/${value}`, {
         headers: { "x-access-token": getToken },
       })
-      .then(res => {
+      .then(() => {
         getChildren("댓글이 삭제되었습니다");
         getClassName("deleteComment");
         openModal();
         history.go(`/comment/${value}`);
       })
-      .catch(res => {
+      .catch(() => {
         getChildren("삭제 권한이 없습니다");
         getClassName("deleteComment");
         openModal();
@@ -252,15 +232,27 @@ const ContentView = () => {
                 <div>
                   <Tags data={tags} />
                 </div>
+
                 <LikeButton>
-                  <img
-                    className="LikeImg"
-                    src={likeButton}
-                    alt=""
-                    onClick={setLikeBtn}
-                  />
-                  <span>{countLike}</span>
+                  {value.isLike ?
+                    <img
+                      className="LikeImg"
+                      src={heart}
+                      alt=""
+                      onClick={setLikeBtn}
+                    />
+                    :
+                    <img
+                      className="LikeImg"
+                      src={unheart}
+                      alt=""
+                      onClick={setLikeBtn}
+                    />}
+
+
+                  {countLike ? <span>{countLike}</span> : ''}
                 </LikeButton>
+
                 <button
                   onClick={openModalModify}
                   style={
@@ -272,6 +264,7 @@ const ContentView = () => {
                 <CheckingModal visible={checkModal} onClose={closeCheckModal}>
                   {children}
                 </CheckingModal>
+
                 <button
                   onClick={deleteContent}
                   style={
@@ -282,6 +275,7 @@ const ContentView = () => {
                 </button>
               </div>
             </ContentBox>
+
             <CommentBox>
               <div className="Comment">
                 <input
