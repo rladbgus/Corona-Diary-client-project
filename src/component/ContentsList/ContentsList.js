@@ -1,8 +1,7 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-// import Contentpage from "../Content/Content";
+import ContentListForm from "./ContentListForm";
 
 const Content = styled.div`
   background: #ffac9a;
@@ -12,6 +11,7 @@ const Content = styled.div`
 const ContentsListView = () => {
   const [contentList, setContentList] = useState(null);
   const getToken = window.sessionStorage.getItem("token");
+  const [searchList, setSearchList] = useState("");
 
   useEffect(() => {
     const ac = new AbortController();
@@ -20,44 +20,38 @@ const ContentsListView = () => {
         headers: { "x-access-token": getToken },
       })
       .then(res => {
-        setContentList([...res.data.contentList]);
-        // SearchFn(contentList)
+        setContentList(res.data.contentList);
+        setSearchList(res.data.contentList);
       });
+
     return () => {
       ac.abort();
     };
   }, []);
-  console.log(contentList);
 
-  const [searchText, setSearch] = useState('');
-  const [searchList, setSearchList] = useState([]);
-
-  // const SearchFn = (data) => {
-  //   return setSearchList(
-  //     data.fliter((contact) => {
-  //       return contact.title.indexof(searchText) > -1;
-  //     }))
-  // }
-  console.log(searchList);
+  const handelSearch = event => {
+    setSearchList(
+      contentList.filter(list => list.title.indexOf(event.target.value) !== -1)
+    );
+  };
 
   return (
     <center className="ContentsList">
       <div className="SerchInput">
-        <input type="text" placeholder="검색어를 입력하시오"
-          onChange={e => setSearch(e.target.value)} value={searchText}></input>
+        <input
+          type="text"
+          placeholder="검색어를 입력하시오"
+          onChange={handelSearch}
+          defaultValue=""
+        ></input>
       </div>
 
       <div className="ContentListBox">
-
-        {searchList?.map(data => (
-          <Content key={data.id}>
-            <Link to={`/content/${data.id}`}>
-              <h1>{data.title}</h1>
-              <span>{data.createdAt}</span>
-              <p>{data.text}</p>
-            </Link>
-          </Content>
-        ))}
+        {searchList
+          ? searchList.map(list => (
+              <ContentListForm data={list} key={list.id} />
+            ))
+          : ""}
       </div>
     </center>
   );

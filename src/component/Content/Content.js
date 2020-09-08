@@ -9,6 +9,7 @@ import unheart from "../../img/unheart.png";
 import EditWritingPageForm from "./Edit/EditWritingPageForm";
 import Tags from "./Tags";
 import CheckingModal from "../../Modal/CheckingModal";
+import { useHistory } from "react-router-dom";
 
 const ContentBox = styled.div`
   background: #f0cdcd;
@@ -62,6 +63,7 @@ const ContentView = () => {
   const [isLike, setIsLike] = useState(false); //db에 저장 필요! (true/false)
   const [tags, getTags] = useState([]);
   const [checkModal, getCheckModal] = useState(false);
+  let history = useHistory();
 
   const openModalModify = () => {
     getCheckModal(!checkModal);
