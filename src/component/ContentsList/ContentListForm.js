@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Content = styled.div`
   background: #ffac9a;
@@ -10,9 +11,11 @@ const Content = styled.div`
 const ContentsListForm = ({ data }) => {
   return (
     <Content>
-      <div>{data.title}</div>
-      <div>{data.text}</div>
-      <div>{data.createdAt}</div>
+      <Link to={`/content/${data.id}`}>
+        <div>{data.title}</div>
+        <div>{data.text}</div>
+        <div>{data.createdAt}</div>
+      </Link>
     </Content>
   );
 };

@@ -27,12 +27,9 @@ const AlertModal = ({ children, visible, onClose, className }) => {
       } else {
         history.push("/");
       }
-    } else if (className === "signup" || className === "content") {
+    } else if (className === "signup" || className === "content" || className === "deleteComment") {
       onClose();
-    } else if (className === "deleteComment") {
-      onClose();
-    }
-    else {
+    } else {
       onClose();
     }
   };
