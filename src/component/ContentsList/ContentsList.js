@@ -21,20 +21,35 @@ const ContentsListView = () => {
       })
       .then(res => {
         setContentList([...res.data.contentList]);
+        // SearchFn(contentList)
       });
     return () => {
       ac.abort();
     };
   }, []);
-  // console.log(contentList);
+  console.log(contentList);
+
+  const [searchText, setSearch] = useState('');
+  const [searchList, setSearchList] = useState([]);
+
+  // const SearchFn = (data) => {
+  //   return setSearchList(
+  //     data.fliter((contact) => {
+  //       return contact.title.indexof(searchText) > -1;
+  //     }))
+  // }
+  console.log(searchList);
 
   return (
     <center className="ContentsList">
       <div className="SerchInput">
-        <input type="text" placeholder="검색어를 입력하시오"></input>
+        <input type="text" placeholder="검색어를 입력하시오"
+          onChange={e => setSearch(e.target.value)} value={searchText}></input>
       </div>
+
       <div className="ContentListBox">
-        {contentList?.map(data => (
+
+        {searchList?.map(data => (
           <Content key={data.id}>
             <Link to={`/content/${data.id}`}>
               <h1>{data.title}</h1>
