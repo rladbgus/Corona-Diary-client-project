@@ -7,6 +7,7 @@ const WritingPageForm = ({ history }) => {
   const [data, getData] = useState({
     tags: [],
   });
+  const [image, getImage] = useState("");
 
   const handleClick = (name, value) => {
     getData({
@@ -36,14 +37,23 @@ const WritingPageForm = ({ history }) => {
     });
   };
 
+  const handleImg = img => {
+    console.log(img);
+    getImage(img);
+  };
+
   return (
     <>
-      <WritingForm handleChange={handleChange} handleTags={handleTags} />
+      <WritingForm
+        handleChange={handleChange}
+        handleTags={handleTags}
+        handleImg={handleImg}
+      />
       <Survey
         handleClick={handleClick}
         handleNumberChange={handleNumberChange}
       />
-      <SubmitButton data={data} history={history} />
+      <SubmitButton data={data} history={history} image={image} />
     </>
   );
 };

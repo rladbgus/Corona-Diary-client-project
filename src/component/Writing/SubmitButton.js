@@ -14,7 +14,7 @@ const Container = styled.div`
   margin: 10px;
 `;
 
-const SubmitButton = ({ data, history }) => {
+const SubmitButton = ({ data, history, image }) => {
   const url = "http://localhost:5000/content";
   const value = useContext(getLogin);
   const [modal, getModal] = useState(false);
@@ -31,11 +31,11 @@ const SubmitButton = ({ data, history }) => {
     getModal(!modal);
   };
 
-  const submitButton = (event) => {
+  const submitButton = event => {
     event.preventDefault();
 
     const formData = new FormData();
-    // formData.append("imgFile", "");
+    formData.append("imgFile", image);
     formData.append("title", data.title);
     formData.append("text", data.text);
     formData.append("covid_date", data.covid_date);
@@ -47,7 +47,6 @@ const SubmitButton = ({ data, history }) => {
     formData.append("q_fatigue", data.q_fatigue);
     formData.append("q_psy", data.q_psy);
     formData.append("tags", data.tags);
-
 
     if (Object.keys(data).length !== 11) {
       getChildren("빈 항목이 있습니다. 채워주세요");
@@ -64,8 +63,8 @@ const SubmitButton = ({ data, history }) => {
       getClassName("checktext");
       return openModal();
     }
-    console.log(formData.get("title"));
-    console.log(formData.get("text"));
+    // console.log(formData.get("title"));
+    // console.log(formData.get("imgFile"));
 
     axios
       .post(url, formData, {
@@ -73,7 +72,7 @@ const SubmitButton = ({ data, history }) => {
           "x-access-token": getToken,
         },
       })
-      .then((res) => {
+      .then(res => {
         console.log(res.data);
         history.push(`/content/${res.data.contentId}`);
       });
