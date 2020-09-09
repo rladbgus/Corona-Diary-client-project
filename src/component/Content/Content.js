@@ -56,8 +56,6 @@ const ContentView = () => {
   const [commentId, getCommentId] = useState("");
   const getNickName = window.sessionStorage.getItem("nickName");
 
-  console.log(getNickName);
-
   const openModalModify = () => {
     getCheckModal(!checkModal);
     getChildren("일기수정");
@@ -73,6 +71,7 @@ const ContentView = () => {
   };
   useEffect(() => {
     const ac = new AbortController();
+    console.log(contentId);
     axios
       .get(`http://localhost:5000/content/${contentId}`, {
         headers: { "x-access-token": getToken },
@@ -86,10 +85,12 @@ const ContentView = () => {
         value.setIsLike(res.data.Content.like[0].like);
       })
       .catch(() => {
-        getChildren("로그인 후 이용하실 수 있습니다^^");
-        getClassName("content");
-        openModal();
-        userInfo();
+        if (!getToken) {
+          getChildren("로그인 후 이용하실 수 있습니다^^");
+          getClassName("content");
+          openModal();
+          userInfo();
+        }
       });
     return () => {
       ac.abort();
@@ -223,15 +224,14 @@ const ContentView = () => {
                       onClick={setLikeBtn}
                     />
                   ) : (
-                      <img
-                        className="LikeImg"
-                        src={unheart}
-                        alt=""
-                        onClick={setLikeBtn}
-                      />
-                    )}
+                    <img
+                      className="LikeImg"
+                      src={unheart}
+                      alt=""
+                      onClick={setLikeBtn}
+                    />
+                  )}
                   {countLike ? <span>{countLike}</span> : ""}
-
                 </LikeButton>
                 <button
                   onClick={openModalModify}
@@ -274,24 +274,25 @@ const ContentView = () => {
                       <br />
                       {data.comment}
                       <br />
+
                       <button key={data.id} onClick={() => deleteComment(data.id)} style={
                         data.user.nickName === getNickName ?
                           { display: "block" } : { display: "none" }
                       }>
+
                         댓글 삭제
                       </button>
                     </CommentLi>
                   ))}
                 </>
-
               </div>
             </CommentBox>
           </>
         ) : (
-            <Container>
-              <EditWritingPageForm content={content} token={getToken} />
-            </Container>
-          )}
+          <Container>
+            <EditWritingPageForm content={content} token={getToken} />
+          </Container>
+        )}
       </>
       <AlertModal
         visible={modal}
