@@ -3,7 +3,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import getLogin from "../Context/Context";
 
-const AlertModal = ({ children, visible, onClose, className }) => {
+const AlertModal = ({ children, visible, onClose, className, commentId }) => {
   const value = useContext(getLogin);
   let history = useHistory();
   let location = useLocation();
@@ -15,7 +15,8 @@ const AlertModal = ({ children, visible, onClose, className }) => {
     } else if (
       className === "login" ||
       className === "deleteCotent" ||
-      className === "deleteCotentError"
+      className === "deleteCotentError" ||
+      className === "content"
     ) {
       onClose();
       history.push("/");
@@ -26,12 +27,15 @@ const AlertModal = ({ children, visible, onClose, className }) => {
       } else {
         history.push("/");
       }
-    } else if (className === "signup" || className === "content") {
+    } else if (className === "content") {
       onClose();
+    } else if (className === "signup") {
+      onClose();
+      history.push("/user/login");
     } else if (className === "deleteComment") {
       onClose();
-    }
-    else {
+      history.go(`/comment/${commentId}`);
+    } else {
       onClose();
     }
   };

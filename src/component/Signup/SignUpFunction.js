@@ -47,20 +47,35 @@ const SignUpFunction = ({ history }) => {
   const emailCheckingButton = event => {
     event.preventDefault();
     let checkEmail = {};
-    checkEmail.email = email;
+    checkEmail.email = email.trim();
+    if (email === "") {
+      getChildren("이메일을 입력 바랍니다.");
+      getClassName("inputEmail");
+      return openModal();
+    }
+    // if (email.match(/(\w+)+[@]+(\w+)+[.]+(\w+)/g) === null) {
+    //   getChildren("이메일 형식이 아닙니다.");
+    //   getClassName("emailType");
+    //   return openModal();
+    // }
     axios
       .post(url + "/email", checkEmail)
       .then(res => {
         if (res.status === 200) {
           getChildren("사용할 수 있는 이메일주소입니다");
-          getClassName("emailcheck");
+          getClassName("emailCheck");
+          return openModal();
+        } else {
+          getChildren("이메일이 존재합니다.");
+          getClassName("emailExist");
+          setEmail("");
           return openModal();
         }
       })
       .catch(err => {
         if (err) {
-          getChildren("서버에러입니다");
-          getClassName("emailcheckerror");
+          getChildren("서버에러입니다 곧 시정하겠습니다.");
+          getClassName("emailCheckError");
           return openModal();
         }
       });
@@ -69,20 +84,30 @@ const SignUpFunction = ({ history }) => {
   const nickNameCheckingButton = event => {
     event.preventDefault();
     let checkNickName = {};
-    checkNickName.nickName = nickName;
+    checkNickName.nickName = nickName.trim();
+    if (nickName === "") {
+      getChildren("닉네임을 입력 바랍니다.");
+      getClassName("inputEmail");
+      return openModal();
+    }
     axios
       .post(url + "/nickName", checkNickName)
       .then(res => {
-        if (res.status === 201) {
+        if (res.status === 200) {
           getChildren("사용할 수 있는 닉네임입니다");
-          getClassName("emailcheck");
+          getClassName("nickNameCheck");
+          return openModal();
+        } else {
+          getChildren("닉네임이 존재합니다.");
+          getClassName("nickNameExist");
+          setNickName("");
           return openModal();
         }
       })
       .catch(err => {
         if (err) {
-          getChildren("서버에러입니다");
-          getClassName("emailcheckerror");
+          getChildren("서버에러입니다 곧 시정하겠습니다.");
+          getClassName("nickNameCheckError");
           return openModal();
         }
       });
@@ -99,11 +124,17 @@ const SignUpFunction = ({ history }) => {
     if (password1 !== password2) {
       getChildren("비밀번호가 일치하지 않습니다.");
       getClassName("passwordchecke");
-      document.querySelector(".input_password1").value = "";
-      document.querySelector(".input_password2").value = "";
+      setPassword1("");
+      setPassword2("");
       return openModal();
     }
-    console.log(data);
+    // if (password2.length < 8) {
+    //   getChildren("비밀번호는 8자리 이상으로 설정바랍니다.");
+    //   getClassName("passwordchecke");
+    //   setPassword1("");
+    //   setPassword2("");
+    //   return openModal();
+    // }
     await axios.post(url, data).then(res => {
       getChildren("회원가입이 완료되었습니다:)");
       getClassName("signup");
@@ -119,6 +150,7 @@ const SignUpFunction = ({ history }) => {
           className="input_email"
           type="email"
           name="email"
+          value={email}
           onChange={handleChange}
         />
         <button className="email_check" onClick={emailCheckingButton}>
@@ -131,6 +163,7 @@ const SignUpFunction = ({ history }) => {
           className="input_password1"
           type="password"
           name="password1"
+          value={password1}
           onChange={handleChange}
         />
       </div>
@@ -140,6 +173,7 @@ const SignUpFunction = ({ history }) => {
           className="input_password2"
           type="password"
           name="password2"
+          value={password2}
           onChange={handleChange}
         />
       </div>
@@ -149,6 +183,7 @@ const SignUpFunction = ({ history }) => {
           className="input_nickname"
           type="text"
           name="nickName"
+          value={nickName}
           onChange={handleChange}
         />
         <button className="nickname_check" onClick={nickNameCheckingButton}>
