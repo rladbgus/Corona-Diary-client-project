@@ -3,7 +3,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import getLogin from "../Context/Context";
 
-const AlertModal = ({ children, visible, onClose, className }) => {
+const AlertModal = ({ children, visible, onClose, className, value }) => {
   const value = useContext(getLogin);
   let history = useHistory();
   let location = useLocation();
