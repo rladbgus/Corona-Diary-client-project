@@ -15,7 +15,7 @@ const SurveyContainer = styled.span`
   flex-direction: row;
 `;
 
-const EditSurveyForm = ({ data, handleClick, name }) => {
+const EditSurveyForm = ({ data, handleClick, name, check1, check2 }) => {
   let splitUrl = window.location.href.split("/");
   let contentId = splitUrl[4];
   const getToken = window.sessionStorage.getItem("token");
@@ -38,9 +38,12 @@ const EditSurveyForm = ({ data, handleClick, name }) => {
         headers: { "x-access-token": getToken },
       })
       .then(res => {
-        getValue(res.data.contentDetail[name]);
+        if (res.data.Content) {
+          getValue(res.data.Content[name]);
+          handleOption();
+        }
       });
-  }, []);
+  }, [value]);
 
   console.log(value);
 
@@ -86,7 +89,7 @@ const EditSurveyForm = ({ data, handleClick, name }) => {
             약1
             <div>
               <input
-                defaultChecked={checkValue1}
+                defaultChecked={check1}
                 type="radio"
                 name={`question${data.id}`}
                 value="1"
@@ -99,7 +102,7 @@ const EditSurveyForm = ({ data, handleClick, name }) => {
             <br></br>
             <div>
               <input
-                defaultChecked={checkValue2}
+                defaultChecked={check2}
                 type="radio"
                 name={`question${data.id}`}
                 value="2"

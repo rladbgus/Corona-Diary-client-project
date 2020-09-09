@@ -9,7 +9,7 @@ import unheart from "../../img/unheart.png";
 import EditWritingPageForm from "./Edit/EditWritingPageForm";
 import Tags from "./Tags";
 import CheckingModal from "../../Modal/CheckingModal";
-import { useHistory } from "react-router-dom";
+
 const ContentBox = styled.div`
   background: #f0cdcd;
 `;
@@ -35,11 +35,11 @@ const Container = styled.div`
   align-items: center;
   margin: 10px;
 `;
+
 const ContentView = () => {
   let splitUrl = window.location.href.split("/");
   let contentId = splitUrl[4];
   const value = useContext(getLogin);
-  let history = useHistory();
   const [content, setContent] = useState("");
   const [comment, newComment] = useState("");
   const [commented, setCommneted] = useState([]);
@@ -54,6 +54,8 @@ const ContentView = () => {
   const [tags, getTags] = useState([]);
   const [checkModal, getCheckModal] = useState(false);
   const [commentId, getCommentId] = useState("");
+  const getNickName = window.sessionStorage.getItem("nickName");
+
   const openModalModify = () => {
     getCheckModal(!checkModal);
     getChildren("일기수정");
@@ -69,32 +71,34 @@ const ContentView = () => {
   };
   useEffect(() => {
     const ac = new AbortController();
+    console.log(contentId);
     axios
       .get(`http://localhost:5000/content/${contentId}`, {
         headers: { "x-access-token": getToken },
       })
       .then(res => {
-        console.log(res.data.Content);
         setContent(res.data.Content);
         setnickName(res.data.Content.user.nickName);
         getTags(res.data.Content.tag);
         deleteButton();
         setCountLike(res.data.like);
         value.setIsLike(res.data.Content.like[0].like);
-        // userCommentBtn();
-        // getCommentUser(res.data.contentDetail.comment.user.id);
       })
       .catch(() => {
-        getChildren("로그인 후 이용하실 수 있습니다^^");
-        getClassName("content");
-        openModal();
-        userInfo();
+        if (!getToken) {
+          getChildren("로그인 후 이용하실 수 있습니다^^");
+          getClassName("content");
+          openModal();
+          userInfo();
+        }
       });
     return () => {
       ac.abort();
     };
   }, [commented, nickName]);
+
   const allComment = content.comment;
+
   const userInfo = () => {
     let ac = new AbortController();
     axios
@@ -110,6 +114,7 @@ const ContentView = () => {
       ac.abort();
     };
   };
+
   //좋아요버튼
   const setLikeBtn = () => {
     if (value.isLike) {
@@ -118,6 +123,7 @@ const ContentView = () => {
       plusLike();
     }
   };
+
   // 좋아요 증감
   const plusLike = () => {
     axios
@@ -131,6 +137,7 @@ const ContentView = () => {
         value.setIsLike(res.data.like);
       });
   };
+
   //댓글기능
   const postComment = e => {
     e.preventDefault();
@@ -148,6 +155,7 @@ const ContentView = () => {
         newComment("");
       });
   };
+
   //댓글 삭제
   const deleteComment = value => {
     axios
@@ -159,7 +167,6 @@ const ContentView = () => {
         getClassName("deleteComment");
         getCommentId(value);
         openModal();
-        // history.go(`/comment/${value}`);
       })
       .catch(() => {
         getChildren("삭제 권한이 없습니다");
@@ -167,18 +174,14 @@ const ContentView = () => {
         openModal();
       });
   };
-  // 댓글 삭제,수정버튼 생성유무
-  // const userCommentBtn = () => {
-  //   if (value.nickName === commentUser) {
-  //     setUserComment(!userComment)
-  //   }
-  // }
+
   //일기 삭제버튼 생성유무
   const deleteButton = () => {
     if (value.nickName === nickName) {
       getDelete(!deleteState);
     }
   };
+
   //일기 삭제
   const deleteContent = () => {
     axios
@@ -197,6 +200,7 @@ const ContentView = () => {
         return openModal();
       });
   };
+
   return (
     <center className="ContentViewBox">
       <>
@@ -237,6 +241,7 @@ const ContentView = () => {
                 >
                   일기수정
                 </button>
+
                 <CheckingModal visible={checkModal} onClose={closeCheckModal}>
                   {children}
                 </CheckingModal>
@@ -259,7 +264,8 @@ const ContentView = () => {
                   onChange={e => newComment(e.target.value)}
                 />
                 <button onClick={postComment}>댓글 작성</button>
-                <div>
+
+                <>
                   {allComment?.map(data => (
                     <CommentLi key={data.id}>
                       {data.user.nickName}
@@ -268,15 +274,17 @@ const ContentView = () => {
                       <br />
                       {data.comment}
                       <br />
-                      <button onClick={() => deleteComment(data.id)}>
+
+                      <button key={data.id} onClick={() => deleteComment(data.id)} style={
+                        data.user.nickName === getNickName ?
+                          { display: "block" } : { display: "none" }
+                      }>
+
                         댓글 삭제
                       </button>
-                      {/* style={
-                        userComment ? { display: "none" } : { display: "block" }
-                      } */}
                     </CommentLi>
                   ))}
-                </div>
+                </>
               </div>
             </CommentBox>
           </>

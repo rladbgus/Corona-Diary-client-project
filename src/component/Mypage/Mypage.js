@@ -66,10 +66,10 @@ const Mypage = ({ history }) => {
           </CheckingModal>
         </Container>
       ) : (
-        <Container>
-          <SettingInfo userInfo={data} token={getToken} />
-        </Container>
-      )}
+          <Container>
+            <SettingInfo userInfo={data} token={getToken} />
+          </Container>
+        )}
     </>
   );
 };

@@ -13,7 +13,8 @@ const Login = () => {
   const [children, getChildren] = useState("");
   const [className, getClassName] = useState("");
 
-  // console.log(value);
+  console.log(value.nickname);
+
 
   const openModal = () => {
     getModal(!modal);
@@ -38,9 +39,9 @@ const Login = () => {
         password: password,
       })
       .then(res => {
-        // console.log(res);
+        console.log(res);
         if (res.status === 200) {
-          value.setNickName(res.data.nickName);
+          value.handleSetNickName(res.data.nickName);
           getChildren("로그인에 성공했습니다");
           getClassName("login");
           value.handleLogin();
@@ -48,7 +49,7 @@ const Login = () => {
           openModal();
         }
       })
-      .catch( () => {
+      .catch(() => {
         getChildren("아이디,비밀번호를 확인해주세요");
         getClassName("error");
         return openModal();
@@ -73,7 +74,6 @@ const Login = () => {
           <GoogleLogin
             clientId="333133070398-amgnp101osuduqvjn2vacf3p20j2kmgn.apps.googleusercontent.com"
             onSuccess={res => {
-              // console.log(res);
               value.handleLogin();
               value.handleToken(res.accessToken);
               getChildren("로그인에 성공했습니다");
