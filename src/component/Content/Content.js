@@ -18,6 +18,7 @@ const CommentBox = styled.div`
 `;
 const CommentLi = styled.li`
   background: #f7ffaf;
+  border: 2px solid;
 `;
 const LikeButton = styled.div`
   .likeBtn {
@@ -51,10 +52,14 @@ const ContentView = () => {
   const [data, getData] = useState("");
   const getToken = window.sessionStorage.getItem("token");
   const [countLike, setCountLike] = useState(0);
+  // const [isLike, setIsLike] = useState(false);
   const [tags, getTags] = useState([]);
   const [checkModal, getCheckModal] = useState(false);
   const [commentId, getCommentId] = useState("");
   const getNickName = window.sessionStorage.getItem("nickName");
+  const [replyBtn, setReplyBtn] = useState(false);
+
+
 
   const openModalModify = () => {
     getCheckModal(!checkModal);
@@ -82,7 +87,7 @@ const ContentView = () => {
         getTags(res.data.Content.tag);
         deleteButton();
         setCountLike(res.data.like);
-        value.setIsLike(res.data.Content.like[0].like);
+        value.setIsLike(res.data.userLike);
       })
       .catch(() => {
         if (!getToken) {
@@ -134,7 +139,7 @@ const ContentView = () => {
       )
       .then(res => {
         setCountLike(res.data.count);
-        value.setIsLike(res.data.like);
+        value.setIsLike(!value.isLike);
       });
   };
 
@@ -200,6 +205,11 @@ const ContentView = () => {
         return openModal();
       });
   };
+
+  //답글
+  const handleReplyBtn = () => {
+    setReplyBtn(!replyBtn);
+  }
 
   return (
     <center className="ContentViewBox">
@@ -282,6 +292,14 @@ const ContentView = () => {
 
                         댓글 삭제
                       </button>
+
+                      <button onClick={handleReplyBtn}>답글 달기</button>
+                      <br />
+
+                      <div id={data.id} style={replyBtn ? { display: "block" } : { display: "none" }}>
+                        <input placeholder="답글을 작성하세요" ></input>
+                        <button>답글 작성</button>
+                      </div>
                     </CommentLi>
                   ))}
                 </>

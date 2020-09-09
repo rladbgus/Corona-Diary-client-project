@@ -48,7 +48,6 @@ const MyContentsListView = () => {
       ac.abort();
     };
   }, []);
-  console.log(myContentList);
 
   return (
     <Border1>
