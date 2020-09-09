@@ -9,16 +9,20 @@ import unheart from "../../img/unheart.png";
 import EditWritingPageForm from "./Edit/EditWritingPageForm";
 import Tags from "./Tags";
 import CheckingModal from "../../Modal/CheckingModal";
+import example from "../../img/corona_logo.png";
 
 const ContentBox = styled.div`
   background: #f0cdcd;
+
+  img {
+    margin-top: 20px;
+  }
 `;
 const CommentBox = styled.div`
   background: #abe8e1;
 `;
 const CommentLi = styled.li`
   background: #f7ffaf;
-  border: 2px solid;
 `;
 const LikeButton = styled.div`
   .likeBtn {
@@ -52,14 +56,10 @@ const ContentView = () => {
   const [data, getData] = useState("");
   const getToken = window.sessionStorage.getItem("token");
   const [countLike, setCountLike] = useState(0);
-  // const [isLike, setIsLike] = useState(false);
   const [tags, getTags] = useState([]);
   const [checkModal, getCheckModal] = useState(false);
   const [commentId, getCommentId] = useState("");
   const getNickName = window.sessionStorage.getItem("nickName");
-  const [replyBtn, setReplyBtn] = useState(false);
-
-
 
   const openModalModify = () => {
     getCheckModal(!checkModal);
@@ -76,7 +76,7 @@ const ContentView = () => {
   };
   useEffect(() => {
     const ac = new AbortController();
-    console.log(contentId);
+    // console.log(contentId);
     axios
       .get(`http://localhost:5000/content/${contentId}`, {
         headers: { "x-access-token": getToken },
@@ -87,7 +87,7 @@ const ContentView = () => {
         getTags(res.data.Content.tag);
         deleteButton();
         setCountLike(res.data.like);
-        value.setIsLike(res.data.userLike);
+        value.setIsLike(res.data.Content.like[0].like);
       })
       .catch(() => {
         if (!getToken) {
@@ -139,7 +139,7 @@ const ContentView = () => {
       )
       .then(res => {
         setCountLike(res.data.count);
-        value.setIsLike(!value.isLike);
+        value.setIsLike(res.data.like);
       });
   };
 
@@ -205,11 +205,7 @@ const ContentView = () => {
         return openModal();
       });
   };
-
-  //답글
-  const handleReplyBtn = () => {
-    setReplyBtn(!replyBtn);
-  }
+  console.log(content);
 
   return (
     <center className="ContentViewBox">
@@ -218,6 +214,11 @@ const ContentView = () => {
           <>
             <ContentBox>
               <div className="Content">
+                {content.referenceFile ? (
+                  <img src={content.referenceFile} alt="" />
+                ) : (
+                  <img src={example} alt="" width="320" height="200" />
+                )}
                 <h1>{content.title}</h1>
                 <span>{content.createdAt}</span>
                 <div className="TextArea">{content.text}</div>
@@ -285,21 +286,17 @@ const ContentView = () => {
                       {data.comment}
                       <br />
 
-                      <button key={data.id} onClick={() => deleteComment(data.id)} style={
-                        data.user.nickName === getNickName ?
-                          { display: "block" } : { display: "none" }
-                      }>
-
+                      <button
+                        key={data.id}
+                        onClick={() => deleteComment(data.id)}
+                        style={
+                          data.user.nickName === getNickName
+                            ? { display: "block" }
+                            : { display: "none" }
+                        }
+                      >
                         댓글 삭제
                       </button>
-
-                      <button onClick={handleReplyBtn}>답글 달기</button>
-                      <br />
-
-                      <div id={data.id} style={replyBtn ? { display: "block" } : { display: "none" }}>
-                        <input placeholder="답글을 작성하세요" ></input>
-                        <button>답글 작성</button>
-                      </div>
                     </CommentLi>
                   ))}
                 </>
