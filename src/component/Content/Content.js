@@ -290,7 +290,7 @@ const ContentView = () => {
         visible={modal}
         onClose={closeModal}
         className={className}
-        value={commentId}
+        commentId={commentId}
       >
         {children}
       </AlertModal>
