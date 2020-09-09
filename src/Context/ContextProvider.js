@@ -22,6 +22,11 @@ const LoginProvider = ({ children }) => {
     window.sessionStorage.setItem("token", value);
   };
 
+  const handleSetNickName = (value) => {
+    setNickName(value);
+    window.sessionStorage.setItem("nickName", value)
+  }
+
   useEffect(() => {
     let ac = new AbortController();
     if (getToken) {
@@ -42,7 +47,7 @@ const LoginProvider = ({ children }) => {
         isChecking,
         handleIsChecking,
         nickName,
-        setNickName,
+        handleSetNickName,
         isLike,
         setIsLike
       }}
