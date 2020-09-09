@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import SurveyForm from "./SurveyForm";
-import { surveydata } from "./surveydata";
+import EditSurveyForm from "./EditSurveyForm";
+import { surveydata } from "../../Writing/surveydata";
 
 const Container = styled.div`
   display: flex;
@@ -11,7 +11,11 @@ const Container = styled.div`
   margin: 10px;
 `;
 
-const Survey = ({ handleClick, handleNumberChange }) => {
+const EditSurvey = ({ handleClick, handleNumberChange, content }) => {
+  const [data, getData] = useState("");
+  useEffect(() => {
+    getData(content);
+  });
   return (
     <>
       <Container>
@@ -19,6 +23,7 @@ const Survey = ({ handleClick, handleNumberChange }) => {
         <div>
           <label>코로나걸린시기</label>
           <input
+            defaultValue={data.covid_date}
             name="covid_date"
             className="input_since"
             type="text"
@@ -28,6 +33,7 @@ const Survey = ({ handleClick, handleNumberChange }) => {
         <div>
           <label>질문1: 현재 체온은 어떠신가요?</label>
           <input
+            defaultValue={data.q_temp}
             name="q_temp"
             className="input_temperature"
             type="text"
@@ -35,11 +41,16 @@ const Survey = ({ handleClick, handleNumberChange }) => {
           />
         </div>
         {surveydata.map(list => (
-          <SurveyForm data={list} key={list.id} handleClick={handleClick} />
+          <EditSurveyForm
+            data={list}
+            key={list.id}
+            handleClick={handleClick}
+            name={list.name}
+          />
         ))}
       </Container>
     </>
   );
 };
 
-export default Survey;
+export default EditSurvey;

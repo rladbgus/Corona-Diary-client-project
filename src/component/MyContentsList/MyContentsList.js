@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Border1 = styled.div`
   width: 100%;
-  height: 600px;
   border: 1px solid #444444;
+  background-color: #b7a7f6;
 `;
 
 const Border2 = styled.div`
   width: 70%;
-  height: 500px;
   border: 1px solid #444444;
   margin-left: auto;
   margin-right: auto;
@@ -17,6 +18,7 @@ const Border2 = styled.div`
   padding-bottom: 20px;
   padding-left: 30px;
   padding-right: 30px;
+  background-color: #d7d0f1;
 `;
 
 const ContentStyle = styled.span`
@@ -29,19 +31,37 @@ const ContentStyle = styled.span`
 `;
 
 const MyContentsListView = () => {
+  const [myContentList, setMyContentList] = useState(null);
+  const getToken = window.sessionStorage.getItem("token");
+
+  useEffect(() => {
+    let ac = new AbortController();
+    axios
+      .get("http://localhost:5000/myContentList", {
+        headers: { "x-access-token": getToken },
+      })
+      .then(res => {
+        // console.log(res);
+        setMyContentList([...res.data.contentList]);
+      });
+    return () => {
+      ac.abort();
+    };
+  }, []);
+  console.log(myContentList);
+
   return (
     <Border1>
-      테두리1
       <Border2>
-        <ContentStyle>
-          {/* 나중에 정보 받아서 띄워주기 */}
-          <span className="contentSpan">test 1</span>
-          <span className="contentSpan">test 2</span>
-          <span className="contentSpan">test 3</span>
-          <span className="contentSpan">test 4</span>
-          <span className="contentSpan">test 5</span>
-          <span className="contentSpan">test 6</span>
-        </ContentStyle>
+        {myContentList?.map(data => (
+          <ContentStyle key={data.id}>
+            <Link to={`/content/${data.id}`}>
+              <h1>{data.title}</h1>
+              <span>{data.createdAt}</span>
+              <p>{data.text}</p>
+            </Link>
+          </ContentStyle>
+        ))}
       </Border2>
     </Border1>
   );

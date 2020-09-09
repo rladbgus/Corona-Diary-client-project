@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import getLogin from "../../Context/Context";
 import CheckingModal from "../../Modal/CheckingModal";
 
 const Container = styled.div`
@@ -12,12 +11,12 @@ const Container = styled.div`
   margin: 10px;
 `;
 
-const MypageForm = ({ token, history }) => {
+const MypageForm = ({ token }) => {
   const [data, getData] = useState("");
   const url = "http://localhost:5000";
-  const value = useContext(getLogin);
 
   useEffect(() => {
+    let mounted = true;
     axios
       .get(url + "/mypage", {
         headers: {
@@ -25,8 +24,13 @@ const MypageForm = ({ token, history }) => {
         },
       })
       .then(res => {
-        getData(res.data);
+        if (mounted) {
+          getData(res.data);
+        }
       });
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   return (
@@ -49,8 +53,6 @@ const MypageForm = ({ token, history }) => {
           <label>격리된 지역 : </label>
           <label>{data.city}</label>
         </div>
-        <CheckingModal>정보수정</CheckingModal>
-        <CheckingModal>회원탈퇴</CheckingModal>
       </Container>
     </>
   );

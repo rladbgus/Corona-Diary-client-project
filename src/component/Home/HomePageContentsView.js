@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { withRouter } from "react-router-dom";
-
+import { withRouter, Link } from "react-router-dom";
+import axios from "axios";
 
 const HomeContentsViewStyle = styled.div`
   background: #c2f3ee;
@@ -14,21 +14,48 @@ const HomeContentsViewStyle = styled.div`
   line-height: 30px;
 `;
 
+const MainContent = styled.div`
+  background: #ffac9a;
+  border-style: solid 3px;
+`;
+
 const HomePageContentsView = ({ history }) => {
+  const [mainContentList, setMainCotentList] = useState(null);
+  const getToken = window.sessionStorage.getItem("token");
+
+  useEffect(() => {
+    let ac = new AbortController();
+    axios
+      .get("http://localhost:5000/mainContentList", {
+        headers: { "x-access-token": getToken },
+      })
+      .then(res => {
+        setMainCotentList([...res.data.contentList]);
+      });
+    return () => {
+      ac.abort();
+    };
+  }, []);
 
   return (
     <HomeContentsViewStyle>
       <div className="homeContentsView">
         <div className="homeContentsContainer">
-          <button onClick={() => history.push('./contentslist')}>+</button>
-          <br />
-          <span className="homeContentsSpan">content1</span>
-          <span className="homeContentsSpan">content2</span>
-          <span className="homeContentsSpan">content3</span>
-          <br />
-          <span className="homeContentsSpan">content4</span>
-          <span className="homeContentsSpan">content5</span>
-          <span className="homeContentsSpan">content6</span>
+          <div className="addButton">
+            <button onClick={() => history.push("./contentslist")}>
+              +더보기
+            </button>
+          </div>
+
+          {mainContentList?.map(data => (
+            <MainContent key={data.id}>
+              <Link to={`/content/${data.id}`}>
+                <h1>{data.title}</h1>
+                <span>{data.createdAt}</span>
+                <p>{data.text}</p>
+              </Link>
+            </MainContent>
+          ))}
         </div>
       </div>
     </HomeContentsViewStyle>

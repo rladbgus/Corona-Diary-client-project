@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { NavLink, Link } from "react-router-dom";
 import logo from "../../img/corona_logo.png";
 import getLogin from "../../Context/Context";
+import AlertModal from "../../Modal/AlertModal";
 
 const Header = styled.div`
   position: fixed;
@@ -42,12 +43,21 @@ const Header = styled.div`
   }
 `;
 
-function Nav(props) {
+function Nav() {
   const [MenuState, setIsMenuOpen] = useState(false);
+  const [modal, getModal] = useState(false);
+  const [children, getChildren] = useState("");
+  const [className, getClassName] = useState("");
+
+  const openModal = () => {
+    getModal(!modal);
+  };
+
+  const closeModal = () => {
+    getModal(!modal);
+  };
 
   const value = useContext(getLogin);
-  console.log(value.googleToken);
-  console.log("로그인 상태", value.isLogin);
 
   return (
     <Header>
@@ -111,21 +121,24 @@ function Nav(props) {
             </NavLink>
           </li>
           <li>
-            <NavLink
-              to="/"
+            <div
               className="selected"
               onClick={() => {
+                getChildren("로그아웃 되었습니다:)");
+                getClassName("logout");
+                openModal();
                 value.handleLogin();
-                alert("로그아웃 되었습니다:)");
                 value.handleToken("");
-                value.handleGoogleToken("");
               }}
             >
               로그아웃
-            </NavLink>
+            </div>
           </li>
         </ul>
       </span>
+      <AlertModal visible={modal} onClose={closeModal} className={className}>
+        {children}
+      </AlertModal>
     </Header>
   );
 }

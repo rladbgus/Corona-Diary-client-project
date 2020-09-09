@@ -1,26 +1,31 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import getLogin from "../Context/Context";
+import Portal from "./Portal";
 
-const CheckingModal = ({ children }) => {
-  const [trigger, setTrigger] = useState(false);
+const CheckingModal = ({ children, visible, onClose }) => {
   const [password, getPassWord] = useState("");
   const value = useContext(getLogin);
   const url = "http://localhost:5000";
+  const getToken = window.sessionStorage.getItem("token");
   let history = useHistory();
 
-  const handleOpen = () => {
-    setTrigger(true);
-  };
+  useEffect(() => {
+    let ac = new AbortController();
+    return () => {
+      ac.abort();
+    };
+  }, []);
 
   const handleClose = () => {
-    setTrigger(false);
+    getPassWord("");
+    onClose();
   };
 
   const check = () => {
-    if (children === "정보수정") {
+    if (children === "정보수정" || children === "일기수정") {
       handleChecking();
     }
     if (children === "회원탈퇴") {
@@ -34,15 +39,13 @@ const CheckingModal = ({ children }) => {
     axios
       .post(url + "/mypage", data, {
         headers: {
-          "x-access-token": value.token,
+          "x-access-token": getToken,
         },
       })
       .then(res => {
         if (res.status === 200) {
           value.handleIsChecking();
-          handleClose();
-        } else {
-          return alert("잘못된 비밀번호 입니다.");
+          onClose();
         }
       });
   };
@@ -56,7 +59,7 @@ const CheckingModal = ({ children }) => {
         },
         {
           headers: {
-            "x-access-token": value.token,
+            "x-access-token": getToken,
           },
         }
       )
@@ -66,9 +69,7 @@ const CheckingModal = ({ children }) => {
           value.handleToken("");
           value.handleGoogleToken("");
           history.push("/");
-          handleClose();
-        } else {
-          return alert("잘못된 비밀번호 입니다.");
+          onClose();
         }
       });
   };
@@ -78,15 +79,15 @@ const CheckingModal = ({ children }) => {
   };
 
   return (
-    <>
-      <button onClick={handleOpen}>{children}</button>
-      <ModalOverlay visible={trigger} />
-      <ModalWrapper tabIndex="-1" visible={trigger}>
+    <Portal elementId={"modal-root"}>
+      <ModalOverlay visible={visible} />
+      <ModalWrapper tabIndex="-1" visible={visible}>
         <ModalInner tabIndex="0" className="modal-inner">
           <ModalInput
             type="password"
             className="modal-input"
             placeholder="비밀번호를 입력하세요!"
+            value={password}
             onChange={handleChange}
           />
           <div className="buttons">
@@ -95,7 +96,7 @@ const CheckingModal = ({ children }) => {
           </div>
         </ModalInner>
       </ModalWrapper>
-    </>
+    </Portal>
   );
 };
 

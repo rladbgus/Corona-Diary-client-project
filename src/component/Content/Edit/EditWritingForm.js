@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -9,22 +9,27 @@ const Container = styled.div`
   margin: 10px;
 `;
 
-const WritingForm = ({ handleChange, handleTags, handleImg }) => {
+const EditWritingForm = ({ handleChange, handleTags, content }) => {
   //업로드할 이미지 미리보기
   const [img, setImg] = useState(null);
   const [imgData, setImgData] = useState(null);
   const [tags, getTags] = useState("");
   const [arrayTags, getArrayTasgs] = useState([]);
+  const [data, getData] = useState("");
+
+  useEffect(() => {
+    getData(content);
+  });
 
   const HandleChangeImg = e => {
     if (e.target.files[0]) {
+      console.log("picture: ", e.target.files);
       setImg(e.target.files[0]);
       const reader = new FileReader();
       reader.addEventListener("load", () => {
         setImgData(reader.result);
       });
       reader.readAsDataURL(e.target.files[0]);
-      handleImg(e.target.files[0]);
     }
   };
 
@@ -55,6 +60,7 @@ const WritingForm = ({ handleChange, handleTags, handleImg }) => {
             type="text"
             placeholder="일기제목"
             onChange={handleChange}
+            defaultValue={data.title}
           />
         </div>
         <div>
@@ -65,6 +71,7 @@ const WritingForm = ({ handleChange, handleTags, handleImg }) => {
             placeholder="내용을 입력하세요"
             type="text"
             onChange={handleChange}
+            defaultValue={data.text}
           />
         </div>
         추가된 태그 :
@@ -90,4 +97,4 @@ const WritingForm = ({ handleChange, handleTags, handleImg }) => {
   );
 };
 
-export default WritingForm;
+export default EditWritingForm;

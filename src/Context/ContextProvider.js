@@ -1,25 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import getLogin from "./Context";
 
 const LoginProvider = ({ children }) => {
   const [isLogin, setIsLogin] = useState(false);
   const [isChecking, setIsChecking] = useState(false);
   const [token, setToken] = useState("");
-  const [googleToken, setGoogleToken] = useState("");
+  const [nickName, setNickName] = useState("");
+  const getToken = window.sessionStorage.getItem("token");
+  const [isLike, setIsLike] = useState(false);
 
   const handleLogin = () => {
     setIsLogin(!isLogin);
   };
+
   const handleIsChecking = () => {
     setIsChecking(!isChecking);
   };
 
   const handleToken = value => {
     setToken(value);
+    window.sessionStorage.setItem("token", value);
   };
-  const handleGoogleToken = value => {
-    setGoogleToken(value);
-  };
+
+  useEffect(() => {
+    let ac = new AbortController();
+    if (getToken) {
+      handleLogin();
+    }
+    return () => {
+      ac.abort();
+    };
+  }, []);
 
   return (
     <getLogin.Provider
@@ -28,10 +39,12 @@ const LoginProvider = ({ children }) => {
         handleLogin,
         token,
         handleToken,
-        googleToken,
-        handleGoogleToken,
         isChecking,
         handleIsChecking,
+        nickName,
+        setNickName,
+        isLike,
+        setIsLike
       }}
     >
       {children}

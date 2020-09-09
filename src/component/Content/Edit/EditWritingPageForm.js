@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import WritingForm from "./WritingForm";
-import Survey from "./Survey";
-import SubmitButton from "./SubmitButton";
+import EditWritingForm from "../Edit/EditWritingForm";
+import EditSurvey from "../Edit/EditSurvey";
+import EditSubmitButton from "../Edit/EditSubmitButton";
 
-const WritingPageForm = ({ history }) => {
+const EditWritingPageForm = ({ history, content }) => {
+  // console.log(content);
   const [data, getData] = useState({
     tags: [],
+    referenceFile: "file",
   });
-  const [image, getImage] = useState("");
 
   const handleClick = (name, value) => {
     getData({
@@ -37,25 +38,21 @@ const WritingPageForm = ({ history }) => {
     });
   };
 
-  const handleImg = img => {
-    console.log(img);
-    getImage(img);
-  };
-
   return (
     <>
-      <WritingForm
+      <EditWritingForm
         handleChange={handleChange}
         handleTags={handleTags}
-        handleImg={handleImg}
+        content={content}
       />
-      <Survey
+      <EditSurvey
         handleClick={handleClick}
         handleNumberChange={handleNumberChange}
+        content={content}
       />
-      <SubmitButton data={data} history={history} image={image} />
+      <EditSubmitButton data={data} history={history} />
     </>
   );
 };
 
-export default WritingPageForm;
+export default EditWritingPageForm;

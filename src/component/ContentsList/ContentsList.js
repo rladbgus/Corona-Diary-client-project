@@ -1,52 +1,56 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import getLogin from "../../Context/Context";
-// import Contentpage from "../Content/Content";
-
-const Content = styled.div`
-  background: #FFAC9A;
-  border-style : solid 3px;
-`;
+import ContentListForm from "./ContentListForm";
+// import styled from "styled-components";
 
 const ContentsListView = () => {
-    const value = useContext(getLogin);
-    const [contentList, setContentList] = useState([]);
+  const [contentList, setContentList] = useState(null);
+  const getToken = window.sessionStorage.getItem("token");
+  const [searchList, setSearchList] = useState("");
 
-    useEffect(() => {
-        axios.get("http://localhost:5000/contentList",
-            {
-                headers:
-                    { "x-access-token": value.token }
-            })
-            .then(res => {
-                setContentList([...res.data.contentList]);
-            });
-    }, []);
-    // console.log(contentList);
+  useEffect(() => {
+    const ac = new AbortController();
+    axios
+      .get("http://localhost:5000/contentList", {
+        headers: { "x-access-token": getToken },
+      })
+      .then(res => {
+        console.log(res);
+        setContentList(res.data.contentList);
+        setSearchList(res.data.contentList);
+      });
 
-    return (
-        <center className="ContentsList">
-            <div className="SerchInput">
-                <input type="text" placeholder="검색어를 입력하시오" ></input>
-            </div>
-            <div className="ContentListBox">
-                {contentList.map(data => (
-                    <Content>
+    return () => {
+      ac.abort();
+    };
+  }, []);
 
-                        {/* <Contentpage key={data.id} /> */}
-                        {/* contentpage로 id값 넘겨주는 법 구현하기 */}
-
-                        <Link to={`/content/${data.id}`}>
-                            <h1>{data.title}</h1>
-                            <p>{data.text}</p>
-                        </Link>
-                    </Content>
-                ))}
-            </div>
-        </center>
+  const handelSearch = event => {
+    setSearchList(
+      contentList.filter(list => list.title.indexOf(event.target.value) !== -1)
     );
+  };
+
+  return (
+    <center className="ContentsList">
+      <div className="SerchInput">
+        <input
+          type="text"
+          placeholder="검색어를 입력하시오"
+          onChange={handelSearch}
+          defaultValue=""
+        ></input>
+      </div>
+
+      <div className="ContentListBox">
+        {searchList
+          ? searchList.map(list => (
+            <ContentListForm data={list} key={list.id} />
+          ))
+          : ""}
+      </div>
+    </center>
+  );
 };
 
 export default ContentsListView;
