@@ -54,6 +54,7 @@ const ContentView = () => {
   const [tags, getTags] = useState([]);
   const [checkModal, getCheckModal] = useState(false);
   const [commentId, getCommentId] = useState("");
+  const getNickName = window.sessionStorage.getItem("nickName");
 
   const openModalModify = () => {
     getCheckModal(!checkModal);
@@ -273,15 +274,12 @@ const ContentView = () => {
                       <br />
                       {data.comment}
                       <br />
-                      <button
-                        key={data.id}
-                        onClick={() => deleteComment(data.id)}
-                        style={
-                          data.user.nickName === value.nickName
-                            ? { display: "block" }
-                            : { display: "none" }
-                        }
-                      >
+
+                      <button key={data.id} onClick={() => deleteComment(data.id)} style={
+                        data.user.nickName === getNickName ?
+                          { display: "block" } : { display: "none" }
+                      }>
+
                         댓글 삭제
                       </button>
                     </CommentLi>

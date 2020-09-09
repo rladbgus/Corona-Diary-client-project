@@ -41,7 +41,7 @@ const Login = () => {
       .then(res => {
         console.log(res);
         if (res.status === 200) {
-          value.setNickName(res.data.nickName);
+          value.handleSetNickName(res.data.nickName);
           getChildren("로그인에 성공했습니다");
           getClassName("login");
           value.handleLogin();
