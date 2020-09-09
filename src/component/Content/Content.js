@@ -10,6 +10,7 @@ import EditWritingPageForm from "./Edit/EditWritingPageForm";
 import Tags from "./Tags";
 import CheckingModal from "../../Modal/CheckingModal";
 import example from "../../img/corona_logo.png";
+import ReplyComment from "./ReplyComment";
 
 const ContentBox = styled.div`
   background: #f0cdcd;
@@ -23,6 +24,7 @@ const CommentBox = styled.div`
 `;
 const CommentLi = styled.li`
   background: #f7ffaf;
+  border: 2px solid;
 `;
 const LikeButton = styled.div`
   .likeBtn {
@@ -205,7 +207,6 @@ const ContentView = () => {
         return openModal();
       });
   };
-  console.log(content);
 
   return (
     <center className="ContentViewBox">
@@ -217,8 +218,8 @@ const ContentView = () => {
                 {content.referenceFile ? (
                   <img src={content.referenceFile} alt="" />
                 ) : (
-                  <img src={example} alt="" width="320" height="200" />
-                )}
+                    <img src={example} alt="" width="320" height="200" />
+                  )}
                 <h1>{content.title}</h1>
                 <span>{content.createdAt}</span>
                 <div className="TextArea">{content.text}</div>
@@ -235,13 +236,13 @@ const ContentView = () => {
                       onClick={setLikeBtn}
                     />
                   ) : (
-                    <img
-                      className="LikeImg"
-                      src={unheart}
-                      alt=""
-                      onClick={setLikeBtn}
-                    />
-                  )}
+                      <img
+                        className="LikeImg"
+                        src={unheart}
+                        alt=""
+                        onClick={setLikeBtn}
+                      />
+                    )}
                   {countLike ? <span>{countLike}</span> : ""}
                 </LikeButton>
                 <button
@@ -285,18 +286,7 @@ const ContentView = () => {
                       <br />
                       {data.comment}
                       <br />
-
-                      <button
-                        key={data.id}
-                        onClick={() => deleteComment(data.id)}
-                        style={
-                          data.user.nickName === getNickName
-                            ? { display: "block" }
-                            : { display: "none" }
-                        }
-                      >
-                        댓글 삭제
-                      </button>
+                      <ReplyComment data={data} deleteComment={deleteComment} contentId={contentId}></ReplyComment>
                     </CommentLi>
                   ))}
                 </>
@@ -304,10 +294,10 @@ const ContentView = () => {
             </CommentBox>
           </>
         ) : (
-          <Container>
-            <EditWritingPageForm content={content} token={getToken} />
-          </Container>
-        )}
+            <Container>
+              <EditWritingPageForm content={content} token={getToken} />
+            </Container>
+          )}
       </>
       <AlertModal
         visible={modal}
