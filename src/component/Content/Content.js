@@ -157,7 +157,6 @@ const ContentView = () => {
         getChildren("댓글이 삭제되었습니다");
         getClassName("deleteComment");
         openModal();
-        history.go(`/comment/${value}`);
       })
       .catch(() => {
         getChildren("삭제 권한이 없습니다");

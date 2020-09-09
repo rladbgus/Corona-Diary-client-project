@@ -27,11 +27,14 @@ const AlertModal = ({ children, visible, onClose, className }) => {
       } else {
         history.push("/");
       }
-    } else if (className === "content" || className === "deleteComment") {
+    } else if (className === "content") {
       onClose();
     } else if (className === "signup") {
       onClose();
       history.push("/user/login");
+    } else if (className === "deleteComment") {
+      onClose();
+      history.go(`/comment/${value}`);
     } else {
       onClose();
     }
