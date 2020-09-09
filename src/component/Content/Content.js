@@ -53,6 +53,7 @@ const ContentView = () => {
   const [countLike, setCountLike] = useState(0);
   const [tags, getTags] = useState([]);
   const [checkModal, getCheckModal] = useState(false);
+  const [commentId, getCommentId] = useState("");
   const openModalModify = () => {
     getCheckModal(!checkModal);
     getChildren("일기수정");
@@ -156,8 +157,9 @@ const ContentView = () => {
       .then(() => {
         getChildren("댓글이 삭제되었습니다");
         getClassName("deleteComment");
+        getCommentId(value);
         openModal();
-        history.go(`/comment/${value}`);
+        // history.go(`/comment/${value}`);
       })
       .catch(() => {
         getChildren("삭제 권한이 없습니다");
@@ -284,7 +286,12 @@ const ContentView = () => {
           </Container>
         )}
       </>
-      <AlertModal visible={modal} onClose={closeModal} className={className}>
+      <AlertModal
+        visible={modal}
+        onClose={closeModal}
+        className={className}
+        commentId={commentId}
+      >
         {children}
       </AlertModal>
     </center>
