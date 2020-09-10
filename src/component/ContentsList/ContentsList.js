@@ -15,7 +15,6 @@ const ContentsListView = () => {
         headers: { "x-access-token": getToken },
       })
       .then(res => {
-        console.log(res);
         setContentList(res.data.contentList);
         setSearchList(res.data.contentList);
       });

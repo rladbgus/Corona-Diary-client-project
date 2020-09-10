@@ -1,14 +1,6 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import axios from "axios";
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-`;
+import React from "react";
+// import styled from "styled-components";
+// import axios from "axios";
 
 const Tags = ({ data }) => {
   return (

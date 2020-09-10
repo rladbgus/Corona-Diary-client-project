@@ -13,8 +13,7 @@ const Login = () => {
   const [children, getChildren] = useState("");
   const [className, getClassName] = useState("");
 
-  console.log(value.nickname);
-
+  // console.log(value.nickname);
 
   const openModal = () => {
     getModal(!modal);

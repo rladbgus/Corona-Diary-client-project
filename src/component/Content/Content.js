@@ -9,15 +9,22 @@ import unheart from "../../img/unheart.png";
 import EditWritingPageForm from "./Edit/EditWritingPageForm";
 import Tags from "./Tags";
 import CheckingModal from "../../Modal/CheckingModal";
+import example from "../../img/corona_logo.png";
+import ReplyComment from "./ReplyComment";
 
 const ContentBox = styled.div`
   background: #f0cdcd;
+
+  img {
+    margin-top: 20px;
+  }
 `;
 const CommentBox = styled.div`
   background: #abe8e1;
 `;
 const CommentLi = styled.li`
   background: #f7ffaf;
+  border: 2px solid;
 `;
 const LikeButton = styled.div`
   .likeBtn {
@@ -54,7 +61,6 @@ const ContentView = () => {
   const [tags, getTags] = useState([]);
   const [checkModal, getCheckModal] = useState(false);
   const [commentId, getCommentId] = useState("");
-  const getNickName = window.sessionStorage.getItem("nickName");
 
   const openModalModify = () => {
     getCheckModal(!checkModal);
@@ -71,7 +77,6 @@ const ContentView = () => {
   };
   useEffect(() => {
     const ac = new AbortController();
-    console.log(contentId);
     axios
       .get(`http://localhost:5000/content/${contentId}`, {
         headers: { "x-access-token": getToken },
@@ -208,6 +213,11 @@ const ContentView = () => {
           <>
             <ContentBox>
               <div className="Content">
+                {content.referenceFile ? (
+                  <img src={content.referenceFile} alt="" />
+                ) : (
+                    <img src={example} alt="" width="320" height="200" />
+                  )}
                 <h1>{content.title}</h1>
                 <span>{content.createdAt}</span>
                 <div className="TextArea">{content.text}</div>
@@ -224,13 +234,13 @@ const ContentView = () => {
                       onClick={setLikeBtn}
                     />
                   ) : (
-                    <img
-                      className="LikeImg"
-                      src={unheart}
-                      alt=""
-                      onClick={setLikeBtn}
-                    />
-                  )}
+                      <img
+                        className="LikeImg"
+                        src={unheart}
+                        alt=""
+                        onClick={setLikeBtn}
+                      />
+                    )}
                   {countLike ? <span>{countLike}</span> : ""}
                 </LikeButton>
                 <button
@@ -241,7 +251,6 @@ const ContentView = () => {
                 >
                   일기수정
                 </button>
-
                 <CheckingModal visible={checkModal} onClose={closeCheckModal}>
                   {children}
                 </CheckingModal>
@@ -264,9 +273,8 @@ const ContentView = () => {
                   onChange={e => newComment(e.target.value)}
                 />
                 <button onClick={postComment}>댓글 작성</button>
-
                 <>
-                  {allComment?.map(data => (
+                  {allComment?.filter((value) => (value.depth === 0)).map(data => (
                     <CommentLi key={data.id}>
                       {data.user.nickName}
                       <br />
@@ -274,14 +282,7 @@ const ContentView = () => {
                       <br />
                       {data.comment}
                       <br />
-
-                      <button key={data.id} onClick={() => deleteComment(data.id)} style={
-                        data.user.nickName === getNickName ?
-                          { display: "block" } : { display: "none" }
-                      }>
-
-                        댓글 삭제
-                      </button>
+                      <ReplyComment data={data} deleteComment={deleteComment} contentId={contentId} allComment={allComment}></ReplyComment>
                     </CommentLi>
                   ))}
                 </>
@@ -289,10 +290,10 @@ const ContentView = () => {
             </CommentBox>
           </>
         ) : (
-          <Container>
-            <EditWritingPageForm content={content} token={getToken} />
-          </Container>
-        )}
+            <Container>
+              <EditWritingPageForm content={content} token={getToken} />
+            </Container>
+          )}
       </>
       <AlertModal
         visible={modal}
