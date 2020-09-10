@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom"
-const ReplyCommentLi = styled.li`
+
+const ReplyCommentDiv = styled.div`
 background: #EFDB64;
+border: 0.5px solid gray;
 `;
 
 const ReplyComment = ({ data, deleteComment, contentId, allComment }) => {
@@ -65,13 +67,13 @@ const ReplyComment = ({ data, deleteComment, contentId, allComment }) => {
         {/* 답글랜더링 */}
       </div>
       {depth1Arr?.filter((e) => (e.group === data.group)).map(value => (
-        <ReplyCommentLi>
-          {getNickName}
+        <ReplyCommentDiv key={value.id}>
+          <span> * {getNickName}</span>
           <br />
           {value.createdAt}
           <br />
           {value.comment}
-        </ReplyCommentLi>
+        </ReplyCommentDiv>
       ))}
     </>
   );
