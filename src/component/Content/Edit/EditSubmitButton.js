@@ -4,6 +4,7 @@ import styled from "styled-components";
 import axios from "axios";
 import getLogin from "../../../Context/Context";
 import AlertModal from "../../../Modal/AlertModal";
+const FormData = require("form-data");
 
 const Container = styled.div`
   display: flex;
@@ -13,7 +14,7 @@ const Container = styled.div`
   margin: 10px;
 `;
 
-const EditSubmitButton = ({ data }) => {
+const EditSubmitButton = ({ data, image }) => {
   const value = useContext(getLogin);
   const [modal, getModal] = useState(false);
   const [children, getChildren] = useState("");
@@ -47,7 +48,22 @@ const EditSubmitButton = ({ data }) => {
 
   const submitButton = event => {
     event.preventDefault();
-    if (Object.keys(data).length !== 12) {
+
+    const formData = new FormData();
+    formData.append("imgFile", image);
+    formData.append("title", data.title);
+    formData.append("text", data.text);
+    formData.append("covid_date", data.covid_date);
+    formData.append("q_temp", data.q_temp);
+    formData.append("q_resp", data.q_resp);
+    formData.append("q_cough", data.q_cough);
+    formData.append("q_appet", data.q_appet);
+    formData.append("q_sleep", data.q_sleep);
+    formData.append("q_fatigue", data.q_fatigue);
+    formData.append("q_psy", data.q_psy);
+    formData.append("tags", data.tags);
+
+    if (Object.keys(data).length !== 11) {
       getChildren("빈 항목이 있습니다. 채워주세요");
       getClassName("checktdata");
       return openModal();
@@ -65,7 +81,7 @@ const EditSubmitButton = ({ data }) => {
 
     console.log(data);
     axios
-      .patch(url, data, {
+      .patch(url, formData, {
         headers: {
           "x-access-token": getToken,
         },
