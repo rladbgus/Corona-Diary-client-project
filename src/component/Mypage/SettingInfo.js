@@ -16,7 +16,7 @@ const Container = styled.div`
 const SettingInfo = ({ token, userInfo }) => {
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
-  const [age, setAge] = useState("");
+  const [age, setAge] = useState("0");
   const [city, setCity] = useState("");
   const url = "http://localhost:5000";
   const value = useContext(getLogin);
@@ -41,19 +41,33 @@ const SettingInfo = ({ token, userInfo }) => {
 
   const handleModifiedButton = async event => {
     event.preventDefault();
-    if (password1 !== password2) {
-      getChildren("비밀번호가 틀립니다.");
-      getClassName("password");
-      document.querySelector(".input_password1").value = "";
-      document.querySelector(".input_password2").value = "";
-      return openModal();
-    }
     let data = {};
     data.email = userInfo.email;
     data.password = password2;
     data.age = age;
     data.city = city;
-    if (password2 === "" || age === "" || city === "") {
+    if (password1 !== password2) {
+      getChildren("비밀번호가 틀립니다.");
+      getClassName("password");
+      setPassword1("");
+      setPassword2("");
+      return openModal();
+    }
+    if (password2.length < 8) {
+      getChildren("비밀번호는 8자리 이상으로 설정바랍니다.");
+      getClassName("passwordchecke");
+      setPassword1("");
+      setPassword2("");
+      return openModal();
+    }
+    if (/(\w+\d)|(\d+\w)/.test(password2, "gi") === false) {
+      getChildren("문자와 숫자 조합으로 만들어 주세요");
+      getClassName("passwordcheck3");
+      setPassword1("");
+      setPassword2("");
+      return openModal();
+    }
+    if (password2 === "" || age === 0 || age === "0" || city === "") {
       getChildren("빈 항목이 있습니다. 채워주세요~");
       getClassName("empty");
       return openModal();
@@ -115,6 +129,7 @@ const SettingInfo = ({ token, userInfo }) => {
             type="password"
             name="password1"
             onChange={handleChange}
+            value={password1}
           />
         </div>
         <div>
@@ -124,6 +139,7 @@ const SettingInfo = ({ token, userInfo }) => {
             type="password"
             name="password2"
             onChange={handleChange}
+            value={password2}
           />
         </div>
         <div>
@@ -133,7 +149,8 @@ const SettingInfo = ({ token, userInfo }) => {
         <div>
           <label>나이대 : </label>
           <select name="age" onClick={handleClick}>
-            <option value="0">10대이하</option>
+            <option value="0">나이대선택</option>
+            <option value="9">10대이하</option>
             <option value="10">10대</option>
             <option value="20">20대</option>
             <option value="30">30대</option>
