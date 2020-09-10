@@ -16,12 +16,10 @@ const Container = styled.div`
 
 const SubmitButton = ({ data, history, image }) => {
   const url = "http://localhost:5000/content";
-  const value = useContext(getLogin);
   const [modal, getModal] = useState(false);
   const [children, getChildren] = useState("");
   const [className, getClassName] = useState("");
   const getToken = window.sessionStorage.getItem("token");
-  // const [alldata, setAllData] = useState({ data: data });
 
   const openModal = () => {
     getModal(!modal);
@@ -63,8 +61,6 @@ const SubmitButton = ({ data, history, image }) => {
       getClassName("checktext");
       return openModal();
     }
-    // console.log(formData.get("title"));
-    // console.log(formData.get("imgFile"));
 
     axios
       .post(url, formData, {
@@ -73,7 +69,6 @@ const SubmitButton = ({ data, history, image }) => {
         },
       })
       .then(res => {
-        console.log(res.data);
         history.push(`/content/${res.data.contentId}`);
       });
   };

@@ -12,7 +12,7 @@ const Container = styled.div`
 const EditWritingForm = ({ handleChange, handleTags, content, handleImg }) => {
   //업로드할 이미지 미리보기
   const [img, setImg] = useState(null);
-  const [imgData, setImgData] = useState(null);
+  const [imgData, setImgData] = useState(content.referenceFile);
   const [tags, getTags] = useState("");
   const [arrayTags, getArrayTasgs] = useState([]);
   const [data, getData] = useState("");
@@ -23,7 +23,6 @@ const EditWritingForm = ({ handleChange, handleTags, content, handleImg }) => {
 
   const HandleChangeImg = e => {
     if (e.target.files[0]) {
-      console.log("picture: ", e.target.files);
       setImg(e.target.files[0]);
       const reader = new FileReader();
       reader.addEventListener("load", () => {
