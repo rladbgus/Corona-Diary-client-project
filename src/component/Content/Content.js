@@ -61,7 +61,6 @@ const ContentView = () => {
   const [tags, getTags] = useState([]);
   const [checkModal, getCheckModal] = useState(false);
   const [commentId, getCommentId] = useState("");
-  const getNickName = window.sessionStorage.getItem("nickName");
 
   const openModalModify = () => {
     getCheckModal(!checkModal);
@@ -78,7 +77,6 @@ const ContentView = () => {
   };
   useEffect(() => {
     const ac = new AbortController();
-    // console.log(contentId);
     axios
       .get(`http://localhost:5000/content/${contentId}`, {
         headers: { "x-access-token": getToken },
@@ -253,7 +251,6 @@ const ContentView = () => {
                 >
                   일기수정
                 </button>
-
                 <CheckingModal visible={checkModal} onClose={closeCheckModal}>
                   {children}
                 </CheckingModal>
@@ -276,9 +273,8 @@ const ContentView = () => {
                   onChange={e => newComment(e.target.value)}
                 />
                 <button onClick={postComment}>댓글 작성</button>
-
                 <>
-                  {allComment?.map(data => (
+                  {allComment?.filter((value) => (value.depth === 0)).map(data => (
                     <CommentLi key={data.id}>
                       {data.user.nickName}
                       <br />
@@ -286,7 +282,7 @@ const ContentView = () => {
                       <br />
                       {data.comment}
                       <br />
-                      <ReplyComment data={data} deleteComment={deleteComment} contentId={contentId}></ReplyComment>
+                      <ReplyComment data={data} deleteComment={deleteComment} contentId={contentId} allComment={allComment}></ReplyComment>
                     </CommentLi>
                   ))}
                 </>
