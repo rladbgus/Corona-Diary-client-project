@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -15,7 +15,7 @@ const SurveyContainer = styled.span`
   flex-direction: row;
 `;
 
-const EditSurveyForm = ({ data, handleClick, name, check1, check2 }) => {
+const EditSurveyForm = ({ data, handleClick, name }) => {
   let splitUrl = window.location.href.split("/");
   let contentId = splitUrl[4];
   const getToken = window.sessionStorage.getItem("token");
@@ -44,8 +44,6 @@ const EditSurveyForm = ({ data, handleClick, name, check1, check2 }) => {
         }
       });
   }, [value]);
-
-  console.log(value);
 
   const handleOption = () => {
     if (value === 1) {
@@ -89,7 +87,7 @@ const EditSurveyForm = ({ data, handleClick, name, check1, check2 }) => {
             약1
             <div>
               <input
-                defaultChecked={check1}
+                defaultChecked={checkValue1}
                 type="radio"
                 name={`question${data.id}`}
                 value="1"
@@ -102,7 +100,7 @@ const EditSurveyForm = ({ data, handleClick, name, check1, check2 }) => {
             <br></br>
             <div>
               <input
-                defaultChecked={check2}
+                defaultChecked={checkValue2}
                 type="radio"
                 name={`question${data.id}`}
                 value="2"

@@ -38,7 +38,6 @@ const WritingPageForm = ({ history }) => {
   };
 
   const handleImg = img => {
-    console.log(img);
     getImage(img);
   };
 

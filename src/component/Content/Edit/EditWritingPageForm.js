@@ -7,8 +7,8 @@ const EditWritingPageForm = ({ history, content }) => {
   // console.log(content);
   const [data, getData] = useState({
     tags: [],
-    referenceFile: "file",
   });
+  const [image, getImage] = useState("");
 
   const handleClick = (name, value) => {
     getData({
@@ -38,11 +38,16 @@ const EditWritingPageForm = ({ history, content }) => {
     });
   };
 
+  const handleImg = img => {
+    getImage(img);
+  };
+
   return (
     <>
       <EditWritingForm
         handleChange={handleChange}
         handleTags={handleTags}
+        handleImg={handleImg}
         content={content}
       />
       <EditSurvey
@@ -50,7 +55,7 @@ const EditWritingPageForm = ({ history, content }) => {
         handleNumberChange={handleNumberChange}
         content={content}
       />
-      <EditSubmitButton data={data} history={history} />
+      <EditSubmitButton data={data} history={history} image={image} />
     </>
   );
 };
