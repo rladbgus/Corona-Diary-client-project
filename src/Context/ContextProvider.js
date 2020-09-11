@@ -7,7 +7,6 @@ const LoginProvider = ({ children }) => {
   const [token, setToken] = useState("");
   const [nickName, setNickName] = useState("");
   const getToken = window.sessionStorage.getItem("token");
-  const [isLike, setIsLike] = useState(false);
 
   const handleLogin = () => {
     setIsLogin(!isLogin);
@@ -48,8 +47,6 @@ const LoginProvider = ({ children }) => {
         handleIsChecking,
         nickName,
         handleSetNickName,
-        isLike,
-        setIsLike
       }}
     >
       {children}
