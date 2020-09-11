@@ -56,11 +56,11 @@ const SignUpFunction = ({ history }) => {
       getClassName("inputEmail");
       return openModal();
     }
-    // if (email.match(/(\w+)+[@]+(\w+)+[.]+(\w+)/g) === null) {
-    //   getChildren("이메일 형식이 아닙니다.");
-    //   getClassName("emailType");
-    //   return openModal();
-    // }
+    if (email.match(/(\w+)+[@]+(\w+)+[.]+(\w+)/g) === null) {
+      getChildren("이메일 형식이 아닙니다.");
+      getClassName("emailType");
+      return openModal();
+    }
     axios
       .post(url + "/email", checkEmail)
       .then(res => {
@@ -137,20 +137,20 @@ const SignUpFunction = ({ history }) => {
       setPassword2("");
       return openModal();
     }
-    // if (password2.length < 8) {
-    //   getChildren("비밀번호는 8자리 이상으로 설정바랍니다.");
-    //   getClassName("passwordcheck2");
-    //   setPassword1("");
-    //   setPassword2("");
-    //   return openModal();
-    // }
-    // if (/(\w+\d)|(\d+\w)/.test(password2, "gi") === false) {
-    //   getChildren("문자와 숫자 조합으로 만들어 주세요");
-    //   getClassName("passwordcheck3");
-    //   setPassword1("");
-    //   setPassword2("");
-    //   return openModal();
-    // }
+    if (password2.length < 8) {
+      getChildren("비밀번호는 8자리 이상으로 설정바랍니다.");
+      getClassName("passwordcheck2");
+      setPassword1("");
+      setPassword2("");
+      return openModal();
+    }
+    if (/(\w+\d)|(\d+\w)/.test(password2, "gi") === false) {
+      getChildren("문자와 숫자 조합으로 만들어 주세요");
+      getClassName("passwordcheck3");
+      setPassword1("");
+      setPassword2("");
+      return openModal();
+    }
     if (
       password2 === "" ||
       age === 0 ||
