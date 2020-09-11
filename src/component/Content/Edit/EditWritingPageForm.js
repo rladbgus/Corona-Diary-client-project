@@ -4,11 +4,22 @@ import EditSurvey from "../Edit/EditSurvey";
 import EditSubmitButton from "../Edit/EditSubmitButton";
 
 const EditWritingPageForm = ({ history, content }) => {
-  // console.log(content);
   const [data, getData] = useState({
-    tags: [],
-    referenceFile: "file",
+    covid_date: content.covid_date,
+    q_appet: content.q_appet,
+    q_cough: content.q_cough,
+    q_fatigue: content.q_fatigue,
+    q_psy: content.q_psy,
+    q_resp: content.q_resp,
+    q_temp: content.q_temp,
+    q_sleep: content.q_sleep,
+    referenceFile: content.referenceFile,
+    text: content.text,
+    title: content.title,
+    tag: content.tag,
   });
+
+  const [image, getImage] = useState("");
 
   const handleClick = (name, value) => {
     getData({
@@ -38,11 +49,16 @@ const EditWritingPageForm = ({ history, content }) => {
     });
   };
 
+  const handleImg = img => {
+    getImage(img);
+  };
+
   return (
     <>
       <EditWritingForm
         handleChange={handleChange}
         handleTags={handleTags}
+        handleImg={handleImg}
         content={content}
       />
       <EditSurvey
@@ -50,7 +66,7 @@ const EditWritingPageForm = ({ history, content }) => {
         handleNumberChange={handleNumberChange}
         content={content}
       />
-      <EditSubmitButton data={data} history={history} />
+      <EditSubmitButton data={data} history={history} image={image} />
     </>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 import AlertModal from "../../Modal/AlertModal";
@@ -14,6 +14,8 @@ const SignUpFunction = ({ history }) => {
   const [modal, getModal] = useState(false);
   const [children, getChildren] = useState("");
   const [className, getClassName] = useState("");
+  const emailCheckingBtn = useRef(0);
+  const nickNameCheckingBtn = useRef(0);
 
   const openModal = () => {
     getModal(!modal);
@@ -46,6 +48,7 @@ const SignUpFunction = ({ history }) => {
 
   const emailCheckingButton = event => {
     event.preventDefault();
+    emailCheckingBtn.current += 1;
     let checkEmail = {};
     checkEmail.email = email.trim();
     if (email === "") {
@@ -53,11 +56,11 @@ const SignUpFunction = ({ history }) => {
       getClassName("inputEmail");
       return openModal();
     }
-    // if (email.match(/(\w+)+[@]+(\w+)+[.]+(\w+)/g) === null) {
-    //   getChildren("이메일 형식이 아닙니다.");
-    //   getClassName("emailType");
-    //   return openModal();
-    // }
+    if (email.match(/(\w+)+[@]+(\w+)+[.]+(\w+)/g) === null) {
+      getChildren("이메일 형식이 아닙니다.");
+      getClassName("emailType");
+      return openModal();
+    }
     axios
       .post(url + "/email", checkEmail)
       .then(res => {
@@ -84,6 +87,7 @@ const SignUpFunction = ({ history }) => {
   const nickNameCheckingButton = event => {
     event.preventDefault();
     let checkNickName = {};
+    nickNameCheckingBtn.current += 1;
     checkNickName.nickName = nickName.trim();
     if (nickName === "") {
       getChildren("닉네임을 입력 바랍니다.");
@@ -115,6 +119,11 @@ const SignUpFunction = ({ history }) => {
 
   const handleSubmit = async event => {
     event.preventDefault();
+    if (emailCheckingBtn.current === 0 || nickNameCheckingBtn.current === 0) {
+      getChildren("중복확인을 해주세요");
+      getClassName("doubleChecking");
+      return openModal();
+    }
     let data = {};
     data.email = email;
     data.password = password2;
@@ -123,18 +132,36 @@ const SignUpFunction = ({ history }) => {
     data.city = city;
     if (password1 !== password2) {
       getChildren("비밀번호가 일치하지 않습니다.");
-      getClassName("passwordchecke");
+      getClassName("passwordcheck1");
       setPassword1("");
       setPassword2("");
       return openModal();
     }
-    // if (password2.length < 8) {
-    //   getChildren("비밀번호는 8자리 이상으로 설정바랍니다.");
-    //   getClassName("passwordchecke");
-    //   setPassword1("");
-    //   setPassword2("");
-    //   return openModal();
-    // }
+    if (password2.length < 8) {
+      getChildren("비밀번호는 8자리 이상으로 설정바랍니다.");
+      getClassName("passwordcheck2");
+      setPassword1("");
+      setPassword2("");
+      return openModal();
+    }
+    if (/(\w+\d)|(\d+\w)/.test(password2, "gi") === false) {
+      getChildren("문자와 숫자 조합으로 만들어 주세요");
+      getClassName("passwordcheck3");
+      setPassword1("");
+      setPassword2("");
+      return openModal();
+    }
+    if (
+      password2 === "" ||
+      age === 0 ||
+      age === "0" ||
+      city === "" ||
+      email === ""
+    ) {
+      getChildren("빈 항목이 있습니다. 채워주세요~");
+      getClassName("empty");
+      return openModal();
+    }
     await axios.post(url, data).then(res => {
       getChildren("회원가입이 완료되었습니다:)");
       getClassName("signup");
@@ -193,7 +220,8 @@ const SignUpFunction = ({ history }) => {
       <div>
         <label>나이대</label>
         <select name="age" onChange={handleChange}>
-          <option value="0">10대이하</option>
+          <option value="0">나이대선택</option>
+          <option value="9">10대이하</option>
           <option value="10">10대</option>
           <option value="20">20대</option>
           <option value="30">30대</option>

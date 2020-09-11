@@ -38,7 +38,6 @@ const Login = () => {
         password: password,
       })
       .then(res => {
-        console.log(res);
         if (res.status === 200) {
           value.handleSetNickName(res.data.nickName);
           getChildren("로그인에 성공했습니다");
