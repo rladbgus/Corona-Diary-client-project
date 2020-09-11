@@ -58,6 +58,7 @@ const ContentView = () => {
   const [data, getData] = useState("");
   const getToken = window.sessionStorage.getItem("token");
   const [countLike, setCountLike] = useState(0);
+  const [isLike, setIsLike] = useState(false);
   const [tags, getTags] = useState([]);
   const [checkModal, getCheckModal] = useState(false);
   const [commentId, getCommentId] = useState("");
@@ -75,6 +76,7 @@ const ContentView = () => {
   const closeModal = () => {
     getModal(!modal);
   };
+
   useEffect(() => {
     const ac = new AbortController();
     axios
@@ -82,12 +84,13 @@ const ContentView = () => {
         headers: { "x-access-token": getToken },
       })
       .then(res => {
+        console.log('랜더링', res);
         setContent(res.data.Content);
         setnickName(res.data.Content.user.nickName);
         getTags(res.data.Content.tag);
         deleteButton();
         setCountLike(res.data.like);
-        value.setIsLike(res.data.Content.like[0].like);
+        setIsLike(res.data.userLike);
       })
       .catch(() => {
         if (!getToken) {
@@ -101,6 +104,8 @@ const ContentView = () => {
       ac.abort();
     };
   }, [commented, nickName]);
+
+  console.log(isLike);
 
   const allComment = content.comment;
 
@@ -120,17 +125,8 @@ const ContentView = () => {
     };
   };
 
-  //좋아요버튼
-  const setLikeBtn = () => {
-    if (value.isLike) {
-      plusLike();
-    } else {
-      plusLike();
-    }
-  };
-
   // 좋아요 증감
-  const plusLike = () => {
+  const setLikeBtn = () => {
     axios
       .post(
         `http://localhost:5000/content/${contentId}/like`,
@@ -138,8 +134,9 @@ const ContentView = () => {
         { headers: { "x-access-token": getToken } }
       )
       .then(res => {
+        console.log(res)
         setCountLike(res.data.count);
-        value.setIsLike(res.data.like);
+        setIsLike(res.data.like);
       });
   };
 
@@ -226,7 +223,7 @@ const ContentView = () => {
                   <Tags data={tags} />
                 </div>
                 <LikeButton>
-                  {value.isLike ? (
+                  {isLike ? (
                     <img
                       className="LikeImg"
                       src={heart}
@@ -241,7 +238,7 @@ const ContentView = () => {
                         onClick={setLikeBtn}
                       />
                     )}
-                  {countLike ? <span>{countLike}</span> : ""}
+                  {countLike !== 0 ? <span>{countLike}</span> : 0}
                 </LikeButton>
                 <button
                   onClick={openModalModify}
