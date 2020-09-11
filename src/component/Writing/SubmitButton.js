@@ -21,7 +21,6 @@ const SubmitButton = ({ data, history, image }) => {
   const [children, getChildren] = useState("");
   const [className, getClassName] = useState("");
   const getToken = window.sessionStorage.getItem("token");
-  // const [alldata, setAllData] = useState({ data: data });
 
   const openModal = () => {
     getModal(!modal);
