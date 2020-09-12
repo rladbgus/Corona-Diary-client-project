@@ -63,10 +63,18 @@ const HomeFooterView = () => {
           >
             kkw722@gmail.com
           </a>
-          <a href="https://github.com/gunwooko" className="eachController">
+          <a
+            href="https://github.com/gunwooko"
+            className="eachController"
+            target="_blank"
+          >
             <i class="fab fa-github fa-2x"></i>
           </a>
-          <a href="https://velog.io/@gunwooko/" className="eachController">
+          <a
+            href="https://velog.io/@gunwooko/"
+            className="eachController"
+            target="_blank"
+          >
             Blog
           </a>
         </div>
@@ -82,10 +90,18 @@ const HomeFooterView = () => {
           >
             cocokiuuu1858@gmail.com
           </a>
-          <a href="https://github.com/rladbgus" className="eachController">
+          <a
+            href="https://github.com/rladbgus"
+            className="eachController"
+            target="_blank"
+          >
             <i class="fab fa-github fa-2x"></i>
           </a>
-          <a href="https://yoohyeon.tistory.com/" className="eachController">
+          <a
+            href="https://yoohyeon.tistory.com/"
+            className="eachController"
+            target="_blank"
+          >
             Blog
           </a>
         </div>
@@ -101,10 +117,18 @@ const HomeFooterView = () => {
           >
             sonmg90@gmail.com
           </a>
-          <a href="https://github.com/Myunggyun" className="eachController">
+          <a
+            href="https://github.com/Myunggyun"
+            className="eachController"
+            target="_blank"
+          >
             <i class="fab fa-github fa-2x"></i>
           </a>
-          <a href="https://mr-son.tistory.com/" className="eachController">
+          <a
+            href="https://mr-son.tistory.com/"
+            className="eachController"
+            target="_blank"
+          >
             Blog
           </a>
         </div>
@@ -120,10 +144,18 @@ const HomeFooterView = () => {
           >
             shinuhyun@gmail.com
           </a>
-          <a href="https://github.com/shinuhyun" className="eachController">
+          <a
+            href="https://github.com/shinuhyun"
+            className="eachController"
+            target="_blank"
+          >
             <i class="fab fa-github fa-2x"></i>
           </a>
-          <a href="https://shinuhyun.tistory.com/" className="eachController">
+          <a
+            href="https://shinuhyun.tistory.com/"
+            className="eachController"
+            target="_blank"
+          >
             Blog
           </a>
         </div>
