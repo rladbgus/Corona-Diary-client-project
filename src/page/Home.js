@@ -7,20 +7,35 @@ import HomeGraphView from "../component/Home/HomeGraphView";
 import HomeFooterView from "../component/Home/HomeFooterView";
 
 const Shift = styled.div`
-  margin-top: 60px;
+  /* margin-top: 60px; */
 `;
 
-function Home() {
+const Container = styled.article`
+  display: block;
+  /* background: #ffffff; */
+  margin-left: 200px;
+  margin-right: 200px;
+  position: relative;
+
+  @media only screen and (max-width: 1120px) {
+    margin-left: 0px;
+    width: 100%;
+  }
+`;
+
+const Home = () => {
   return (
     <Fragment>
-      <Nav>Home</Nav>
-      <Shift />
-      <HomePageIntro />
-      <HomePageContentsView />
-      <HomeGraphView />
-      <HomeFooterView />
+      <Container>
+        <Nav>Home</Nav>
+        <Shift />
+        <HomePageIntro />
+        <HomePageContentsView />
+        <HomeGraphView />
+        <HomeFooterView />
+      </Container>
     </Fragment>
   );
-}
+};
 
 export default Home;
