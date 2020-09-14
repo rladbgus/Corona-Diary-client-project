@@ -66,24 +66,42 @@ const Container = styled.div`
   align-items: center;
 
   button {
-    margin-top: 0;
-    padding: 10px;
-    align-self: center;
-    font-size: 15px;
-    font-weight: bold;
-    color: rgba(255, 255, 255);
-    border: 0;
-    border-radius: 5px;
-    background: rgba(0, 124, 255, 0.5);
-    width: 100px;
-    text-align: center;
-    transition: all 0.7s ease-out;
-    background-position: 1% 50%;
-    background-size: 300% 300%;
+    background: black;
+    color: #81c784;
+    border: none;
+    position: relative;
+    height: 3rem;
+    width: 8.75rem;
+    font-size: 1.25em;
+    padding: 0 1.2em;
+    cursor: pointer;
+    transition: 800ms ease all;
+    outline: none;
   }
-
   button:hover {
-    color: rgba(0, 0, 0);
-    background: #00ce56;
+    background: #fff;
+    color: #1aab8a;
+  }
+  button:before,
+  button:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 2px;
+    width: 0;
+    background: #1aab8a;
+    transition: 400ms ease all;
+  }
+  button:after {
+    right: inherit;
+    top: inherit;
+    left: 0;
+    bottom: 0;
+  }
+  button:hover:before,
+  button:hover:after {
+    width: 100%;
+    transition: 800ms ease all;
   }
 `;
