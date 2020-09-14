@@ -5,8 +5,6 @@ import getLogin from "../../Context/Context";
 // import { GoogleLogin } from "react-google-login";
 import AlertModal from "../../Modal/AlertModal";
 import styled from "styled-components";
-import user from "../../img/user.png";
-import unlock from "../../img/unlock.png";
 
 const Login = () => {
   const value = useContext(getLogin);
