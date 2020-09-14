@@ -3,16 +3,21 @@ import styled from "styled-components";
 import SearchComponent from "../component/Search/Search";
 import Nav from "../component/Nav/Nav";
 
-const Shift = styled.div`
-  margin-top: 150px;
+const Container = styled.article`
+  display: block;
+  /* background: #f5f5f5; */
+  margin-left: 6%;
+  margin-right: 6%;
+  position: relative;
 `;
 
 const Search = () => {
   return (
     <>
-      <Nav />
-      <Shift />
-      <SearchComponent />
+      <Container>
+        <Nav />
+        <SearchComponent />
+      </Container>
     </>
   );
 };
