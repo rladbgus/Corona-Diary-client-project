@@ -1,54 +1,16 @@
 import React, { useContext } from "react";
-import { useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import getLogin from "../Context/Context";
 import Portal from "./Portal";
+import { useHistory } from "react-router-dom";
 
-const AlertModal = ({
-  children,
-  visible,
-  onClose,
-  className,
-  commentId,
-  contentId,
-}) => {
-  const value = useContext(getLogin);
-  let history = useHistory();
-  let location = useLocation();
+const SurveyModal = ({ visible, onClose, children, handleData }) => {
+  const handleComplete = () => {
+    onClose();
+  };
 
   const handleClose = () => {
-    if (className === "complete") {
-      onClose();
-      value.handleIsChecking();
-    } else if (
-      className === "login" ||
-      className === "deleteCotent" ||
-      className === "deleteCotentError" ||
-      className === "content"
-    ) {
-      onClose();
-      history.push("/");
-    } else if (className === "logout") {
-      onClose();
-      if (location.pathname === "/") {
-        history.go("/");
-      } else {
-        history.push("/");
-      }
-    } else if (className === "content") {
-      onClose();
-    } else if (className === "signup") {
-      onClose();
-      history.push("/user/login");
-    } else if (className === "deleteComment") {
-      onClose();
-      history.go(`/comment/${commentId}`);
-    } else if (className === "contentModify") {
-      onClose();
-      history.go(`/content/${contentId}`);
-    } else {
-      onClose();
-    }
+    handleData();
+    onClose();
   };
 
   return (
@@ -58,7 +20,8 @@ const AlertModal = ({
         <ModalInner tabIndex="0" className="modal-inner">
           {children}
           <div className="buttons">
-            <button onClick={handleClose}>Confirm</button>
+            <button onClick={handleClose}>취소</button>
+            <button onClick={handleComplete}>완료</button>
           </div>
         </ModalInner>
       </ModalWrapper>
@@ -66,10 +29,10 @@ const AlertModal = ({
   );
 };
 
-export default AlertModal;
+export default SurveyModal;
 
 const ModalOverlay = styled.div`
-  box-sizin: border-box;
+  box-sizing: border-box;
   display: ${props => (props.visible ? "block" : "none")};
   position: fixed;
   top: 0;
@@ -80,7 +43,7 @@ const ModalOverlay = styled.div`
   z-index: 999;
 `;
 const ModalWrapper = styled.div`
-  box-sizin: border-box;
+  box-sizing: border-box;
   display: ${props => (props.visible ? "block" : "none")};
   position: fixed;
   top: 0;
@@ -98,17 +61,18 @@ const ModalInner = styled.div`
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
   background-color: #fff;
   border-radius: 10px;
-  width: 360px;
-  max-width: 480px;
+  max-width: 450px;
+  min-width: 450px;
+  height: 75%;
   top: 40%;
-  transform: translateY(-50%);
-  margin: 0 auto;
+  transform: translateY(-40%);
+  margin: 10px auto;
   padding: 0px 20px;
   padding-top: 25px;
-  padding-bottom: 40px;
 
   button {
     float: right;
+    margin-top: 20px;
     margin-right: 5px;
     margin-left: 5px;
     color: tomato;
@@ -117,12 +81,30 @@ const ModalInner = styled.div`
     border-radius: 5px;
     padding: 5px 7px;
     box-shadow: 2px 2px 2px;
-    transition: all 0.3s ease 0s;
+    transition: all 0.5s ease 0s;
   }
 
   button:hover {
     background-color: crimson;
     color: black;
     transform: translate(0, -5px);
+  }
+
+  h3 {
+    text-align: center;
+  }
+
+  .input_since {
+    width: 30px;
+  }
+
+  .input_temperature {
+    width: 30px;
+  }
+
+  .survey-text {
+    margin-left: 20px;
+    margin-bottom: 7px;
+    font-size: 15px;
   }
 `;
