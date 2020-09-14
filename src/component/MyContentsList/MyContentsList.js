@@ -3,6 +3,8 @@ import styled from "styled-components";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+const BREAK_POINT_MOBILE = 580;
+const BREAK_POINT_TABLET = 1024;
 
 const Font = styled.div`     
 font-family: 'S-CoreDream-3Light';
@@ -18,6 +20,7 @@ const Border = styled.span`
   margin : 5em 10em 7em 8em;
   background-color: #dcedc8;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  min-width: 160px;
   `;
 
 const ContentStyle = styled.span`
@@ -49,6 +52,28 @@ const ContentStyle = styled.span`
   &:hover {
     box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.5);
     transition: opacity 200ms;
+  }
+
+  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+  }
+
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+    input {
+      font-size: 15px;
+      padding: 10px 5px;
+      width: 200px;
+    }
+    i {
+      font-size: 20px;
+      padding-left: 45px;
+      padding-top: 2%;
+    }
   }
 `;
 
