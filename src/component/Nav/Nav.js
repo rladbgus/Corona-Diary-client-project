@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { NavLink, Link } from "react-router-dom";
-import logo from "../../img/corona_logo.png";
+// import logo from "../../img/corona_logo.png";
 import getLogin from "../../Context/Context";
 import AlertModal from "../../Modal/AlertModal";
 
