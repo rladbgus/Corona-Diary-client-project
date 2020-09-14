@@ -1,19 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-`;
-
-const SurveyContainer = styled.span`
-  display: flex;
-  flex-direction: row;
-`;
-
 const SurveyForm = ({ data, handleClick }) => {
   return (
     <>
@@ -137,3 +124,23 @@ const SurveyForm = ({ data, handleClick }) => {
 };
 
 export default SurveyForm;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+`;
+
+const SurveyContainer = styled.span`
+  display: flex;
+  flex-direction: row;
+  span {
+    margin-right: 10px;
+  }
+`;
+
+const Input = styled.input`
+  border: 2px solid red;
+`;

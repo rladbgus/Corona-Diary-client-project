@@ -84,7 +84,7 @@ const ContentView = () => {
         headers: { "x-access-token": getToken },
       })
       .then(res => {
-        console.log('랜더링', res);
+        console.log("랜더링", res);
         setContent(res.data.Content);
         setnickName(res.data.Content.user.nickName);
         getTags(res.data.Content.tag);
@@ -134,7 +134,7 @@ const ContentView = () => {
         { headers: { "x-access-token": getToken } }
       )
       .then(res => {
-        console.log(res)
+        console.log(res);
         setCountLike(res.data.count);
         setIsLike(res.data.like);
       });
@@ -213,8 +213,8 @@ const ContentView = () => {
                 {content.referenceFile ? (
                   <img src={content.referenceFile} alt="" />
                 ) : (
-                    <img src={example} alt="" width="320" height="200" />
-                  )}
+                  <img src={example} alt="" width="320" height="200" />
+                )}
                 <h1>{content.title}</h1>
                 <span>{content.createdAt}</span>
                 <div className="TextArea">{content.text}</div>
@@ -231,13 +231,13 @@ const ContentView = () => {
                       onClick={setLikeBtn}
                     />
                   ) : (
-                      <img
-                        className="LikeImg"
-                        src={unheart}
-                        alt=""
-                        onClick={setLikeBtn}
-                      />
-                    )}
+                    <img
+                      className="LikeImg"
+                      src={unheart}
+                      alt=""
+                      onClick={setLikeBtn}
+                    />
+                  )}
                   {countLike !== 0 ? <span>{countLike}</span> : 0}
                 </LikeButton>
                 <button
@@ -271,26 +271,33 @@ const ContentView = () => {
                 />
                 <button onClick={postComment}>댓글 작성</button>
                 <>
-                  {allComment?.filter((value) => (value.depth === 0)).map(data => (
-                    <CommentLi key={data.id}>
-                      {data.user.nickName}
-                      <br />
-                      {data.createdAt}
-                      <br />
-                      {data.comment}
-                      <br />
-                      <ReplyComment data={data} deleteComment={deleteComment} contentId={contentId} allComment={allComment}></ReplyComment>
-                    </CommentLi>
-                  ))}
+                  {allComment
+                    ?.filter(value => value.depth === 0)
+                    .map(data => (
+                      <CommentLi key={data.id}>
+                        {data.user.nickName}
+                        <br />
+                        {data.createdAt}
+                        <br />
+                        {data.comment}
+                        <br />
+                        <ReplyComment
+                          data={data}
+                          deleteComment={deleteComment}
+                          contentId={contentId}
+                          allComment={allComment}
+                        ></ReplyComment>
+                      </CommentLi>
+                    ))}
                 </>
               </div>
             </CommentBox>
           </>
         ) : (
-            <Container>
-              <EditWritingPageForm content={content} token={getToken} />
-            </Container>
-          )}
+          <Container>
+            <EditWritingPageForm content={content} token={getToken} />
+          </Container>
+        )}
       </>
       <AlertModal
         visible={modal}
