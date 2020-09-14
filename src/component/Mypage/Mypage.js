@@ -13,10 +13,52 @@ const Container = styled.div`
   align-items: center;
   margin: 80px;
 
+  .btn {
+    display: inline-block;
+    padding-bottom: 100px;
+  }
+
   button {
+    background: black;
+    color: #81c784;
+    border: none;
+    position: relative;
+
+    font-size: 1.25em;
+
+    cursor: pointer;
+    transition: 800ms ease all;
+    outline: none;
+
     line-height: 40px;
     margin: 10px 10px;
     padding: 0px 20px;
+  }
+  button:hover {
+    background: #fff;
+    color: #1aab8a;
+  }
+  button:before,
+  button:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 2px;
+    width: 0;
+    background: #1aab8a;
+    transition: 400ms ease all;
+  }
+  button:after {
+    right: inherit;
+    top: inherit;
+    left: 0;
+    bottom: 0;
+  }
+  button:hover:before,
+  button:hover:after {
+    width: 100%;
+    transition: 800ms ease all;
   }
 `;
 
@@ -65,8 +107,11 @@ const Mypage = ({ history }) => {
       {!value.isChecking ? (
         <Container>
           <MypageForm token={getToken} history={history} />
-          <button onClick={openModalModify}>정보수정</button>
-          <button onClick={openModalDelete}>회원탈퇴</button>
+          <div className="btn">
+            <button onClick={openModalModify}>정보수정</button>
+            <button onClick={openModalDelete}>회원탈퇴</button>
+          </div>
+
           <CheckingModal visible={modal} onClose={closeModal}>
             {children}
           </CheckingModal>

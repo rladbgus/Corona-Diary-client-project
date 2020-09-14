@@ -17,10 +17,12 @@ const HomeIntroStyle = styled.div`
 
   .homeIntroTitle {
     position: relative;
-    font-size: 50px;
+    font-size: 55px;
     font-weight: 500;
     letter-spacing: 15px;
     padding-left: 85px;
+    padding-bottom: 30px;
+    line-height: 180%;
     @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
       font-size: 27px;
       font-weight: 500;
@@ -30,12 +32,11 @@ const HomeIntroStyle = styled.div`
   }
 
   .homeIntroDescription {
-    line-height: 30px;
+    line-height: 100%;
     padding-left: 35px;
     font-size: 35px;
     letter-spacing: 10px;
     @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
-      line-height: 7px;
       padding-left: 0px;
       font-size: 23px;
       letter-spacing: 1px;
@@ -44,8 +45,8 @@ const HomeIntroStyle = styled.div`
 
   span {
     display: block;
-    width: 680px;
-    height: 30px;
+    width: 100%;
+    height: 100%;
     margin: 25px 0px 20px 50px;
   }
 `;

@@ -3,46 +3,48 @@ import styled from "styled-components";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-
-const Font = styled.div`     
-font-family: 'S-CoreDream-3Light';
-font-weight: normal;
-font-style: normal;
-line-height : 180%;
+const Font = styled.div`
+  font-family: "S-CoreDream-3Light";
+  font-weight: normal;
+  font-style: normal;
+  line-height: 180%;
 `;
 
 const Border = styled.span`
-  display : flex;
+  display: flex;
+
   flex-wrap: wrap;
+  justify-content: space-evenly;
   border: 5px solid #dcedc8;
-  margin : 5em 10em 7em 8em;
+  /* margin : 5em 10em 7em 8em; */
+
   background-color: #dcedc8;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-  `;
+`;
 
 const ContentStyle = styled.span`
-  width:17em;
+  width: 17em;
   height: 20em;
   line-height: 40px;
-  padding:2.5em;
-  margin: 2em 0em 1em 5em;
+  padding: 2.5em;
+  margin: 2em;
   background: #ffffff;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 
   .contentLinkStyle {
-    display:-webkit-box; 
-    word-wrap:break-word; 
-    -webkit-line-clamp:6; 
-    -webkit-box-orient:vertical; 
-    overflow:hidden; 
-    text-overflow:ellipsis; 
-    line-height:2em; 
+    display: -webkit-box;
+    word-wrap: break-word;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 2em;
     height: 20em;
-    color:#444; 
-    text-decoration:none;
-    }
-  
+    color: #444;
+    text-decoration: none;
+  }
+
   .contentLinkStyle:hover {
   }
 
@@ -62,7 +64,7 @@ const MyContentsListView = () => {
       .get("http://localhost:5000/myContentList", {
         headers: { "x-access-token": getToken },
       })
-      .then(res => {
+      .then((res) => {
         setMyContentList([...res.data.contentList]);
       });
     return () => {
@@ -73,7 +75,7 @@ const MyContentsListView = () => {
   return (
     <Font>
       <Border>
-        {myContentList?.map(data => (
+        {myContentList?.map((data) => (
           <ContentStyle key={data.id}>
             <Link to={`/content/${data.id}`} className="contentLinkStyle">
               <h1>{data.title}</h1>

@@ -45,6 +45,21 @@ const Container = styled.div`
   .cancelB {
     padding: 0px 30px;
   }
+  .btn {
+    padding-bottom: 70px;
+  }
+
+  input {
+    height: 28px;
+    padding-top: 10px;
+  }
+
+  .age {
+    height: 33px;
+    width: 30%;
+    padding-top: 10px;
+  }
+
   @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
     margin-left: 0px;
     margin-right: 0px;
@@ -170,11 +185,11 @@ const SettingInfo = ({ token, userInfo }) => {
           정보수정
         </h1>
         <div className="contentStyle">
-          <div>
+          <div className="contentDetailStyle">
             <label className="default">이메일 : </label>
             <label>{userInfo.email}</label>
           </div>
-          <div>
+          <div className="contentDetailStyle">
             <label className="default">비밀번호 : </label>
             <input
               className="input_password1"
@@ -184,7 +199,7 @@ const SettingInfo = ({ token, userInfo }) => {
               value={password1}
             />
           </div>
-          <div>
+          <div className="contentDetailStyle">
             <label className="default">비밀번호 확인 : </label>
             <input
               className="input_password2"
@@ -194,13 +209,13 @@ const SettingInfo = ({ token, userInfo }) => {
               value={password2}
             />
           </div>
-          <div>
+          <div className="contentDetailStyle">
             <label className="default">닉네임 : </label>
             <label>{userInfo.nickName}</label>
           </div>
-          <div>
+          <div className="contentDetailStyle">
             <label className="default">나이대 : </label>
-            <select name="age" onClick={handleClick}>
+            <select name="age" onClick={handleClick} className="age">
               <option value="0">나이대선택</option>
               <option value="9">10대이하</option>
               <option value="10">10대</option>
@@ -222,13 +237,14 @@ const SettingInfo = ({ token, userInfo }) => {
             />
           </div>
         </div>
-
-        <button type="submit" onClick={handleModifiedButton}>
-          수정완료
-        </button>
-        <button onClick={handleCancel} className="cancelB">
-          취 소
-        </button>
+        <div className="btn">
+          <button type="submit" onClick={handleModifiedButton}>
+            수정완료
+          </button>
+          <button onClick={handleCancel} className="cancelB">
+            취 소
+          </button>
+        </div>
       </Container>
       <AlertModal visible={modal} onClose={closeModal} className={className}>
         {children}

@@ -3,16 +3,36 @@ import Nav from "../component/Nav/Nav";
 import styled from "styled-components";
 import WritingPageForm from "../component/Writing/WritingPageForm";
 
-const Shift = styled.div`
-  margin-top: 50px;
+const BREAK_POINT_MOBILE = 580;
+const BREAK_POINT_TABLET = 1024;
+
+const Container = styled.article`
+  display: block;
+  /* background: #ffffff; */
+  margin-left: 6%;
+  margin-right: 6%;
+  position: relative;
+
+  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+  }
+
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+  }
 `;
 
 function Writing({ history }) {
   return (
     <Fragment>
-      <Nav />
-      <Shift />
-      <WritingPageForm history={history} />
+      <Container>
+        <Nav />
+        <WritingPageForm history={history} />
+      </Container>
     </Fragment>
   );
 }
