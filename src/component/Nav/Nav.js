@@ -115,7 +115,6 @@ function Nav() {
     <Header>
       {/* 로고 */}
       <Link to="/" className="homelink">
-        {/* <img className="logo" src={logo} alt="logo"></img> */}
         <i class="fab fa-cuttlefish fa-2x"></i>
       </Link>
 
