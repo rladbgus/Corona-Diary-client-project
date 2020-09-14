@@ -1,18 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-import getLogin from "../../Context/Context";
 import AlertModal from "../../Modal/AlertModal";
 const FormData = require("form-data");
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-`;
 
 const SubmitButton = ({ data, history, image }) => {
   const url = "http://localhost:5000/content";
@@ -32,6 +23,8 @@ const SubmitButton = ({ data, history, image }) => {
   const submitButton = event => {
     event.preventDefault();
 
+    console.log(data);
+
     const formData = new FormData();
     formData.append("imgFile", image);
     formData.append("title", data.title);
@@ -46,17 +39,12 @@ const SubmitButton = ({ data, history, image }) => {
     formData.append("q_psy", data.q_psy);
     formData.append("tags", data.tags);
 
-    if (Object.keys(data).length !== 11) {
-      getChildren("빈 항목이 있습니다. 채워주세요");
-      getClassName("checktdata");
-      return openModal();
-    }
-    if (data.title === "") {
+    if (!data.title) {
       getChildren("제목을 채워주세요");
       getClassName("checktitle");
       return openModal();
     }
-    if (data.text === "") {
+    if (!data.text) {
       getChildren("내용을 채워주세요");
       getClassName("checktext");
       return openModal();
@@ -93,3 +81,32 @@ const SubmitButton = ({ data, history, image }) => {
 };
 
 export default SubmitButton;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    margin: 20px;
+    align-self: center;
+    font-size: 15px;
+    font-weight: bold;
+    color: rgba(255, 255, 255);
+    border: 0;
+    border-radius: 5px;
+    background: rgba(0, 124, 255, 0.5);
+    width: 80px;
+    padding: 10px;
+    text-align: center;
+    transition: all 0.5s ease-out;
+    background-position: 1% 50%;
+    background-size: 300% 300%;
+  }
+
+  button:hover {
+    color: rgba(0, 0, 0);
+    background: #00ce56;
+  }
+`;

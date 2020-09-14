@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import SurveyModal from "../../Modal/SurveyModal";
 
 const WritingForm = ({ handleChange, handleTags, handleImg }) => {
   //업로드할 이미지 미리보기
@@ -82,7 +83,7 @@ const WritingForm = ({ handleChange, handleTags, handleImg }) => {
         </ContainerItem>
         <ContainerItem>
           <div className="imgpreview">
-            <img src={imgData} />
+            <img src={imgData} width="100%" height="100%" />
           </div>
           <label className="input-image-button">
             <input
@@ -107,13 +108,13 @@ const Container = styled.ul`
   margin: 0, auto;
   align-items: center;
   padding: 0;
+  margin-bottom: 5px;
 `;
 
 const ContainerItem = styled.li`
   display: flex;
   flex-direction: column;
-  flex: none;
-  flex-basis: 33.33%;
+  flex: 1;
   margin-top: 20px;
   padding: 0 5px;
   box-sizing: border-box;
@@ -127,6 +128,12 @@ const WritingFormContainer = styled.div`
     margin-top: 20px;
   }
 
+  input {
+    height: 25px;
+    font-size: 17px;
+    min-width: 350px;
+  }
+
   li {
     list-style: none;
   }
@@ -134,13 +141,17 @@ const WritingFormContainer = styled.div`
   textarea {
     height: 400px;
     resize: none;
+    font-size: 17px;
+    min-width: 350px;
   }
 
   .imgpreview {
     flex: auto;
-    width: 60%;
-    height: 250px;
+    width: 50%;
+    min-width: 350px;
+    height: 300px;
     min-height: 0;
+    margin: 0 auto;
     align-self: center;
     border: 1px solid darkgray;
     margin-top: 20px;
@@ -155,7 +166,23 @@ const WritingFormContainer = styled.div`
   label {
     align-self: center;
     margin-top: 20px;
+    margin-bottom: 0;
     font-size: 15px;
     font-weight: bold;
+    color: rgba(255, 255, 255);
+    border: 0;
+    border-radius: 5px;
+    background: rgba(0, 124, 255, 0.5);
+    width: 80px;
+    padding: 10px;
+    text-align: center;
+    transition: all 0.5s ease-out;
+    background-position: 1% 50%;
+    background-size: 300% 300%;
+  }
+
+  label:hover {
+    color: rgba(0, 0, 0);
+    background: #00ce56;
   }
 `;
