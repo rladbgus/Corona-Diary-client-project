@@ -84,7 +84,6 @@ const ContentView = () => {
         headers: { "x-access-token": getToken },
       })
       .then(res => {
-        console.log('랜더링', res);
         setContent(res.data.Content);
         setnickName(res.data.Content.user.nickName);
         getTags(res.data.Content.tag);
@@ -104,8 +103,6 @@ const ContentView = () => {
       ac.abort();
     };
   }, [commented, nickName]);
-
-  console.log(isLike);
 
   const allComment = content.comment;
 
@@ -134,7 +131,6 @@ const ContentView = () => {
         { headers: { "x-access-token": getToken } }
       )
       .then(res => {
-        console.log(res)
         setCountLike(res.data.count);
         setIsLike(res.data.like);
       });
