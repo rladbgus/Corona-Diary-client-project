@@ -3,31 +3,53 @@ import styled from "styled-components";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const Border1 = styled.div`
-  width: 100%;
-  border: 1px solid #444444;
-  background-color: #b7a7f6;
+
+const Font = styled.div`     
+font-family: 'S-CoreDream-3Light';
+font-weight: normal;
+font-style: normal;
+line-height : 180%;
 `;
 
-const Border2 = styled.div`
-  width: 70%;
-  border: 1px solid #444444;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-left: 30px;
-  padding-right: 30px;
-  background-color: #d7d0f1;
-`;
+const Border = styled.span`
+  display : flex;
+  flex-wrap: wrap;
+  border: 5px solid #dcedc8;
+  margin : 5em 10em 7em 8em;
+  background-color: #dcedc8;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  `;
 
 const ContentStyle = styled.span`
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
-  padding: 0;
-  margin: 0;
-  list-style: none;
+  width:17em;
+  height: 20em;
+  line-height: 40px;
+  padding:2.5em;
+  margin: 2em 0em 1em 5em;
+  background: #ffffff;
+  flex-wrap:wrap;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+
+  .contentLinkStyle {
+    display:-webkit-box; 
+    word-wrap:break-word; 
+    -webkit-line-clamp:6; 
+    -webkit-box-orient:vertical; 
+    overflow:hidden; 
+    text-overflow:ellipsis; 
+    line-height:2em; 
+    height: 20em;
+    color:#444; 
+    text-decoration:none;
+    }
+  
+  .contentLinkStyle:hover {
+  }
+
+  &:hover {
+    box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.5);
+    transition: opacity 200ms;
+  }
 `;
 
 const MyContentsListView = () => {
@@ -41,7 +63,6 @@ const MyContentsListView = () => {
         headers: { "x-access-token": getToken },
       })
       .then(res => {
-        // console.log(res);
         setMyContentList([...res.data.contentList]);
       });
     return () => {
@@ -50,19 +71,19 @@ const MyContentsListView = () => {
   }, []);
 
   return (
-    <Border1>
-      <Border2>
+    <Font>
+      <Border>
         {myContentList?.map(data => (
           <ContentStyle key={data.id}>
-            <Link to={`/content/${data.id}`}>
+            <Link to={`/content/${data.id}`} className="contentLinkStyle">
               <h1>{data.title}</h1>
-              <span>{data.createdAt}</span>
+              <span style={{ color: "#005005" }}>{data.createdAt}</span>
               <p>{data.text}</p>
             </Link>
           </ContentStyle>
         ))}
-      </Border2>
-    </Border1>
+      </Border>
+    </Font>
   );
 };
 

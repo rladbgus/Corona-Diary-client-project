@@ -131,7 +131,6 @@ const ContentView = () => {
         { headers: { "x-access-token": getToken } }
       )
       .then(res => {
-        console.log(res);
         setCountLike(res.data.count);
         setIsLike(res.data.like);
       });

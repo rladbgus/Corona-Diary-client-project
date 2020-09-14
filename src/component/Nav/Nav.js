@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { NavLink, Link } from "react-router-dom";
-import logo from "../../img/corona_logo.png";
+// import logo from "../../img/corona_logo.png";
 import getLogin from "../../Context/Context";
 import AlertModal from "../../Modal/AlertModal";
 
@@ -115,7 +115,6 @@ function Nav() {
     <Header>
       {/* 로고 */}
       <Link to="/" className="homelink">
-        {/* <img className="logo" src={logo} alt="logo"></img> */}
         <i class="fab fa-cuttlefish fa-2x"></i>
       </Link>
 
