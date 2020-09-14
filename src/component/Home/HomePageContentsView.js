@@ -44,8 +44,42 @@ const MainContent = styled.div`
   .contentLinkStyle {
     text-decoration: none;
     color: black;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    /* -webkit-line-clamp: 6; 라인수 */
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+    width: 170px;
+    height: 160px;
   }
 
+  h1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* 라인수 */
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+  }
+
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 6; /* 라인수 */
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+  }
+
+  p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 라인수 */
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+  }
   .contentLinkStyle:hover {
     /* color: #00ce56; */
   }

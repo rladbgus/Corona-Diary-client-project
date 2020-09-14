@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
+const BREAK_POINT_MOBILE = 580;
+const BREAK_POINT_TABLET = 1024;
+
 const HomeIntroStyle = styled.div`
   background: #f5f5f5;
   display: flex;
@@ -18,6 +21,12 @@ const HomeIntroStyle = styled.div`
     font-weight: 500;
     letter-spacing: 15px;
     padding-left: 85px;
+    @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+      font-size: 27px;
+      font-weight: 500;
+      letter-spacing: 15px;
+      padding-left: 45px;
+    }
   }
 
   .homeIntroDescription {
@@ -25,6 +34,12 @@ const HomeIntroStyle = styled.div`
     padding-left: 35px;
     font-size: 35px;
     letter-spacing: 10px;
+    @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+      line-height: 7px;
+      padding-left: 0px;
+      font-size: 23px;
+      letter-spacing: 1px;
+    }
   }
 
   span {
