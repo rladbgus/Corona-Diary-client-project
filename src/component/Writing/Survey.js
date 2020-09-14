@@ -3,19 +3,11 @@ import styled from "styled-components";
 import SurveyForm from "./SurveyForm";
 import { surveydata } from "./surveydata";
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-`;
-
 const Survey = ({ handleClick, handleNumberChange }) => {
   return (
-    <>
-      <Container>
-        <div title="signup">설문조사</div>
+    <Container>
+      <>
+        <h3 title="survey">설문조사</h3>
         <div>
           <label>코로나걸린시기</label>
           <input
@@ -37,9 +29,17 @@ const Survey = ({ handleClick, handleNumberChange }) => {
         {surveydata.map(list => (
           <SurveyForm data={list} key={list.id} handleClick={handleClick} />
         ))}
-      </Container>
-    </>
+      </>
+    </Container>
   );
 };
 
 export default Survey;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+`;
