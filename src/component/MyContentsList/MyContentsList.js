@@ -3,6 +3,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+
 const Font = styled.div`     
 font-family: 'S-CoreDream-3Light';
 font-weight: normal;
@@ -20,23 +21,14 @@ const Border = styled.span`
   `;
 
 const ContentStyle = styled.span`
-  width:20%;
+  width:17em;
   height: 20em;
   line-height: 40px;
   padding:2.5em;
   margin: 2em 0em 1em 5em;
   background: #ffffff;
-  display:flex; 
   flex-wrap:wrap;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-  word-wrap:break-word; 
-  -webkit-line-clamp:6; 
-  -webkit-box-orient:vertical; 
-  overflow:hidden; 
-  text-overflow:ellipsis;
-
-  /* .ContentStyle:nth-of-type(n+6) 
-  { display: none; } */
 
   .contentLinkStyle {
     display:-webkit-box; 
