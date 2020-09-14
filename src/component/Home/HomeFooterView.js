@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
+const BREAK_POINT_MOBILE = 580;
+const BREAK_POINT_TABLET = 1024;
+
 const HomeFooterViewStyle = styled.div`
   background: #000000;
   display: flex;
@@ -10,16 +13,24 @@ const HomeFooterViewStyle = styled.div`
   margin: 10px;
   text-align: center;
   line-height: 30px;
+  position: relative;
 
   .homeFooterView {
     position: relative;
-    padding: 30px 20px;
+    padding: 30px 60px;
+    @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+      font-size: 17px;
+      line-height: 25px;
+      a {
+        display: none;
+      }
+    }
   }
   .homeFooterdiv {
     color: #ffffff;
     display: inline-block;
     margin: 10px 20px;
-    width: 230px;
+    width: 300px;
   }
 
   span {
@@ -159,7 +170,7 @@ const HomeFooterView = () => {
             Blog
           </a>
         </div>
-        <div className="homeFooterCopyright">© 2020 · C-Lab</div>
+        <div className="homeFooterCopyright">&copy; 2020 · C-Lab</div>
       </div>
     </HomeFooterViewStyle>
   );

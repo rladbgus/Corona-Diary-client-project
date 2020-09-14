@@ -6,19 +6,25 @@ import HomePageContentsView from "../component/Home/HomePageContentsView";
 import HomeGraphView from "../component/Home/HomeGraphView";
 import HomeFooterView from "../component/Home/HomeFooterView";
 
-const Shift = styled.div`
-  /* margin-top: 60px; */
-`;
+const BREAK_POINT_MOBILE = 580;
+const BREAK_POINT_TABLET = 1024;
 
 const Container = styled.article`
   display: block;
   /* background: #ffffff; */
-  margin-left: 200px;
-  margin-right: 200px;
+  margin-left: 6%;
+  margin-right: 6%;
   position: relative;
 
-  @media only screen and (max-width: 1120px) {
+  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
     margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+  }
+
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    margin-left: 0px;
+    margin-right: 0px;
     width: 100%;
   }
 `;
@@ -28,12 +34,11 @@ const Home = () => {
     <Fragment>
       <Container>
         <Nav>Home</Nav>
-        <Shift />
         <HomePageIntro />
         <HomePageContentsView />
         <HomeGraphView />
-        <HomeFooterView />
       </Container>
+      <HomeFooterView />
     </Fragment>
   );
 };
