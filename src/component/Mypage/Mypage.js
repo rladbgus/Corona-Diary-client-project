@@ -11,7 +11,13 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 10px;
+  margin: 80px;
+
+  button {
+    line-height: 40px;
+    margin: 10px 10px;
+    padding: 0px 20px;
+  }
 `;
 
 const Mypage = ({ history }) => {
@@ -45,7 +51,7 @@ const Mypage = ({ history }) => {
           "x-access-token": getToken,
         },
       })
-      .then(res => {
+      .then((res) => {
         getData(res.data);
       });
 
@@ -66,10 +72,10 @@ const Mypage = ({ history }) => {
           </CheckingModal>
         </Container>
       ) : (
-          <Container>
-            <SettingInfo userInfo={data} token={getToken} />
-          </Container>
-        )}
+        <Container>
+          <SettingInfo userInfo={data} token={getToken} />
+        </Container>
+      )}
     </>
   );
 };
