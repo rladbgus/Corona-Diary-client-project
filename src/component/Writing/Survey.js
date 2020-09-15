@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import SurveyForm from "./SurveyForm";
 import { surveydata } from "./surveydata";
@@ -22,14 +22,14 @@ const Survey = ({ handleClick, handleNumberChange, handleData }) => {
         <h3 title="survey">설문조사</h3>
         <div className="survey-text">
           <label>
-            코로나걸린시기{" "}
+            코로나에 걸린지{" "}
             <input
               name="covid_date"
               className="input_since"
               type="text"
               onChange={handleNumberChange}
             />{" "}
-            입니다.
+            일 되었습니다.
           </label>
         </div>
         <div className="survey-text">
@@ -71,7 +71,7 @@ const Container = styled.div`
     border: none;
     position: relative;
     height: 3rem;
-    width: 8.75rem;
+    width: 14.6rem;
     font-size: 1.25em;
     padding: 0 1.2em;
     cursor: pointer;

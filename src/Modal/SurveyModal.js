@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
 import Portal from "./Portal";
-import { useHistory } from "react-router-dom";
 
 const SurveyModal = ({ visible, onClose, children, handleData }) => {
   const handleComplete = () => {

@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { NavLink, Link } from "react-router-dom";
-// import logo from "../../img/corona_logo.png";
 import getLogin from "../../Context/Context";
 import AlertModal from "../../Modal/AlertModal";
 
@@ -13,11 +12,6 @@ const Header = styled.div`
   display: flex;
   flex-direction: row;
   padding-top: 20px;
-
-  .logo {
-    width: 50px;
-    height: 50px;
-  }
 
   button {
     background: #f5f5f5;
@@ -113,17 +107,14 @@ function Nav() {
 
   return (
     <Header>
-      {/* 로고 */}
       <Link to="/" className="homelink">
         <i class="fab fa-cuttlefish fa-2x"></i>
       </Link>
 
-      {/* 검색버튼 */}
       <Link to="/Search" className="search_btn">
         <i class="fas fa-search fa-2x"></i>
       </Link>
       <div>
-        {/* 햄버거버튼 */}
         <button
           className="menus"
           onClick={() => {
@@ -132,7 +123,6 @@ function Nav() {
         >
           <i class="fas fa-bars fa-2x"></i>
         </button>
-        {/* 로그인 전 내용 */}
         <span
           className="logoutstate"
           style={value.isLogin ? { display: "none" } : { display: "block" }}
@@ -151,7 +141,6 @@ function Nav() {
           </ul>
         </span>
 
-        {/* 로그인 후 내용 */}
         <span
           className="loginstate"
           style={value.isLogin ? { display: "block" } : { display: "none" }}

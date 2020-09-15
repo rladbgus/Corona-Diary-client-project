@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import ContentListForm from "./ContentListForm";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const ContentsListView = () => {
@@ -37,20 +37,26 @@ const ContentsListView = () => {
           <i class="fas fa-search fa-1x"></i>
           <input
             type="text"
-            placeholder="검색어를 입력하시오"
+            placeholder="검색어를 입력하세요."
             onChange={handelSearch}
             defaultValue=""
             className="searchItems"
           ></input>
         </div>
 
-        <div className="ContentListBox">
+        <Border>
           {searchList
             ? searchList.map(list => (
-              <ContentListForm data={list} key={list.id} />
+              <ContentStyle key={list.id}>
+                <Link to={`/content/${list.id}`} className="contentLinkStyle">
+                  <h1>{list.title}</h1>
+                  <span style={{ color: "#005005" }}>{list.createdAt}</span>
+                  <p>{list.text}</p>
+                </Link>
+              </ContentStyle>
             ))
             : ""}
-        </div>
+        </Border>
       </center>
     </Font>
   );
@@ -58,8 +64,67 @@ const ContentsListView = () => {
 
 export default ContentsListView;
 
-const BREAK_POINT_MOBILE = 580;
-const BREAK_POINT_TABLET = 1024;
+const BREAK_POINT_MOBILE = 520;
+const BREAK_POINT_TABLET = 1250;
+
+const ContentStyle = styled.span`
+    width:17em;
+    height: 20em;
+    line-height: 40px;
+    padding:2.5em;
+    margin: 2em 0em 1em 4em;
+    background: #ffffff;
+    flex-wrap:wrap;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+
+  .contentLinkStyle {
+      display:-webkit-box; 
+      word-wrap:break-word; 
+      -webkit-line-clamp:6; 
+      -webkit-box-orient:vertical; 
+      overflow:hidden; 
+      text-overflow:ellipsis; 
+      line-height:2em; 
+      height: 20em;
+      color:#444; 
+      text-decoration:none;
+  }
+  .contentLinkStyle:hover {
+    }
+
+  &:hover {
+    box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.5);
+    transition: opacity 200ms;
+  }
+  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+    margin: 5em;
+    width: 100%;
+  }
+
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    margin : 2em;
+    width: 100%;
+    /* height: 5em; */
+    input {
+      font-size: 15px;
+      padding: 10px 5px;
+      width: 200px;
+    }
+    i {
+      font-size: 20px;
+      padding-left: 45px;
+      padding-top: 2%;
+    }
+  }
+`;
+
+const Border = styled.span`
+  display : flex;
+  flex-wrap: wrap;
+  border: 1px solid #66bb6a;
+  margin : 4em 6em 7em 5em;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  `;
 
 const Font = styled.div`
   font-family: 'S-CoreDream-3Light';
@@ -73,50 +138,48 @@ const Font = styled.div`
   align-content: center;
   text-align: center;
   position: relative;
-  font-size: 30px;
 
-.ContentListBox {
-  /* flex-wrap: wrap; */
-  /* background: #ffffff;
-  border-style: solid 2px #66bb6a;
-  margin: 5px;  */
+  .searchItems {
+    display: inline-block;
+    width: 350px;
+    margin-top: 3em;
+    background-color: #f5f5f5;
   }
 
-.searchItems {
-  display: inline-block;
-  width: 350px;
-  margin-top: 3em;
-  /* background-color: #4f5b66; */
-}
+  i {
+      position: absolute;
+      margin-left: 20px;
+      margin-top: 118px;
+      color: #4caf50;
+      font-size: 40px;
+    }
 
-input {
-    color: #4f5b66;
-    padding: 30px 80px;
-    font-size: 30px;
-    border: none;
-    background-color:#ffffff;
-    border-bottom: 3px solid #4f5b66;
-  }
+  input {
+      color: #4f5b66;
+      padding: 30px 30px 14px 80px;
+      font-size: 30px;
+      border: none;
+      background-color:#ffffff;
+      border-bottom: 3px solid #4caf50;
+      display:flex;
+    }
 
-  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
-    margin-left: 0px;
-    margin-right: 0px;
+    @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+    margin: 5em;
     width: 100%;
   }
 
   @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
-    margin-left: 0px;
-    margin-right: 0px;
+    margin : 2em;
     width: 100%;
     input {
-      font-size: 15px;
+      font-size: 20px;
       padding: 10px 5px;
-      width: 200px;
+      border-width:2%;
+      width:2%;
     }
     i {
-      font-size: 20px;
-      padding-left: 45px;
-      padding-top: 2%;
+      display:none;
     }
   }
 `;

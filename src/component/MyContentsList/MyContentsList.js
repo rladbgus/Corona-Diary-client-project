@@ -19,7 +19,7 @@ const MyContentsListView = () => {
     return () => {
       ac.abort();
     };
-  }, []);
+  });
 
   return (
     <Font>
@@ -47,7 +47,7 @@ const MyContentsListView = () => {
 export default MyContentsListView;
 
 const BREAK_POINT_MOBILE = 580;
-const BREAK_POINT_TABLET = 1024;
+const BREAK_POINT_TABLET = 1111;
 
 const Font = styled.div`     
 font-family: 'S-CoreDream-3Light';
@@ -56,7 +56,8 @@ font-style: normal;
 line-height : 180%;
 
 .icon {
-    color: #4caf50;
+   margin-right:7px;
+   color: #4caf50;
   }
 `;
 
@@ -84,7 +85,7 @@ const Border = styled.span`
   border: 1px solid #66bb6a;
   margin : 3em 6em 7em 8em;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-  min-width: 160px;
+  /* min-width: 100px; */
   `;
 
 const ContentStyle = styled.span`
@@ -119,22 +120,20 @@ const ContentStyle = styled.span`
   }
 
   @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
-    margin-left: 0px;
-    margin-right: 0px;
+    margin : 3em;
     width: 100%;
   }
 
   @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
-    margin-left: 0px;
-    margin-right: 0px;
+    margin : 2em;
     width: 100%;
     input {
-      font-size: 15px;
+      font-size: 13px;
       padding: 10px 5px;
       width: 200px;
     }
-    i {
-      font-size: 20px;
+    .icon {
+      font-size: 8px;
       padding-left: 45px;
       padding-top: 2%;
     }

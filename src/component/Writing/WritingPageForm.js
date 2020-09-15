@@ -63,7 +63,7 @@ const WritingPageForm = ({ history }) => {
   };
 
   return (
-    <Writing>
+    <>
       <WritingForm
         handleChange={handleChange}
         handleTags={handleTags}
@@ -75,14 +75,8 @@ const WritingPageForm = ({ history }) => {
         handleData={handleData}
       />
       <SubmitButton data={data} history={history} image={image} />
-    </Writing>
+    </>
   );
 };
 
 export default WritingPageForm;
-
-const Writing = styled.div`
-  font-family: "S-CoreDream-3Light";
-  font-weight: normal;
-  font-style: normal;
-`;

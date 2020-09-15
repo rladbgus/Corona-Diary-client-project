@@ -6,14 +6,6 @@ import getLogin from "../../../Context/Context";
 import AlertModal from "../../../Modal/AlertModal";
 const FormData = require("form-data");
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-`;
-
 const EditSubmitButton = ({ data, image }) => {
   const value = useContext(getLogin);
   const [modal, getModal] = useState(false);
@@ -102,3 +94,55 @@ const EditSubmitButton = ({ data, image }) => {
 };
 
 export default EditSubmitButton;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-family: "S-CoreDream-3Light";
+  font-style: normal;
+  font-weight: normal;
+
+  button {
+    background: black;
+    color: #81c784;
+    border: none;
+    position: relative;
+    height: 3rem;
+    width: 7rem;
+    font-size: 1.25em;
+    cursor: pointer;
+    transition: 800ms ease all;
+    outline: none;
+    margin: 5px;
+    margin-bottom: 5em;
+  }
+  button:hover {
+    background: #fff;
+    color: #1aab8a;
+  }
+  button:before,
+  button:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 2px;
+    width: 0;
+    background: #1aab8a;
+    transition: 400ms ease all;
+  }
+  button:after {
+    right: inherit;
+    top: inherit;
+    left: 0;
+    bottom: 0;
+  }
+  button:hover:before,
+  button:hover:after {
+    width: 100%;
+    transition: 800ms ease all;
+  }
+`;

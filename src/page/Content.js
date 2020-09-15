@@ -9,8 +9,8 @@ const BREAK_POINT_TABLET = 1024;
 const Container = styled.article`
   display: block;
   /* background: #ffffff; */
-  margin-left: 6%;
-  margin-right: 6%;
+  margin-left: 20%;
+  margin-right: 20%;
   position: relative;
   font-family: "S-CoreDream-3Light";
   font-weight: normal;
