@@ -67,7 +67,7 @@ const SearchComponent = () => {
       <i class="fas fa-search fa-1x"></i>
       <input
         type="text"
-        placeholder="검색어를 입력해 주세요."
+        placeholder="검색어를 입력하세요."
         className="searchItems"
       />
     </SearchStyle>
