@@ -10,6 +10,11 @@ const HomeGraphViewStyle = styled.div`
   margin: 10px;
   text-align: center;
   line-height: 30px;
+
+  img {
+    width: 600;
+    height: 400;
+  }
 `;
 
 const HomeGraphView = () => {
@@ -18,12 +23,7 @@ const HomeGraphView = () => {
       <div className="homeGraphView">
         <div className="homeGraphContainer">
           <br />
-          <img
-            src="https://ichef.bbci.co.uk/news/800/cpsprodpb/161B7/production/_111115509_globalmapfinal_3mar_v2-nc.png"
-            alt=""
-            width="600"
-            height="400"
-          ></img>
+          <img></img>
         </div>
       </div>
     </HomeGraphViewStyle>

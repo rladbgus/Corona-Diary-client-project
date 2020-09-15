@@ -1,18 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-import getLogin from "../../Context/Context";
 import AlertModal from "../../Modal/AlertModal";
 const FormData = require("form-data");
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-`;
 
 const SubmitButton = ({ data, history, image }) => {
   const url = "http://localhost:5000/content";
@@ -32,6 +23,8 @@ const SubmitButton = ({ data, history, image }) => {
   const submitButton = event => {
     event.preventDefault();
 
+    console.log(data);
+
     const formData = new FormData();
     formData.append("imgFile", image);
     formData.append("title", data.title);
@@ -46,17 +39,12 @@ const SubmitButton = ({ data, history, image }) => {
     formData.append("q_psy", data.q_psy);
     formData.append("tags", data.tags);
 
-    if (Object.keys(data).length !== 11) {
-      getChildren("빈 항목이 있습니다. 채워주세요");
-      getClassName("checktdata");
-      return openModal();
-    }
-    if (data.title === "") {
+    if (!data.title) {
       getChildren("제목을 채워주세요");
       getClassName("checktitle");
       return openModal();
     }
-    if (data.text === "") {
+    if (!data.text) {
       getChildren("내용을 채워주세요");
       getClassName("checktext");
       return openModal();
@@ -93,3 +81,52 @@ const SubmitButton = ({ data, history, image }) => {
 };
 
 export default SubmitButton;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    background: black;
+    color: #81c784;
+    border: none;
+    position: relative;
+    height: 3rem;
+    width: 8.75rem;
+    font-size: 1.25em;
+    padding: 0 1.2em;
+    cursor: pointer;
+    transition: 800ms ease all;
+    outline: none;
+    margin: 1em;
+    margin-bottom: 5em;
+  }
+  button:hover {
+    background: #fff;
+    color: #1aab8a;
+  }
+  button:before,
+  button:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 2px;
+    width: 0;
+    background: #1aab8a;
+    transition: 400ms ease all;
+  }
+  button:after {
+    right: inherit;
+    top: inherit;
+    left: 0;
+    bottom: 0;
+  }
+  button:hover:before,
+  button:hover:after {
+    width: 100%;
+    transition: 800ms ease all;
+  }
+`;

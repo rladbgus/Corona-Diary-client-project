@@ -5,12 +5,76 @@ import getLogin from "../../Context/Context";
 import AlertModal from "../../Modal/AlertModal";
 import { useLocation } from "react-router-dom";
 
+const BREAK_POINT_MOBILE = 580;
+const BREAK_POINT_TABLET = 1024;
+
 const Container = styled.div`
+  /* border: 3px solid black; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 10px;
+  margin: 20px 10px;
+  font-size: 27px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  padding: 0px;
+
+  .titleStyle {
+    text-align: center;
+    width: 70%;
+    border-bottom: 2px solid black;
+    padding-bottom: 20px;
+  }
+
+  .contentStyle {
+    align-content: space-around;
+    padding: 50px 70px;
+    line-height: 70px;
+    padding-top: 5px;
+  }
+
+  .default {
+    font-weight: bold;
+  }
+
+  button {
+    line-height: 40px;
+    margin: 10px 10px;
+    padding: 0px 40px;
+  }
+  .cancelB {
+    padding: 0px 30px;
+  }
+  .btn {
+    padding-bottom: 70px;
+  }
+
+  input {
+    height: 28px;
+    padding-top: 10px;
+  }
+
+  .age {
+    height: 33px;
+    width: 30%;
+    padding-top: 10px;
+  }
+
+  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+  }
+
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+    font-size: 17px;
+    .contentStyle {
+      line-height: 30px;
+    }
+  }
 `;
 
 const SettingInfo = ({ token, userInfo }) => {
@@ -39,7 +103,7 @@ const SettingInfo = ({ token, userInfo }) => {
     getModal(!modal);
   };
 
-  const handleModifiedButton = async event => {
+  const handleModifiedButton = async (event) => {
     event.preventDefault();
     let data = {};
     data.email = userInfo.email;
@@ -78,14 +142,14 @@ const SettingInfo = ({ token, userInfo }) => {
           "x-access-token": token,
         },
       })
-      .then(res => {
+      .then((res) => {
         if (res.status === 201) {
           getChildren("수정완료!!");
           getClassName("complete");
           openModal();
         }
       })
-      .catch(err => {
+      .catch((err) => {
         if (err) {
           children = "서버오류입니다!";
           className = "error";
@@ -98,7 +162,7 @@ const SettingInfo = ({ token, userInfo }) => {
     value.handleIsChecking();
   };
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     if (event.target.name === "password1") {
       setPassword1(event.target.value);
     }
@@ -110,69 +174,77 @@ const SettingInfo = ({ token, userInfo }) => {
     }
   };
 
-  const handleClick = event => {
+  const handleClick = (event) => {
     setAge(Number(event.target.value));
   };
 
   return (
     <>
       <Container>
-        <h1 title="mypage">정보수정</h1>
-        <div>
-          <label>이메일 : </label>
-          <label>{userInfo.email}</label>
+        <h1 title="mypage" className="titleStyle">
+          정보수정
+        </h1>
+        <div className="contentStyle">
+          <div className="contentDetailStyle">
+            <label className="default">이메일 : </label>
+            <label>{userInfo.email}</label>
+          </div>
+          <div className="contentDetailStyle">
+            <label className="default">비밀번호 : </label>
+            <input
+              className="input_password1"
+              type="password"
+              name="password1"
+              onChange={handleChange}
+              value={password1}
+            />
+          </div>
+          <div className="contentDetailStyle">
+            <label className="default">비밀번호 확인 : </label>
+            <input
+              className="input_password2"
+              type="password"
+              name="password2"
+              onChange={handleChange}
+              value={password2}
+            />
+          </div>
+          <div className="contentDetailStyle">
+            <label className="default">닉네임 : </label>
+            <label>{userInfo.nickName}</label>
+          </div>
+          <div className="contentDetailStyle">
+            <label className="default">나이대 : </label>
+            <select name="age" onClick={handleClick} className="age">
+              <option value="0">나이대선택</option>
+              <option value="9">10대이하</option>
+              <option value="10">10대</option>
+              <option value="20">20대</option>
+              <option value="30">30대</option>
+              <option value="40">40대</option>
+              <option value="50">50대</option>
+              <option value="60">60대</option>
+              <option value="70">70대이상</option>
+            </select>
+          </div>
+          <div>
+            <label className="default">격리된 지역 : </label>
+            <input
+              className="input_location"
+              type="text"
+              name="city"
+              onChange={handleChange}
+            />
+          </div>
         </div>
-        <div>
-          <label>비밀번호</label>
-          <input
-            className="input_password1"
-            type="password"
-            name="password1"
-            onChange={handleChange}
-            value={password1}
-          />
+        <div className="btn">
+          <button type="submit" onClick={handleModifiedButton}>
+            수정완료
+          </button>
+          <button onClick={handleCancel} className="cancelB">
+            취 소
+          </button>
         </div>
-        <div>
-          <label>비밀번호 확인</label>
-          <input
-            className="input_password2"
-            type="password"
-            name="password2"
-            onChange={handleChange}
-            value={password2}
-          />
-        </div>
-        <div>
-          <label>닉네임 : </label>
-          <label>{userInfo.nickName}</label>
-        </div>
-        <div>
-          <label>나이대 : </label>
-          <select name="age" onClick={handleClick}>
-            <option value="0">나이대선택</option>
-            <option value="9">10대이하</option>
-            <option value="10">10대</option>
-            <option value="20">20대</option>
-            <option value="30">30대</option>
-            <option value="40">40대</option>
-            <option value="50">50대</option>
-            <option value="60">60대</option>
-            <option value="70">70대이상</option>
-          </select>
-        </div>
-        <div>
-          <label>격리된 지역 : </label>
-          <input
-            className="input_location"
-            type="text"
-            name="city"
-            onChange={handleChange}
-          />
-        </div>
-        <button type="submit" onClick={handleModifiedButton}>
-          수정완료
-        </button>
-        <button onClick={handleCancel}>취소</button>
       </Container>
       <AlertModal visible={modal} onClose={closeModal} className={className}>
         {children}
