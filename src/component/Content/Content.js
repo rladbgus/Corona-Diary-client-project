@@ -13,34 +13,211 @@ import example from "../../img/corona_logo.png";
 import ReplyComment from "./ReplyComment";
 
 const ContentBox = styled.div`
-  background: #f0cdcd;
+  background: #f5f5f5;
+  border: 40px solid white;
+  border-radius: 50px;
+  .Content {
+  }
+
+  h1 {
+    font-size: 200%;
+    padding: 30px 0px 10px 0px;
+    letter-spacing: 10px;
+  }
+
+  .contentDate {
+    display: block;
+    padding: 0px 0px 30px 0px;
+  }
 
   img {
-    margin-top: 20px;
+    padding: 0px 0px 30px 0px;
   }
-`;
-const CommentBox = styled.div`
-  background: #abe8e1;
-`;
-const CommentLi = styled.li`
-  background: #f7ffaf;
-  border: 2px solid;
-`;
-const LikeButton = styled.div`
-  .likeBtn {
-    background-color: #f0cdcd;
+
+  .TextArea {
+    margin: 0% 20%;
+    text-align: left;
+    font-size: 18px;
+    line-height: 200%;
+  }
+  .tagStyle {
+    margin: 0% 20%;
+    text-align: right;
+  }
+
+  .btn {
+    display: inline-flex;
+    padding: 0px 50px 30px 50px;
+  }
+
+  .btn-style {
+    background: black;
+    /* color: #81c784; */
+    color: white;
     border: none;
+    position: relative;
+    font-size: 1em;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: 800ms ease all;
+    outline: none;
+
+    line-height: 40px;
+    margin: 0px 10px;
+    padding: 0px 20px;
   }
-  .LikeImg {
+  .btn-style:hover {
+    background: #fff;
+    color: #1aab8a;
+  }
+  .btn-style:before,
+  .btn-style:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 2px;
+    width: 0;
+    background: #1aab8a;
+    transition: 400ms ease all;
+  }
+  .btn-style:after {
+    right: inherit;
+    top: inherit;
+    left: 0;
+    bottom: 0;
+  }
+  .btn-style:hover:before,
+  .btn-style:hover:after {
+    width: 100%;
+    transition: 800ms ease all;
+  }
+`;
+
+const LikeButton = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  padding: 20px 0px 0px 0px;
+
+  img {
     height: 30px;
   }
+
+  span {
+    margin-left: 10px;
+  }
 `;
+
+const CommentBox = styled.div`
+  background: #f5f5f5;
+  border-radius: 20px;
+
+  input {
+    margin: 5px 10px 5px 0px;
+    resize: none;
+    width: 80%;
+    font-size: 1rem;
+    line-height: 1.75;
+    padding: 1rem 1rem 1.5rem;
+    outline: none;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(233, 236, 239);
+    border-radius: 4px;
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-align: start;
+  }
+
+  button {
+    background: black;
+    /* color: #81c784; */
+    color: white;
+    border: none;
+    position: relative;
+    font-size: 0.7em;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: 800ms ease all;
+    outline: none;
+    line-height: 40px;
+    margin: 0px 10px;
+    padding: 0px 20px;
+  }
+  button:hover {
+    background: #fff;
+    color: #1aab8a;
+  }
+  button:before,
+  button:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 2px;
+    width: 0;
+    background: #1aab8a;
+    transition: 400ms ease all;
+  }
+  button:after {
+    right: inherit;
+    top: inherit;
+    left: 0;
+    bottom: 0;
+  }
+  button:hover:before,
+  button:hover:after {
+    width: 100%;
+    transition: 800ms ease all;
+  }
+`;
+const CommentLi = styled.li`
+  /* background: #ffebee; */
+  border: none;
+  border-bottom: 4px solid #e0e0e0;
+  border-right: 4px solid #e0e0e0;
+  border-radius: 20px;
+  list-style: none;
+
+  .comment {
+    display: flex;
+    /* border-bottom: 4px solid white; */
+  }
+  .commentU {
+    display: block;
+    border-right: 4px solid white;
+  }
+  .commentUser,
+  .commentDate {
+    width: 170px;
+    padding: 20px 10px 0px 10px;
+  }
+  .commentUser {
+    font-weight: bold;
+  }
+  .commentStyle {
+    display: flex;
+    justify-content: start;
+    padding: 15px 40px 10px 40px;
+    text-align: left;
+    font-size: 18px;
+    line-height: 200%;
+  }
+`;
+
 const Container = styled.div`
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 10px;
+  margin: 10px; */
 `;
 
 const ContentView = () => {
@@ -83,7 +260,7 @@ const ContentView = () => {
       .get(`http://localhost:5000/content/${contentId}`, {
         headers: { "x-access-token": getToken },
       })
-      .then(res => {
+      .then((res) => {
         setContent(res.data.Content);
         setnickName(res.data.Content.user.nickName);
         getTags(res.data.Content.tag);
@@ -114,7 +291,7 @@ const ContentView = () => {
           "x-access-token": getToken,
         },
       })
-      .then(res => {
+      .then((res) => {
         getData(res.data);
       });
     return () => {
@@ -130,14 +307,14 @@ const ContentView = () => {
         { like: countLike },
         { headers: { "x-access-token": getToken } }
       )
-      .then(res => {
+      .then((res) => {
         setCountLike(res.data.count);
         setIsLike(res.data.like);
       });
   };
 
   //댓글기능
-  const postComment = e => {
+  const postComment = (e) => {
     e.preventDefault();
     setCommneted([comment, ...content.comment]);
     axios
@@ -155,7 +332,7 @@ const ContentView = () => {
   };
 
   //댓글 삭제
-  const deleteComment = value => {
+  const deleteComment = (value) => {
     axios
       .delete(`http://localhost:5000/comment/${value}`, {
         headers: { "x-access-token": getToken },
@@ -186,7 +363,7 @@ const ContentView = () => {
       .delete(`http://localhost:5000/content/${contentId}`, {
         headers: { "x-access-token": getToken },
       })
-      .then(res => {
+      .then((res) => {
         if (res.status === 200) {
           getChildren("일기가 삭제되었습니다");
           getClassName("deleteCotent");
@@ -206,16 +383,22 @@ const ContentView = () => {
           <>
             <ContentBox>
               <div className="Content">
-                {content.referenceFile ? (
-                  <img src={content.referenceFile} alt="" />
-                ) : (
-                  <img src={example} alt="" width="320" height="200" />
-                )}
                 <h1>{content.title}</h1>
-                <span>{content.createdAt}</span>
+                <span className="contentDate">{content.createdAt}</span>
+                {content.referenceFile ? (
+                  <img
+                    src={content.referenceFile}
+                    alt=""
+                    width="420"
+                    height="400"
+                  />
+                ) : (
+                  <img src={example} alt="" width="420" height="400" />
+                )}
+
                 <div className="TextArea">{content.text}</div>
                 <br />
-                <div>
+                <div className="tagStyle">
                   <Tags data={tags} />
                 </div>
                 <LikeButton>
@@ -234,27 +417,31 @@ const ContentView = () => {
                       onClick={setLikeBtn}
                     />
                   )}
-                  {countLike !== 0 ? <span>{countLike}</span> : 0}
+                  {countLike !== 0 ? <span>{countLike}</span> : <span>0</span>}
                 </LikeButton>
-                <button
-                  onClick={openModalModify}
-                  style={
-                    deleteState ? { display: "none" } : { display: "block" }
-                  }
-                >
-                  일기수정
-                </button>
-                <CheckingModal visible={checkModal} onClose={closeCheckModal}>
-                  {children}
-                </CheckingModal>
-                <button
-                  onClick={deleteContent}
-                  style={
-                    deleteState ? { display: "none" } : { display: "block" }
-                  }
-                >
-                  일기삭제
-                </button>
+                <div className="btn">
+                  <button
+                    onClick={openModalModify}
+                    style={
+                      deleteState ? { display: "none" } : { display: "block" }
+                    }
+                    className="btn-style"
+                  >
+                    일기수정
+                  </button>
+                  <CheckingModal visible={checkModal} onClose={closeCheckModal}>
+                    {children}
+                  </CheckingModal>
+                  <button
+                    onClick={deleteContent}
+                    style={
+                      deleteState ? { display: "none" } : { display: "block" }
+                    }
+                    className="btn-style"
+                  >
+                    일기삭제
+                  </button>
+                </div>
               </div>
             </ContentBox>
             <CommentBox>
@@ -263,20 +450,24 @@ const ContentView = () => {
                   type="text"
                   placeholder="댓글을 작성하세요"
                   value={comment}
-                  onChange={e => newComment(e.target.value)}
+                  onChange={(e) => newComment(e.target.value)}
                 />
                 <button onClick={postComment}>댓글 작성</button>
                 <>
                   {allComment
-                    ?.filter(value => value.depth === 0)
-                    .map(data => (
+                    ?.filter((value) => value.depth === 0)
+                    .map((data) => (
                       <CommentLi key={data.id}>
-                        {data.user.nickName}
-                        <br />
-                        {data.createdAt}
-                        <br />
-                        {data.comment}
-                        <br />
+                        <div className="comment">
+                          <div className="commentU">
+                            <div className="commentUser">
+                              {data.user.nickName}
+                            </div>
+                            <div className="commentDate">{data.createdAt}</div>
+                          </div>
+
+                          <div className="commentStyle">{data.comment}</div>
+                        </div>
                         <ReplyComment
                           data={data}
                           deleteComment={deleteComment}
