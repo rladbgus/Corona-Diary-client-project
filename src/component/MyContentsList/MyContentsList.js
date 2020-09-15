@@ -19,7 +19,7 @@ const MyContentsListView = () => {
     return () => {
       ac.abort();
     };
-  }, []);
+  });
 
   return (
     <Font>
@@ -56,7 +56,8 @@ font-style: normal;
 line-height : 180%;
 
 .icon {
-    color: #4caf50;
+   margin-right:7px;
+   color: #4caf50;
   }
 `;
 

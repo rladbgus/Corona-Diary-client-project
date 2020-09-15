@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const SurveyForm = ({ data, handleClick, checking }) => {
@@ -9,7 +9,7 @@ const SurveyForm = ({ data, handleClick, checking }) => {
       </div>
       <SurveyContainer>
         <span>
-          약1
+          나쁨
           <div>
             <input
               type="radio"
@@ -117,7 +117,7 @@ const SurveyForm = ({ data, handleClick, checking }) => {
           </div>
         </span>
         <span>
-          강10
+          좋음
           <div>
             <input
               type="radio"
@@ -150,9 +150,10 @@ const SurveyContainer = styled.span`
     font-size: 20px;
   }
   div {
-    margin-bottom: 7px;
+    margin-bottom: 20px;
   }
   span {
-    margin-right: 10px;
+    margin-right: 17px;
+    font-size: 0.7rem;
   }
 `;
