@@ -164,25 +164,46 @@ const WritingFormContainer = styled.div`
   }
 
   label {
+    margin-top: 7px;
     align-self: center;
-    margin-top: 20px;
-    margin-bottom: 0;
-    font-size: 15px;
-    font-weight: bold;
-    color: rgba(255, 255, 255);
-    border: 0;
-    border-radius: 5px;
-    background: rgba(0, 124, 255, 0.5);
-    width: 80px;
-    padding: 10px;
     text-align: center;
-    transition: all 0.5s ease-out;
-    background-position: 1% 50%;
-    background-size: 300% 300%;
+    background: black;
+    color: #81c784;
+    border: none;
+    position: relative;
+    height: 2.15rem;
+    width: 5rem;
+    font-size: 1.25em;
+    padding: 0 1.5em;
+    padding-top: 0.7em;
+    cursor: pointer;
+    transition: 800ms ease all;
+    outline: none;
   }
-
   label:hover {
-    color: rgba(0, 0, 0);
-    background: #00ce56;
+    background: #fff;
+    color: #1aab8a;
+  }
+  label:before,
+  label:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 2px;
+    width: 0;
+    background: #1aab8a;
+    transition: 400ms ease all;
+  }
+  label:after {
+    right: inherit;
+    top: inherit;
+    left: 0;
+    bottom: 0;
+  }
+  label:hover:before,
+  label:hover:after {
+    width: 100%;
+    transition: 800ms ease all;
   }
 `;
