@@ -91,7 +91,7 @@ const Header = styled.div`
     display: none;
   }
   .homelink {
-    color: #00ce56;
+    color: #4caf50;
   }
 `;
 

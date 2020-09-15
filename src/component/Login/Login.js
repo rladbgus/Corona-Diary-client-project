@@ -5,8 +5,6 @@ import getLogin from "../../Context/Context";
 // import { GoogleLogin } from "react-google-login";
 import AlertModal from "../../Modal/AlertModal";
 import styled from "styled-components";
-import user from "../../img/user.png";
-import unlock from "../../img/unlock.png";
 
 const Login = () => {
   const value = useContext(getLogin);
@@ -61,11 +59,15 @@ const Login = () => {
         <h1 className="Login">Login</h1>
         <form>
           <div>
-            <label> <img src={user} className="icon" alt="" /> </label>
+            <label>
+              <i class="fas fa-user fa-2x" />
+            </label>
             <input type="email" placeholder="Email" value={email} onChange={emailHandler} className="input" />
           </div>
           <div>
-            <label><img src={unlock} className="icon" alt="" /> </label>
+            <label>
+              <i class="fas fa-unlock-alt fa-2x" />
+            </label>
             <input type="password" placeholder="Password" value={password} onChange={passwordHandler} className="input" />
           </div>
           <button onClick={submitHandler}>Log in</button>
@@ -96,35 +98,39 @@ const Login = () => {
 
 export default withRouter(Login);
 
+const BREAK_POINT_MOBILE = 580;
+const BREAK_POINT_TABLET = 1024;
+
 const LoginStyled = styled.div`
   font-family: 'S-CoreDream-3Light';
   font-weight: normal;
   font-style: normal;
   line-height : 180%;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-  position:relative;
   height: 32em;
   margin:4em 40em 0em 38em;
   display: -webkit-flex;
+  display: inline-block;
   display: flex;
   -webkit-justify-content: center;
   justify-content: center;
   -webkit-align-items: center;
   align-items: center; 
+  min-width: 250px;
 
 .loginName{
   margin-bottom:8em;
   }
 
-.icon{
-  width: 2.6rem;
-  height: 2.6rem;
+i {
+ margin-top:0.4em;
 }
 
 .input{
   width: 10rem;
   height: 3rem;
   margin: 0rem 0rem 0.1rem 0.7rem;
+  font-size: 1.2rem;
 }
 
 .Login{
@@ -149,7 +155,7 @@ button{
   background:black;
   color:#81c784;
   border:none;
-  position:relative;
+  display: inline-block;
   height:3rem;
   width: 8.5rem;
   font-size:1.25em;
@@ -157,7 +163,7 @@ button{
   cursor:pointer;
   transition:800ms ease all;
   outline:none;
-  margin: 1em 0em 0em 4.4em;
+  margin: 1em 0em 0em 3.5em;
 }
 button:hover{
   background:#fff;
@@ -183,5 +189,17 @@ button:hover:before,button:hover:after{
   width:100%;
   transition:800ms ease all;
 }
+
+@media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+  }
+
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+  }
 
 `;
