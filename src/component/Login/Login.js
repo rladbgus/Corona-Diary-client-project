@@ -108,7 +108,7 @@ const LoginStyled = styled.div`
   line-height : 180%;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   height: 32em;
-  margin:4em 40em 0em 38em;
+  margin:4em 35em 0em 33em;
   display: -webkit-flex;
   display: inline-block;
   display: flex;
