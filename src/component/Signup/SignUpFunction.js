@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 import AlertModal from "../../Modal/AlertModal";
+import styled from "styled-components";
 
 const SignUpFunction = ({ history }) => {
   const url = "http://localhost:5000/user/signup";
@@ -170,7 +171,7 @@ const SignUpFunction = ({ history }) => {
   };
 
   return (
-    <>
+    <SignUp>
       <div>
         <label>이메일</label>
         <input
@@ -180,14 +181,14 @@ const SignUpFunction = ({ history }) => {
           value={email}
           onChange={handleChange}
         />
-        <button className="email_check" onClick={emailCheckingButton}>
+        <button className="email-check" onClick={emailCheckingButton}>
           중복확인
         </button>
       </div>
       <div>
         <label>비밀번호</label>
         <input
-          className="input_password1"
+          className="input-password1"
           type="password"
           name="password1"
           value={password1}
@@ -197,7 +198,7 @@ const SignUpFunction = ({ history }) => {
       <div>
         <label>비밀번호확인</label>
         <input
-          className="input_password2"
+          className="input-password2"
           type="password"
           name="password2"
           value={password2}
@@ -207,18 +208,18 @@ const SignUpFunction = ({ history }) => {
       <div>
         <label>닉네임</label>
         <input
-          className="input_nickname"
+          className="input-nickname"
           type="text"
           name="nickName"
           value={nickName}
           onChange={handleChange}
         />
-        <button className="nickname_check" onClick={nickNameCheckingButton}>
+        <button className="nickname-check" onClick={nickNameCheckingButton}>
           중복확인
         </button>
       </div>
       <div>
-        <label>나이대</label>
+        <div className="select-age">나이대</div>
         <select name="age" onChange={handleChange}>
           <option value="0">나이대선택</option>
           <option value="9">10대이하</option>
@@ -241,17 +242,66 @@ const SignUpFunction = ({ history }) => {
           onChange={handleChange}
         />
       </div>
-      <form onSubmit={handleSubmit}>
-        <button type="submit">회원가입</button>
-        <Link to="/">
-          <button>취소</button>
-        </Link>
-      </form>
+      <div className="resister-btn">
+        <form onSubmit={handleSubmit}>
+          <button type="submit">회원가입</button>
+          <Link to="/">
+            <button>취소</button>
+          </Link>
+        </form>
+      </div>
       <AlertModal visible={modal} onClose={closeModal} className={className}>
         {children}
       </AlertModal>
-    </>
+    </SignUp>
   );
 };
 
 export default withRouter(SignUpFunction);
+
+const SignUp = styled.div`
+  font-family: "S-CoreDream-3Light";
+  font-style: normal;
+  font-weight: normal;
+  width: 60%;
+
+  .email-check,
+  .nickname-check {
+    float: right;
+    width: 5rem;
+    height: 2rem;
+    font-size: 1rem;
+    padding-bottom: 0.2rem;
+  }
+
+  .select-age {
+    font-size: 1.5rem;
+    margin: 0;
+    margin-bottom: 0.3rem;
+  }
+
+  div {
+    margin-bottom: 2rem;
+  }
+
+  label {
+    font-size: 1.5rem;
+  }
+
+  select {
+    height: 2rem;
+    font-size: 1.5rem;
+  }
+
+  input {
+    display: flex;
+    align-items: left;
+    width: 97%;
+    height: 2rem;
+    font-size: 1.2rem;
+  }
+
+  .resister-btn {
+    float: right;
+  }
+`;
