@@ -61,16 +61,6 @@ const WritingForm = ({ handleChange, handleTags, handleImg }) => {
           />
         </ContainerItem>
         <ContainerItem>
-          <div className="added-tags-content">추가된 태그</div>
-          <div className="tags">
-            {arrayTags.length === 0 ? (
-              <br />
-            ) : (
-              arrayTags.map(list => `#${list} `)
-            )}
-          </div>
-        </ContainerItem>
-        <ContainerItem>
           <div className="add-tags">태그추가</div>
           <input
             className="input-tag"
@@ -80,6 +70,22 @@ const WritingForm = ({ handleChange, handleTags, handleImg }) => {
             onChange={handleValue}
             onKeyDown={handleKey}
           />
+        </ContainerItem>
+        <ContainerItem>
+          <div className="added-tags-content">추가된 태그</div>
+          <div className="tags">
+            {arrayTags.length === 0 ? (
+              <br />
+            ) : (
+              arrayTags.map((list, index) =>
+                list === "" ? (
+                  ""
+                ) : (
+                  <span className="show-tag">{`#${list} `}</span>
+                )
+              )
+            )}
+          </div>
         </ContainerItem>
         <ContainerItem>
           <div className="imgpreview">
@@ -235,6 +241,22 @@ const WritingFormContainer = styled.div`
   label:hover:before,
   label:hover:after {
     width: 100%;
+    transition: 800ms ease all;
+  }
+
+  .added-tags-content {
+    margin-bottom: 0.5rem;
+  }
+
+  .show-tag {
+    background: #81c784;
+    margin-top: 3rem;
+    margin-right: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  .show-tag:hover {
+    background: #a1a1a1;
     transition: 800ms ease all;
   }
 `;
