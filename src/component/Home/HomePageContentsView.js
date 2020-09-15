@@ -16,20 +16,23 @@ const HomeContentsViewStyle = styled.div`
 
   button {
     color: black;
-    border: 0;
-    transition: all 1s;
+    border-radius: 2px;
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    /* transition: all 1s; */
   }
 
   button:hover {
-    transform: scale(1.2);
+    /* transform: scale(1.2); */
+    background: #eeeeee;
   }
   .addButton {
     .moreContent {
       font-weight: bold;
-      letter-spacing: 10px;
-      padding: 10px 10px;
-      background: #f5f5f5;
-      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+      letter-spacing: 2px;
+      padding: 20px 100px;
+      /* background: #F5F5F5; */
+      /* box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3); */
     }
   }
 `;
@@ -81,7 +84,7 @@ const MainContent = styled.div`
     word-wrap: break-word;
   }
   .contentLinkStyle:hover {
-    /* color: #00ce56; */
+    /* color: #00CE56; */
   }
 
   &:hover {
@@ -125,7 +128,7 @@ const HomePageContentsView = ({ history }) => {
       <div className="addButton">
         <button onClick={() => history.push("./contentslist")}>
           {/* <i class="far fa-plus-square fa-4x"></i> */}
-          <div className="moreContent">더보기</div>
+          <div className="moreContent">오늘의 일기 더 알아보기</div>
         </button>
       </div>
       {/* </div> */}

@@ -14,6 +14,10 @@ const HomeFooterViewStyle = styled.div`
   text-align: center;
   line-height: 30px;
   position: relative;
+  font-family: "S-CoreDream-3Light";
+  font-weight: normal;
+  font-style: normal;
+  line-height: 180%;
 
   .homeFooterView {
     position: relative;
