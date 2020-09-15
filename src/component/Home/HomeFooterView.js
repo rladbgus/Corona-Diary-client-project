@@ -65,7 +65,7 @@ const HomeFooterView = () => {
         <div className="homeFooterdiv">
           <span className="eachController">고건우</span>
           <span className="eachController">
-            Team Leader <br /> Back-End
+            Team Leader <br /> Full-Stack
           </span>
           <a
             href="mailto:kkw722@gmail.com"
