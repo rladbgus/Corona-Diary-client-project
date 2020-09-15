@@ -126,20 +126,30 @@ margin: 1em 0em 0.4em 0em;
     color: #4caf50;
     margin-right:7px;
     font-size: 2.7rem;
+
   }
 
   input {
     height: 40px;
     font-size: 20px;
     min-width: 350px;
+    font-family: "S-CoreDream-3Light";
+    font-style: normal;
+    font-weight: normal;
   }
 
   li {
+    font-family: "S-CoreDream-3Light";
+    font-style: normal;
+    font-weight: normal;
     list-style: none;
     margin-bottom:1em;
   }
 
   textarea {
+    font-family: "S-CoreDream-3Light";
+    font-style: normal;
+    font-weight: normal;
     height: 400px;
     resize: none;
     font-size: 20px;
@@ -165,7 +175,10 @@ margin: 1em 0em 0.4em 0em;
   } */
 
   label {
-    margin-top: 7px;
+    font-family: "S-CoreDream-3Light";
+    font-style: normal;
+    font-weight: normal;
+    margin-top: 10px;
     align-self: center;
     text-align: center;
     background: black;
@@ -173,7 +186,7 @@ margin: 1em 0em 0.4em 0em;
     border: none;
     position: relative;
     height: 2.15rem;
-    width: 5rem;
+    width: 10.85rem;
     font-size: 1.25em;
     padding: 0 1.5em;
     padding-top: 0.7em;

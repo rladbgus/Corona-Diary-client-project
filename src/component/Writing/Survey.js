@@ -71,7 +71,7 @@ const Container = styled.div`
     border: none;
     position: relative;
     height: 3rem;
-    width: 8.75rem;
+    width: 14.6rem;
     font-size: 1.25em;
     padding: 0 1.2em;
     cursor: pointer;

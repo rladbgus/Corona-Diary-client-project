@@ -69,7 +69,7 @@ const AlertModal = ({
 export default AlertModal;
 
 const ModalOverlay = styled.div`
-  box-sizin: border-box;
+  box-sizing: border-box;
   display: ${props => (props.visible ? "block" : "none")};
   position: fixed;
   top: 0;
@@ -80,7 +80,7 @@ const ModalOverlay = styled.div`
   z-index: 999;
 `;
 const ModalWrapper = styled.div`
-  box-sizin: border-box;
+  box-sizing: border-box;
   display: ${props => (props.visible ? "block" : "none")};
   position: fixed;
   top: 0;

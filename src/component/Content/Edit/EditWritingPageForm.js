@@ -21,6 +21,21 @@ const EditWritingPageForm = ({ history, content }) => {
 
   const [image, getImage] = useState("");
 
+  const handleData = () => {
+    data.covid_date = content.covid_date;
+    data.q_appet = content.q_appet;
+    data.q_cough = content.q_cough;
+    data.q_fatigue = content.q_fatigue;
+    data.q_psy = content.q_psy;
+    data.q_resp = content.q_resp;
+    data.q_temp = content.q_temp;
+    data.q_sleep = content.q_sleep;
+    data.referenceFile = content.referenceFile;
+    data.text = content.text;
+    data.title = content.title;
+    data.tag = content.tag;
+  };
+
   const handleClick = (name, value) => {
     getData({
       ...data,
@@ -65,6 +80,7 @@ const EditWritingPageForm = ({ history, content }) => {
         handleClick={handleClick}
         handleNumberChange={handleNumberChange}
         content={content}
+        handleData={handleData}
       />
       <EditSubmitButton data={data} history={history} image={image} />
     </>
