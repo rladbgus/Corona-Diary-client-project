@@ -101,6 +101,9 @@ const WritingForm = ({ handleChange, handleTags, handleImg }) => {
 
 export default WritingForm;
 
+const BREAK_POINT_MOBILE = 580;
+const BREAK_POINT_TABLET = 1024;
+
 const Container = styled.ul`
   display: flex;
   flex-direction: column;
@@ -119,6 +122,18 @@ const ContainerItem = styled.li`
   padding: 0 5px;
   box-sizing: border-box;
   width: 60%;
+
+  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 96%;
+  }
+
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 96%;
+  }
 `;
 
 const WritingFormContainer = styled.div`
@@ -126,19 +141,32 @@ const WritingFormContainer = styled.div`
     text-align: center;
     padding: 10px 0;
     margin-top: 20px;
+    font-size: 3rem;
+    font-family: "S-CoreDream-3Light";
+    font-style: normal;
+    font-weight: normal;
   }
 
   input {
     height: 25px;
     font-size: 17px;
     min-width: 350px;
+    font-family: "S-CoreDream-3Light";
+    font-style: normal;
+    font-weight: normal;
   }
 
   li {
+    font-family: "S-CoreDream-3Light";
+    font-style: normal;
+    font-weight: normal;
     list-style: none;
   }
 
   textarea {
+    font-family: "S-CoreDream-3Light";
+    font-style: normal;
+    font-weight: normal;
     height: 400px;
     resize: none;
     font-size: 17px;
@@ -164,7 +192,10 @@ const WritingFormContainer = styled.div`
   }
 
   label {
-    margin-top: 7px;
+    font-family: "S-CoreDream-3Light";
+    font-style: normal;
+    font-weight: normal;
+    margin-top: 10px;
     align-self: center;
     text-align: center;
     background: black;
@@ -172,7 +203,7 @@ const WritingFormContainer = styled.div`
     border: none;
     position: relative;
     height: 2.15rem;
-    width: 5rem;
+    width: 10.85rem;
     font-size: 1.25em;
     padding: 0 1.5em;
     padding-top: 0.7em;
