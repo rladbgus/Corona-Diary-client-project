@@ -88,19 +88,22 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 
+  font-family: "S-CoreDream-3Light";
+  font-style: normal;
+  font-weight: normal;
+
   button {
     background: black;
     color: #81c784;
     border: none;
     position: relative;
     height: 3rem;
-    width: 8.75rem;
+    width: 7rem;
     font-size: 1.25em;
-    padding: 0 1.2em;
     cursor: pointer;
     transition: 800ms ease all;
     outline: none;
-    margin: 1em;
+    margin: 5px;
     margin-bottom: 5em;
   }
   button:hover {

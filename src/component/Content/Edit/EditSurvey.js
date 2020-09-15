@@ -2,55 +2,117 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import EditSurveyForm from "./EditSurveyForm";
 import { surveydata } from "../../Writing/surveydata";
+import SurveyModal from "../../../Modal/SurveyModal";
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-`;
-
-const EditSurvey = ({ handleClick, handleNumberChange, content }) => {
+const EditSurvey = ({
+  handleClick,
+  handleNumberChange,
+  content,
+  handleData,
+}) => {
   const [data, getData] = useState("");
+  const [modal, getModal] = useState(false);
+
+  const openModal = () => {
+    getModal(true);
+  };
+
+  const closeModal = () => {
+    getModal(false);
+  };
+
   useEffect(() => {
     getData(content);
   });
   return (
-    <>
-      <Container>
-        <div title="signup">설문조사</div>
-        <div>
-          <label>코로나걸린시기</label>
-          <input
-            defaultValue={data.covid_date}
-            name="covid_date"
-            className="input_since"
-            type="text"
-            onChange={handleNumberChange}
-          />
+    <Container>
+      <button onClick={openModal}>설문조사</button>
+      <SurveyModal visible={modal} onClose={closeModal} handleData={handleData}>
+        <h3 title="survey">설문조사</h3>
+        <div className="survey-text">
+          <label>
+            코로나걸린시기{" "}
+            <input
+              defaultValue={data.covid_date}
+              name="covid_date"
+              className="input_since"
+              type="text"
+              onChange={handleNumberChange}
+            />{" "}
+            입니다.
+          </label>
         </div>
-        <div>
-          <label>질문1: 현재 체온은 어떠신가요?</label>
-          <input
-            defaultValue={data.q_temp}
-            name="q_temp"
-            className="input_temperature"
-            type="text"
-            onChange={handleNumberChange}
-          />
+        <div className="survey-text">
+          <label>
+            현재 체온은{" "}
+            <input
+              defaultValue={data.q_temp}
+              name="q_temp"
+              className="input_temperature"
+              type="text"
+              onChange={handleNumberChange}
+            />{" "}
+            도 입니다.
+          </label>
         </div>
         {surveydata.map(list => (
           <EditSurveyForm
             data={list}
             key={list.id}
             handleClick={handleClick}
-            name={list.name}
+            checking={false}
           />
         ))}
-      </Container>
-    </>
+      </SurveyModal>
+    </Container>
   );
 };
 
 export default EditSurvey;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    background: black;
+    color: #81c784;
+    border: none;
+    position: relative;
+    height: 3rem;
+    width: 14.6rem;
+    font-size: 1.25em;
+    padding: 0 1.2em;
+    cursor: pointer;
+    transition: 800ms ease all;
+    outline: none;
+  }
+  button:hover {
+    background: #fff;
+    color: #1aab8a;
+  }
+  button:before,
+  button:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 2px;
+    width: 0;
+    background: #1aab8a;
+    transition: 400ms ease all;
+  }
+  button:after {
+    right: inherit;
+    top: inherit;
+    left: 0;
+    bottom: 0;
+  }
+  button:hover:before,
+  button:hover:after {
+    width: 100%;
+    transition: 800ms ease all;
+  }
+`;
