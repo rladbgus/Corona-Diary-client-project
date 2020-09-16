@@ -132,15 +132,11 @@ const LoginStyled = styled.div`
   line-height: 180%;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   height: 32em;
-  margin: 4em 35em 0em 33em;
-  display: -webkit-flex;
-  display: inline-block;
+  margin: 7% 30% 40% 30%;
   display: flex;
-  -webkit-justify-content: center;
   justify-content: center;
-  -webkit-align-items: center;
   align-items: center;
-  min-width: 250px;
+  align-self: center;
 
   .loginName {
     margin-bottom: 8em;
@@ -182,13 +178,13 @@ const LoginStyled = styled.div`
     border: none;
     display: inline-block;
     height: 3rem;
-    width: 8.5rem;
+    width: 10.5rem;
     font-size: 1.25em;
     padding: 0 2em;
     cursor: pointer;
     transition: 800ms ease all;
     outline: none;
-    margin: 1em 0em 0em 3.5em;
+    margin: 1em 0em 0em 2em;
   }
   button:hover {
     background: #fff;
@@ -215,6 +211,11 @@ const LoginStyled = styled.div`
   button:hover:after {
     width: 100%;
     transition: 800ms ease all;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
   }
 
   @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
