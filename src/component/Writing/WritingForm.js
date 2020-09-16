@@ -39,7 +39,7 @@ const WritingForm = ({ handleChange, handleTags, handleImg }) => {
     <Font>
       <Title>
         <span className="icon">
-          <i class="fab fa-cuttlefish fa-2x" />
+          <i className="fab fa-cuttlefish fa-2x" />
         </span>
           Today's Record
         </Title>
