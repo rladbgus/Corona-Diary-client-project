@@ -108,9 +108,9 @@ const Login = () => {
           <div>
             <button onClick={submitHandler}>Log in</button>
           </div>
-          <div>
+          <GoogleLoginButton>
             <SocialLogin socialGoogleLogin={socialGoogleLogin} />
-          </div>
+          </GoogleLoginButton>
         </form>
         <AlertModal visible={modal} onClose={closeModal} className={className}>
           {children}
@@ -229,3 +229,5 @@ const LoginStyled = styled.div`
     width: 100%;
   }
 `;
+
+const GoogleLoginButton = styled.div``;
