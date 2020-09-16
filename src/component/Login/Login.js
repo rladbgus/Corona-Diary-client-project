@@ -147,7 +147,7 @@ const LoginStyled = styled.div`
   }
 
   .input {
-    width: 10rem;
+    width: 12rem;
     height: 3rem;
     margin: 0rem 0rem 0.1rem 0.7rem;
     font-size: 1.2rem;
@@ -178,13 +178,13 @@ const LoginStyled = styled.div`
     border: none;
     display: inline-block;
     height: 3rem;
-    width: 10.5rem;
+    width: 11rem;
     font-size: 1.25em;
     padding: 0 2em;
     cursor: pointer;
     transition: 800ms ease all;
     outline: none;
-    margin: 1em 0em 0em 2em;
+    margin: 1em 0em 0em 3em;
   }
   button:hover {
     background: #fff;

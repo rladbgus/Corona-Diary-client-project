@@ -15,7 +15,7 @@ const ContentsListView = () => {
       .get(url, {
         headers: { "x-access-token": getToken },
       })
-      .then(res => {
+      .then((res) => {
         setContentList(res.data.contentList);
         setSearchList(res.data.contentList);
       });
@@ -25,29 +25,31 @@ const ContentsListView = () => {
     };
   }, []);
 
-  const handelSearch = event => {
+  const handelSearch = (event) => {
     setSearchList(
-      contentList.filter(list => list.title.indexOf(event.target.value) !== -1)
+      contentList.filter(
+        (list) => list.title.indexOf(event.target.value) !== -1
+      )
     );
   };
 
   return (
     <Font>
-      <center className="ContentsList">
-        <div className="SerchInput">
-          <i class="fas fa-search fa-1x"></i>
-          <input
-            type="text"
-            placeholder="검색어를 입력하세요."
-            onChange={handelSearch}
-            defaultValue=""
-            className="searchItems"
-          ></input>
-        </div>
+      {/* <center className="ContentsList"> */}
+      <div className="SerchInput">
+        <i class="fas fa-search fa-1x"></i>
+        <input
+          type="text"
+          placeholder="검색어를 입력하세요."
+          onChange={handelSearch}
+          defaultValue=""
+          className="searchItems"
+        ></input>
+      </div>
 
-        <Border>
-          {searchList
-            ? searchList.map(list => (
+      <Border>
+        {searchList
+          ? searchList.map((list) => (
               <ContentStyle key={list.id}>
                 <Link to={`/content/${list.id}`} className="contentLinkStyle">
                   <h1>{list.title}</h1>
@@ -56,9 +58,9 @@ const ContentsListView = () => {
                 </Link>
               </ContentStyle>
             ))
-            : ""}
-        </Border>
-      </center>
+          : ""}
+      </Border>
+      {/* </center> */}
     </Font>
   );
 };
@@ -69,29 +71,49 @@ const BREAK_POINT_MOBILE = 520;
 const BREAK_POINT_TABLET = 1250;
 
 const ContentStyle = styled.span`
-    width:17em;
-    height: 20em;
-    line-height: 40px;
-    padding:2.5em;
-    margin: 2em 0em 1em 4em;
-    background: #ffffff;
-    flex-wrap:wrap;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  width: 17em;
+  height: 20em;
+  line-height: 40px;
+  margin: 20px;
+  padding: 3.7% 4.5%;
+  background: #ffffff;
+  flex-wrap: wrap;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 
   .contentLinkStyle {
-      display:-webkit-box; 
-      word-wrap:break-word; 
-      -webkit-line-clamp:6; 
-      -webkit-box-orient:vertical; 
-      overflow:hidden; 
-      text-overflow:ellipsis; 
-      line-height:2em; 
-      height: 20em;
-      color:#444; 
-      text-decoration:none;
+    line-height: 2em;
+    color: #444;
+    text-decoration: none;
+    width: 200px;
+    height: 220px;
   }
   .contentLinkStyle:hover {
-    }
+  }
+  h1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+  }
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+  }
+  p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+    height: 134px;
+  }
 
   &:hover {
     box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.5);
@@ -103,7 +125,7 @@ const ContentStyle = styled.span`
   }
 
   @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
-    margin : 2em;
+    margin: 2em;
     width: 100%;
     /* height: 5em; */
     input {
@@ -120,25 +142,24 @@ const ContentStyle = styled.span`
 `;
 
 const Border = styled.span`
-  display : flex;
+  display: flex;
   flex-wrap: wrap;
   border: 1px solid #66bb6a;
-  margin : 4em 6em 7em 5em;
+  padding: 1em 1em 0em 1em;
+  margin: 4em 6em 7em 5em;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-  `;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-self: flex-start;
+`;
 
 const Font = styled.div`
-  font-family: 'S-CoreDream-3Light';
-  font-weight: normal;
-  font-style: normal;
-  line-height : 180%;
-  display: flex;
   flex-flow: column wrap;
   justify-content: center;
   align-items: center;
   align-content: center;
   text-align: center;
-  position: relative;
+  /* position: relative; */
 
   .searchItems {
     display: inline-block;
@@ -148,39 +169,39 @@ const Font = styled.div`
   }
 
   i {
-      position: absolute;
-      margin-left: 20px;
-      margin-top: 118px;
-      color: #4caf50;
-      font-size: 40px;
-    }
+    position: absolute;
+    margin-left: 20px;
+    margin-top: 118px;
+    color: #4caf50;
+    font-size: 40px;
+  }
 
   input {
-      color: #4f5b66;
-      padding: 30px 30px 14px 80px;
-      font-size: 30px;
-      border: none;
-      background-color:#ffffff;
-      border-bottom: 3px solid #4caf50;
-      display:flex;
-    }
+    color: #4f5b66;
+    padding: 30px 30px 14px 80px;
+    font-size: 30px;
+    border: none;
+    background-color: #ffffff;
+    border-bottom: 3px solid #4caf50;
+    display: flex;
+  }
 
-    @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
-    margin: 5em;
-    width: 100%;
+  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+    /* margin: 5em;
+    width: 100%; */
   }
 
   @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
-    margin : 2em;
-    width: 100%;
+    /* margin: 2em;
+    width: 100%; */
     input {
       font-size: 20px;
       padding: 10px 5px;
-      border-width:2%;
-      width:2%;
+      border-width: 2%;
+      width: 2%;
     }
     i {
-      display:none;
+      display: none;
     }
   }
 `;

@@ -92,8 +92,8 @@ const MainContent = styled.div`
     display: -webkit-box;
     -webkit-box-orient: vertical;
     word-wrap: break-word;
-    width: 170px;
-    height: 160px;
+    width: 200px;
+    height: 220px;
   }
 
   h1 {
@@ -118,9 +118,10 @@ const MainContent = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     word-wrap: break-word;
+    height: 88px;
   }
   .contentLinkStyle:hover {
   }
