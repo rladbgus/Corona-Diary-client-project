@@ -26,7 +26,7 @@ const MyContentsListView = () => {
     <Font>
       <Title>
         <span className="icon">
-          <i class="fab fa-cuttlefish fa-2x" />
+          <i className="fab fa-cuttlefish fa-2x" />
         </span>
         My Corona Diary
       </Title>

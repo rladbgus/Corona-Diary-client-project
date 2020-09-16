@@ -37,7 +37,7 @@ const ContentsListView = () => {
     <Font>
       {/* <center className="ContentsList"> */}
       <div className="SerchInput">
-        <i class="fas fa-search fa-1x"></i>
+        <i className="fas fa-search fa-1x"></i>
         <input
           type="text"
           placeholder="검색어를 입력하세요."
@@ -50,14 +50,14 @@ const ContentsListView = () => {
       <Border>
         {searchList
           ? searchList.map((list) => (
-              <ContentStyle key={list.id}>
-                <Link to={`/content/${list.id}`} className="contentLinkStyle">
-                  <h1>{list.title}</h1>
-                  <span style={{ color: "#005005" }}>{list.createdAt}</span>
-                  <p>{list.text}</p>
-                </Link>
-              </ContentStyle>
-            ))
+            <ContentStyle key={list.id}>
+              <Link to={`/content/${list.id}`} className="contentLinkStyle">
+                <h1>{list.title}</h1>
+                <span style={{ color: "#005005" }}>{list.createdAt}</span>
+                <p>{list.text}</p>
+              </Link>
+            </ContentStyle>
+          ))
           : ""}
       </Border>
       {/* </center> */}

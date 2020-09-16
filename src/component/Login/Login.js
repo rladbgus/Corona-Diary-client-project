@@ -83,7 +83,7 @@ const Login = () => {
         <form>
           <div>
             <label>
-              <i class="fas fa-user fa-2x" />
+              <i className="fas fa-user fa-2x" />
             </label>
             <input
               type="email"
@@ -95,7 +95,7 @@ const Login = () => {
           </div>
           <div>
             <label>
-              <i class="fas fa-unlock-alt fa-2x" />
+              <i className="fas fa-unlock-alt fa-2x" />
             </label>
             <input
               type="password"

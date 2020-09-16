@@ -83,7 +83,7 @@ const HomeFooterView = () => {
             className="eachController"
             target="_blank"
           >
-            <i class="fab fa-github fa-2x"></i>
+            <i className="fab fa-github fa-2x"></i>
           </a>
           <a
             href="https://velog.io/@gunwooko/"
@@ -110,7 +110,7 @@ const HomeFooterView = () => {
             className="eachController"
             target="_blank"
           >
-            <i class="fab fa-github fa-2x"></i>
+            <i className="fab fa-github fa-2x"></i>
           </a>
           <a
             href="https://yoohyeon.tistory.com/"
@@ -137,7 +137,7 @@ const HomeFooterView = () => {
             className="eachController"
             target="_blank"
           >
-            <i class="fab fa-github fa-2x"></i>
+            <i className="fab fa-github fa-2x"></i>
           </a>
           <a
             href="https://mr-son.tistory.com/"
@@ -164,7 +164,7 @@ const HomeFooterView = () => {
             className="eachController"
             target="_blank"
           >
-            <i class="fab fa-github fa-2x"></i>
+            <i className="fab fa-github fa-2x"></i>
           </a>
           <a
             href="https://shinuhyun.tistory.com/"
