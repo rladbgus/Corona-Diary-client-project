@@ -15,7 +15,6 @@ const Login = () => {
   const [modal, getModal] = useState(false);
   const [children, getChildren] = useState("");
   const [className, getClassName] = useState("");
-  const url = "http://localhost:5000";
 
   const openModal = () => {
     getModal(!modal);
@@ -25,21 +24,21 @@ const Login = () => {
     getModal(!modal);
   };
 
-  const emailHandler = e => {
+  const emailHandler = (e) => {
     setEmail(e.target.value);
   };
-  const passwordHandler = e => {
+  const passwordHandler = (e) => {
     setPassword(e.target.value);
   };
 
-  const submitHandler = e => {
+  const submitHandler = (e) => {
     e.preventDefault();
     axios
       .post(url + "/user/login", {
         email: email,
         password: password,
       })
-      .then(res => {
+      .then((res) => {
         if (res.status === 200) {
           value.handleSetNickName(res.data.nickName);
           getChildren("로그인에 성공했습니다");
@@ -56,12 +55,12 @@ const Login = () => {
       });
   };
 
-  const socialGoogleLogin = googleToken => {
+  const socialGoogleLogin = (googleToken) => {
     axios
       .post(url + "/user/socialLogin", {
         token: googleToken,
       })
-      .then(res => {
+      .then((res) => {
         if (res.status === 200) {
           value.handleLogin();
           value.handleToken(googleToken);
