@@ -104,16 +104,11 @@ const WritingForm = ({ handleChange, handleTags, handleImg }) => {
               onKeyDown={handleKey}
             />
           </span>
-
-          {/* <div >
-            <label>이미지 업로드</label> */}
           <input
             type="file"
             onChange={HandleChangeImg}
             className="input-image"
           />
-          {/* <input className="uploadImg" value="선택된 이미지가 없습니다!" />
-        </div> */}
         </ContainerItem>
       </Container>
     </Font>

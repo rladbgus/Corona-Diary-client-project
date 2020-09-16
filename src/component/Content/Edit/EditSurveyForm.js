@@ -3,126 +3,123 @@ import styled from "styled-components";
 
 const EditSurveyForm = ({ data, handleClick }) => {
   return (
-    <>
-      <Container>
-        <div className={data.name}>{data.data}</div>
-        <SurveyContainer>
-          <span>
-            약1
-            <div>
-              <input
-                type="radio"
-                name={`question${data.id}`}
-                value="1"
-                onClick={e => handleClick(data.name, e.target.value)}
-                className="option1"
-              />
-            </div>
-          </span>
-          <span>
-            <br></br>
-            <div>
-              <input
-                type="radio"
-                name={`question${data.id}`}
-                value="2"
-                onClick={e => handleClick(data.name, e.target.value)}
-                className="option2"
-              />
-            </div>
-          </span>
-          <span>
-            <br></br>
-            <div>
-              <input
-                type="radio"
-                name={`question${data.id}`}
-                value="3"
-                onClick={e => handleClick(data.name, e.target.value)}
-              />
-            </div>
-          </span>
-          <span>
-            <br></br>
-            <div>
-              <input
-                type="radio"
-                name={`question${data.id}`}
-                value="4"
-                onClick={e => handleClick(data.name, e.target.value)}
-              />
-            </div>
-          </span>
-          <span>
-            <br></br>
-            <div>
-              <input
-                type="radio"
-                name={`question${data.id}`}
-                value="5"
-                onClick={e => handleClick(data.name, e.target.value)}
-              />
-            </div>
-          </span>
-          <span>
-            <br></br>
-            <div>
-              <input
-                type="radio"
-                name={`question${data.id}`}
-                value="6"
-                onClick={e => handleClick(data.name, e.target.value)}
-              />
-            </div>
-          </span>
-          <span>
-            <br></br>
-            <div>
-              <input
-                type="radio"
-                name={`question${data.id}`}
-                value="7"
-                onClick={e => handleClick(data.name, e.target.value)}
-              />
-            </div>
-          </span>
-          <span>
-            <br></br>
-            <div>
-              <input
-                type="radio"
-                name={`question${data.id}`}
-                value="8"
-                onClick={e => handleClick(data.name, e.target.value)}
-              />
-            </div>
-          </span>
-          <span>
-            <br></br>
-            <div>
-              <input
-                type="radio"
-                name={`question${data.id}`}
-                value="9"
-                onClick={e => handleClick(data.name, e.target.value)}
-                className="9"
-              />
-            </div>
-          </span>
-          <span>
-            강10
-            <div>
-              <input
-                type="radio"
-                name={`question${data.id}`}
-                value="10"
-                onClick={e => handleClick(data.name, e.target.value)}
-              />
-            </div>
-          </span>
-        </SurveyContainer>
-      </Container>
-    </>
+    <Container>
+      <div className={data.name} className="question">
+        {data.data}
+      </div>
+      <SurveyContainer>
+        <span>
+          나쁨
+          <div>
+            <input
+              type="radio"
+              name={`question${data.id}`}
+              value="1"
+              onClick={e => handleClick(data.name, e.target.value)}
+            />
+          </div>
+        </span>
+        <span>
+          <br></br>
+          <div>
+            <input
+              type="radio"
+              name={`question${data.id}`}
+              value="2"
+              onClick={e => handleClick(data.name, e.target.value)}
+            />
+          </div>
+        </span>
+        <span>
+          <br></br>
+          <div>
+            <input
+              type="radio"
+              name={`question${data.id}`}
+              value="3"
+              onClick={e => handleClick(data.name, e.target.value)}
+            />
+          </div>
+        </span>
+        <span>
+          <br></br>
+          <div>
+            <input
+              type="radio"
+              name={`question${data.id}`}
+              value="4"
+              onClick={e => handleClick(data.name, e.target.value)}
+            />
+          </div>
+        </span>
+        <span>
+          <br></br>
+          <div>
+            <input
+              type="radio"
+              name={`question${data.id}`}
+              value="5"
+              onClick={e => handleClick(data.name, e.target.value)}
+            />
+          </div>
+        </span>
+        <span>
+          <br></br>
+          <div>
+            <input
+              type="radio"
+              name={`question${data.id}`}
+              value="6"
+              onClick={e => handleClick(data.name, e.target.value)}
+            />
+          </div>
+        </span>
+        <span>
+          <br></br>
+          <div>
+            <input
+              type="radio"
+              name={`question${data.id}`}
+              value="7"
+              onClick={e => handleClick(data.name, e.target.value)}
+            />
+          </div>
+        </span>
+        <span>
+          <br></br>
+          <div>
+            <input
+              type="radio"
+              name={`question${data.id}`}
+              value="8"
+              onClick={e => handleClick(data.name, e.target.value)}
+            />
+          </div>
+        </span>
+        <span>
+          <br></br>
+          <div>
+            <input
+              type="radio"
+              name={`question${data.id}`}
+              value="9"
+              onClick={e => handleClick(data.name, e.target.value)}
+            />
+          </div>
+        </span>
+        <span>
+          좋음
+          <div>
+            <input
+              type="radio"
+              name={`question${data.id}`}
+              value="10"
+              onClick={e => handleClick(data.name, e.target.value)}
+            />
+          </div>
+        </span>
+      </SurveyContainer>
+    </Container>
   );
 };
 
@@ -143,9 +140,10 @@ const SurveyContainer = styled.span`
     font-size: 20px;
   }
   div {
-    margin-bottom: 7px;
+    margin-bottom: 9px;
   }
   span {
-    margin-right: 10px;
+    margin-right: 14px;
+    font-size: 0.7rem;
   }
 `;
