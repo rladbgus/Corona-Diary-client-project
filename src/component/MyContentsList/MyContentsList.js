@@ -20,7 +20,7 @@ const MyContentsListView = () => {
     return () => {
       ac.abort();
     };
-  });
+  }, []);
 
   return (
     <Font>
