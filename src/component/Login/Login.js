@@ -8,6 +8,7 @@ import styled from "styled-components";
 import SocialLogin from "./SocialLogin";
 
 const Login = () => {
+  const url = "http://localhost:5000";
   const value = useContext(getLogin);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
