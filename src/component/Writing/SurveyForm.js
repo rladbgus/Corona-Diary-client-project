@@ -150,10 +150,10 @@ const SurveyContainer = styled.span`
     font-size: 20px;
   }
   div {
-    margin-bottom: 9px;
+    margin-bottom: 20px;
   }
   span {
-    margin-right: 14px;
+    margin-right: 17px;
     font-size: 0.7rem;
   }
 `;
