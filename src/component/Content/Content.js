@@ -189,8 +189,8 @@ const ContentView = () => {
                     height="400"
                   />
                 ) : (
-                    <img src={example} alt="" width="420" height="400" />
-                  )}
+                  <img src={example} alt="" width="420" height="400" />
+                )}
 
                 <div className="TextArea">{content.text}</div>
                 <br />
@@ -206,13 +206,13 @@ const ContentView = () => {
                       onClick={setLikeBtn}
                     />
                   ) : (
-                      <img
-                        className="LikeImg"
-                        src={unheart}
-                        alt=""
-                        onClick={setLikeBtn}
-                      />
-                    )}
+                    <img
+                      className="LikeImg"
+                      src={unheart}
+                      alt=""
+                      onClick={setLikeBtn}
+                    />
+                  )}
                   {countLike !== 0 ? <span>{countLike}</span> : <span>0</span>}
                 </LikeButton>
                 <div className="btn">
@@ -277,10 +277,10 @@ const ContentView = () => {
             </CommentBox>
           </>
         ) : (
-            <Container>
-              <EditWritingPageForm content={content} token={getToken} />
-            </Container>
-          )}
+          <Container>
+            <EditWritingPageForm content={content} token={getToken} />
+          </Container>
+        )}
       </>
       <AlertModal
         visible={modal}
@@ -295,7 +295,6 @@ const ContentView = () => {
 };
 export default ContentView;
 
-
 const ContentBox = styled.div`
   background: #f5f5f5;
   border: 40px solid white;
@@ -307,6 +306,8 @@ const ContentBox = styled.div`
     font-size: 200%;
     padding: 30px 0px 10px 0px;
     letter-spacing: 10px;
+    line-height: 160%;
+    margin: 0% 7%;
   }
 
   .contentDate {

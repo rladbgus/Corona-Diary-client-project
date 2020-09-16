@@ -27,14 +27,14 @@ const Container = styled.article`
   position: relative;
 
   @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
-    margin-left: 0px;
-    margin-right: 0px;
+    margin-left: 0%;
+    margin-right: 0%;
     width: 100%;
   }
 
   @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
-    margin-left: 0px;
-    margin-right: 0px;
+    margin-left: 0%;
+    margin-right: 0%;
     width: 100%;
   }
 `;
