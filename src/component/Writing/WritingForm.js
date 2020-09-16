@@ -85,21 +85,19 @@ const WritingForm = ({ handleChange, handleTags, handleImg }) => {
             />
           </span>
 
+          {/* <div >
+            <label>이미지 업로드</label> */}
+          <input
+            type="file"
+            onChange={HandleChangeImg}
+            className="input-image"
+          />
+          {/* <input className="uploadImg" value="선택된 이미지가 없습니다!" />
+        </div> */}
 
-          {/* <div className="imgpreview">
-            <img src={imgData} alt="" width="100%" height="100%" />
-          </div> */}
-          <label className="input-image-button">
-            <input
-              type="file"
-              onChange={HandleChangeImg}
-              className="input-image"
-            />
-            사진등록
-          </label>
         </ContainerItem>
       </Container>
-    </Font>
+    </Font >
   );
 };
 
@@ -114,111 +112,73 @@ font-weight: normal;
 font-style: normal;
 line-height : 180%;
 
+/* label {
+   display: inline-block;
+   padding: 10px 20px;
+   color: #999;
+   vertical-align: middle;
+   background-color: #fdfdfd;
+   cursor: pointer;
+   border: 1px solid #ebebeb;
+   border-radius: 5px;
+   font-size:0.9em;
+ }
+
+ .uploadImg{
+  display: inline-block;
+  height: 40px;
+  font-size:0.9em; 
+  padding: 0 10px;
+  vertical-align: middle;
+  border: 1px solid #ebebeb;
+  border-radius: 5px;
+ } */
+
+.input-image{
+font-size: 0.9em;
+margin-bottom: 0.7rem;
+}
+
 .input-tag {
-  margin-left: 0.7em;
+  margin-left: 0.8em;
+  margin-bottom:0.5em;
 }
 
 .content{
-margin: 1em 0em 0.4em 0em;
+  margin: 1em 0em 0.4em 0em;
 }
 
 .icon {
-    color: #4caf50;
-    margin-right:7px;
-    font-size: 2.7rem;
-
+  color: #4caf50;
+  margin-right:7px;
+  font-size: 2.7rem;
   }
 
-  input {
-    height: 40px;
-    font-size: 20px;
-    min-width: 350px;
-    font-family: "S-CoreDream-3Light";
-    font-style: normal;
-    font-weight: normal;
+input {
+  height: 40px;
+  font-size: 20px;
+  min-width: 350px;
+  font-family: "S-CoreDream-3Light";
+  font-style: normal;
+  font-weight: normal;
   }
 
-  li {
-    font-family: "S-CoreDream-3Light";
-    font-style: normal;
-    font-weight: normal;
-    list-style: none;
-    margin-bottom:1em;
+li {
+  font-family: "S-CoreDream-3Light";
+  font-style: normal;
+  font-weight: normal;
+  list-style: none;
+  margin-bottom:1em;
   }
 
-  textarea {
-    font-family: "S-CoreDream-3Light";
-    font-style: normal;
-    font-weight: normal;
-    height: 400px;
-    resize: none;
-    font-size: 20px;
-    min-width: 350px;
-  }
-
-  /* .imgpreview {
-    flex: auto;
-    width: 50%;
-    min-width: 350px;
-    height: 300px;
-    min-height: 0;
-    margin: 0 auto;
-    align-self: center;
-    border: 1px solid darkgray;
-    margin-top: 20px;
-    box-sizing: padding-box;
-    background: transparent;
-  } */
-
-  /* .input-image {
-    display: none;
-  } */
-
-  label {
-    font-family: "S-CoreDream-3Light";
-    font-style: normal;
-    font-weight: normal;
-    margin-top: 10px;
-    align-self: center;
-    text-align: center;
-    background: black;
-    color: #81c784;
-    border: none;
-    position: relative;
-    height: 2.15rem;
-    width: 10.85rem;
-    font-size: 1.25em;
-    padding: 0 1.5em;
-    padding-top: 0.7em;
-    cursor: pointer;
-    transition: 800ms ease all;
-    outline: none;
-  }
-  label:hover {
-    background: #fff;
-    color: #1aab8a;
-  }
-  label:before,
-  label:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 2px;
-    width: 0;
-    background: #1aab8a;
-    transition: 400ms ease all;
-  }
-  label:after {
-    right: inherit;
-    top: inherit;
-    left: 0;
-    bottom: 0;
-  }
-  label:hover:before,
-  label:hover:after {
-    width: 100%;
-    transition: 800ms ease all;
+textarea {
+  font-family: "S-CoreDream-3Light";
+  font-style: normal;
+  font-weight: normal;
+  height: 400px;
+  resize: none;
+  font-size: 20px;
+  min-width: 350px;
   }
 `;
 
@@ -251,7 +211,7 @@ const Container = styled.ul`
   margin-bottom: 5px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   border: 1px solid #66bb6a;
-  margin : 3em 13em 4em 13em;
+  margin : 3em 13em 1.5em 13em;
 `;
 
 const ContainerItem = styled.li`

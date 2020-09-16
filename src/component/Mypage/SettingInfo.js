@@ -5,84 +5,12 @@ import getLogin from "../../Context/Context";
 import AlertModal from "../../Modal/AlertModal";
 import { useLocation } from "react-router-dom";
 
-const BREAK_POINT_MOBILE = 580;
-const BREAK_POINT_TABLET = 1024;
-
-const Container = styled.div`
-  /* border: 3px solid black; */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 20px 10px;
-  font-size: 27px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-  padding: 0px;
-
-  .titleStyle {
-    text-align: center;
-    width: 70%;
-    border-bottom: 2px solid black;
-    padding-bottom: 20px;
-  }
-
-  .contentStyle {
-    align-content: space-around;
-    padding: 50px 70px;
-    line-height: 70px;
-    padding-top: 5px;
-  }
-
-  .default {
-    font-weight: bold;
-  }
-
-  button {
-    line-height: 40px;
-    margin: 10px 10px;
-    padding: 0px 40px;
-  }
-  .cancelB {
-    padding: 0px 30px;
-  }
-  .btn {
-    padding-bottom: 70px;
-  }
-
-  input {
-    height: 28px;
-    padding-top: 10px;
-  }
-
-  .age {
-    height: 33px;
-    width: 30%;
-    padding-top: 10px;
-  }
-
-  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
-    margin-left: 0px;
-    margin-right: 0px;
-    width: 100%;
-  }
-
-  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
-    margin-left: 0px;
-    margin-right: 0px;
-    width: 100%;
-    font-size: 17px;
-    .contentStyle {
-      line-height: 30px;
-    }
-  }
-`;
-
 const SettingInfo = ({ token, userInfo }) => {
+  const url = "http://localhost:5000";
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const [age, setAge] = useState("0");
   const [city, setCity] = useState("");
-  const url = "http://localhost:5000";
   const value = useContext(getLogin);
   const [modal, getModal] = useState(false);
   const [children, getChildren] = useState("");
@@ -253,4 +181,74 @@ const SettingInfo = ({ token, userInfo }) => {
   );
 };
 
+const BREAK_POINT_MOBILE = 580;
+const BREAK_POINT_TABLET = 1024;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 10px;
+  font-size: 27px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  padding: 0px;
+
+  .titleStyle {
+    text-align: center;
+    width: 70%;
+    border-bottom: 2px solid black;
+    padding-bottom: 20px;
+  }
+
+  .contentStyle {
+    align-content: space-around;
+    padding: 50px 70px;
+    line-height: 70px;
+    padding-top: 5px;
+  }
+
+  .default {
+    font-weight: bold;
+  }
+
+  button {
+    line-height: 40px;
+    margin: 10px 10px;
+    padding: 0px 40px;
+  }
+  .cancelB {
+    padding: 0px 30px;
+  }
+  .btn {
+    padding-bottom: 70px;
+  }
+
+  input {
+    height: 28px;
+    padding-top: 10px;
+  }
+
+  .age {
+    height: 33px;
+    width: 30%;
+    padding-top: 10px;
+  }
+
+  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+  }
+
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+    font-size: 17px;
+    .contentStyle {
+      line-height: 30px;
+    }
+  }
+`;
 export default SettingInfo;

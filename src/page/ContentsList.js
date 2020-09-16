@@ -3,6 +3,20 @@ import Nav from "../component/Nav/Nav";
 import ContentListView from "../component/ContentsList/ContentsList";
 import styled from "styled-components";
 
+const ContentsList = () => {
+  return (
+    <Fragment>
+      <Container>
+        <Nav />
+        <ContentListView />
+      </Container>
+    </Fragment>
+
+  )
+}
+
+export default ContentsList;
+
 const BREAK_POINT_MOBILE = 580;
 const BREAK_POINT_TABLET = 1024;
 
@@ -28,17 +42,3 @@ const Container = styled.article`
     width: 100%;
   }
 `;
-
-const ContentsList = () => {
-  return (
-    <Fragment>
-      <Container>
-        <Nav />
-        <ContentListView />
-      </Container>
-    </Fragment>
-
-  )
-}
-
-export default ContentsList;

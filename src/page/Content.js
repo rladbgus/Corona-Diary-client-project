@@ -8,7 +8,6 @@ const BREAK_POINT_TABLET = 1024;
 
 const Container = styled.article`
   display: block;
-  /* background: #ffffff; */
   margin-left: 20%;
   margin-right: 20%;
   position: relative;

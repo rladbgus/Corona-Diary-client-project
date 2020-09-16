@@ -11,7 +11,6 @@ const ReplyCommment = styled.div`
 `;
 
 const ReplyCommentDiv = styled.div`
-  /* background: #ede7f6; */
   display: flex;
   width: 70%;
   border-bottom: 4px solid white;
@@ -47,11 +46,12 @@ const ReplyComment = ({ data, deleteComment, contentId, allComment }) => {
   const [addReply, setAddReply] = useState(false);
   const history = useHistory();
   const depth1Arr = allComment.filter((data) => data.depth === 1);
+  const url = "http://localhost:5000/comment";
 
   const addReplyComment = () => {
     axios
       .post(
-        `http://localhost:5000/comment`,
+        url,
         {
           contentId: contentId,
           comment: replyComment,

@@ -1,6 +1,22 @@
 import React from "react";
 import styled from "styled-components";
 
+const SearchComponent = () => {
+  return (
+    <SearchStyle>
+      <i class="fas fa-search fa-1x"></i>
+      <input
+        type="text"
+        placeholder="검색어를 입력하세요."
+        className="searchItems"
+      />
+    </SearchStyle>
+  );
+};
+
+export default SearchComponent;
+
+
 const BREAK_POINT_MOBILE = 580;
 const BREAK_POINT_TABLET = 1024;
 
@@ -61,17 +77,3 @@ const SearchStyle = styled.div`
   }
 `;
 
-const SearchComponent = () => {
-  return (
-    <SearchStyle>
-      <i class="fas fa-search fa-1x"></i>
-      <input
-        type="text"
-        placeholder="검색어를 입력하세요."
-        className="searchItems"
-      />
-    </SearchStyle>
-  );
-};
-
-export default SearchComponent;

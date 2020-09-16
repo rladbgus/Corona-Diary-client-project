@@ -4,13 +4,14 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 const MyContentsListView = () => {
+  const url = "http://localhost:5000/myContentList";
   const [myContentList, setMyContentList] = useState(null);
   const getToken = window.sessionStorage.getItem("token");
 
   useEffect(() => {
     let ac = new AbortController();
     axios
-      .get("http://localhost:5000/myContentList", {
+      .get(url, {
         headers: { "x-access-token": getToken },
       })
       .then(res => {

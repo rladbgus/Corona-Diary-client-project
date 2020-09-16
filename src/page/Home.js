@@ -6,12 +6,27 @@ import HomePageContentsView from "../component/Home/HomePageContentsView";
 import HomeGraphView from "../component/Home/HomeGraphView";
 import HomeFooterView from "../component/Home/HomeFooterView";
 
+const Home = () => {
+  return (
+    <Fragment>
+      <Container>
+        <Nav>Home</Nav>
+        <HomePageIntro />
+        <HomePageContentsView />
+        <HomeGraphView />
+      </Container>
+      <HomeFooterView />
+    </Fragment>
+  );
+};
+
+export default Home;
+
 const BREAK_POINT_MOBILE = 580;
 const BREAK_POINT_TABLET = 1024;
 
 const Container = styled.article`
   display: block;
-  /* background: #ffffff; */
   margin-left: 6%;
   margin-right: 6%;
   position: relative;
@@ -32,19 +47,3 @@ const Container = styled.article`
     width: 100%;
   }
 `;
-
-const Home = () => {
-  return (
-    <Fragment>
-      <Container>
-        <Nav>Home</Nav>
-        <HomePageIntro />
-        <HomePageContentsView />
-        <HomeGraphView />
-      </Container>
-      <HomeFooterView />
-    </Fragment>
-  );
-};
-
-export default Home;

@@ -3,12 +3,24 @@ import Nav from "../component/Nav/Nav";
 import styled from "styled-components";
 import WritingPageForm from "../component/Writing/WritingPageForm";
 
+function Writing({ history }) {
+  return (
+    <Fragment>
+      <Container>
+        <Nav />
+        <WritingPageForm history={history} />
+      </Container>
+    </Fragment>
+  );
+}
+
+export default Writing;
+
 const BREAK_POINT_MOBILE = 580;
 const BREAK_POINT_TABLET = 1024;
 
 const Container = styled.article`
   display: block;
-  /* background: #ffffff; */
   margin-left: 6%;
   margin-right: 6%;
   position: relative;
@@ -25,16 +37,3 @@ const Container = styled.article`
     width: 100%;
   }
 `;
-
-function Writing({ history }) {
-  return (
-    <Fragment>
-      <Container>
-        <Nav />
-        <WritingPageForm history={history} />
-      </Container>
-    </Fragment>
-  );
-}
-
-export default Writing;

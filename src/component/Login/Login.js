@@ -8,13 +8,13 @@ import styled from "styled-components";
 import SocialLogin from "./SocialLogin";
 
 const Login = () => {
+  const url = "http://localhost:5000";
   const value = useContext(getLogin);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [modal, getModal] = useState(false);
   const [children, getChildren] = useState("");
   const [className, getClassName] = useState("");
-  const url = "http://localhost:5000";
 
   const openModal = () => {
     getModal(!modal);
@@ -24,21 +24,21 @@ const Login = () => {
     getModal(!modal);
   };
 
-  const emailHandler = e => {
+  const emailHandler = (e) => {
     setEmail(e.target.value);
   };
-  const passwordHandler = e => {
+  const passwordHandler = (e) => {
     setPassword(e.target.value);
   };
 
-  const submitHandler = e => {
+  const submitHandler = (e) => {
     e.preventDefault();
     axios
       .post(url + "/user/login", {
         email: email,
         password: password,
       })
-      .then(res => {
+      .then((res) => {
         if (res.status === 200) {
           value.handleSetNickName(res.data.nickName);
           getChildren("로그인에 성공했습니다");
@@ -55,12 +55,12 @@ const Login = () => {
       });
   };
 
-  const socialGoogleLogin = googleToken => {
+  const socialGoogleLogin = (googleToken) => {
     axios
       .post(url + "/user/socialLogin", {
         token: googleToken,
       })
-      .then(res => {
+      .then((res) => {
         if (res.status === 200) {
           value.handleLogin();
           value.handleToken(googleToken);
@@ -108,9 +108,9 @@ const Login = () => {
           <div>
             <button onClick={submitHandler}>Log in</button>
           </div>
-          <div>
+          <GoogleLoginButton>
             <SocialLogin socialGoogleLogin={socialGoogleLogin} />
-          </div>
+          </GoogleLoginButton>
         </form>
         <AlertModal visible={modal} onClose={closeModal} className={className}>
           {children}
@@ -132,15 +132,11 @@ const LoginStyled = styled.div`
   line-height: 180%;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   height: 32em;
-  margin: 4em 35em 0em 33em;
-  display: -webkit-flex;
-  display: inline-block;
+  margin: 7% 30% 40% 30%;
   display: flex;
-  -webkit-justify-content: center;
   justify-content: center;
-  -webkit-align-items: center;
   align-items: center;
-  min-width: 250px;
+  align-self: center;
 
   .loginName {
     margin-bottom: 8em;
@@ -151,7 +147,7 @@ const LoginStyled = styled.div`
   }
 
   .input {
-    width: 10rem;
+    width: 12rem;
     height: 3rem;
     margin: 0rem 0rem 0.1rem 0.7rem;
     font-size: 1.2rem;
@@ -182,13 +178,13 @@ const LoginStyled = styled.div`
     border: none;
     display: inline-block;
     height: 3rem;
-    width: 8.5rem;
+    width: 11rem;
     font-size: 1.25em;
     padding: 0 2em;
     cursor: pointer;
     transition: 800ms ease all;
     outline: none;
-    margin: 1em 0em 0em 3.5em;
+    margin: 1em 0em 0em 3em;
   }
   button:hover {
     background: #fff;
@@ -217,6 +213,11 @@ const LoginStyled = styled.div`
     transition: 800ms ease all;
   }
 
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
   @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
     margin-left: 0px;
     margin-right: 0px;
@@ -229,3 +230,5 @@ const LoginStyled = styled.div`
     width: 100%;
   }
 `;
+
+const GoogleLoginButton = styled.div``;
