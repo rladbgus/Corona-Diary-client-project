@@ -5,6 +5,7 @@ import getLogin from "../../Context/Context";
 import { GoogleLogin } from "react-google-login";
 import AlertModal from "../../Modal/AlertModal";
 import styled from "styled-components";
+import SocialLogin from "./SocialLogin";
 
 const Login = () => {
   const value = useContext(getLogin);
@@ -13,7 +14,6 @@ const Login = () => {
   const [modal, getModal] = useState(false);
   const [children, getChildren] = useState("");
   const [className, getClassName] = useState("");
-  const [googleToken, getGoogleToken] = useState("");
   const url = "http://localhost:5000";
 
   const openModal = () => {
@@ -55,7 +55,7 @@ const Login = () => {
       });
   };
 
-  const socialGoogle = () => {
+  const socialGoogleLogin = googleToken => {
     axios
       .post(url + "/user/socialLogin", {
         token: googleToken,
@@ -105,18 +105,11 @@ const Login = () => {
               className="input"
             />
           </div>
-          <button onClick={submitHandler}>Log in</button>
           <div>
-            <GoogleLogin
-              onClick={socialGoogle}
-              clientId="333133070398-amgnp101osuduqvjn2vacf3p20j2kmgn.apps.googleusercontent.com"
-              onSuccess={res => {
-                getGoogleToken(res.tokenId);
-              }}
-              onFailure={err => {
-                console.log(err);
-              }}
-            />
+            <button onClick={submitHandler}>Log in</button>
+          </div>
+          <div>
+            <SocialLogin socialGoogleLogin={socialGoogleLogin} />
           </div>
         </form>
         <AlertModal visible={modal} onClose={closeModal} className={className}>
