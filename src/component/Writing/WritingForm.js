@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const WritingForm = ({ handleChange, handleTags, handleImg }) => {
@@ -30,10 +30,17 @@ const WritingForm = ({ handleChange, handleTags, handleImg }) => {
         arrayTags.push(tags);
         return arrayTags;
       });
-      handleTags(arrayTags);
       getTags("");
     }
   };
+
+  const handleTagList = index => {
+    getArrayTasgs(arrayTags.filter((x, i) => index !== i));
+  };
+
+  useEffect(() => {
+    handleTags(arrayTags);
+  }, [arrayTags]);
 
   return (
     <Font>
@@ -41,8 +48,8 @@ const WritingForm = ({ handleChange, handleTags, handleImg }) => {
         <span className="icon">
           <i className="fab fa-cuttlefish fa-2x" />
         </span>
-          Today's Record
-        </Title>
+        Today's Record
+      </Title>
 
       <Container>
         <ContainerItem>
@@ -63,18 +70,31 @@ const WritingForm = ({ handleChange, handleTags, handleImg }) => {
             type="text"
             onChange={handleChange}
           />
-
-          <span className="content"> #태그목록
-          <span className="input-tag">
-              {arrayTags.length === 0 ? (
-                <br />
-              ) : (
-                  arrayTags.map(list => `#${list} `)
-                )}
-            </span>
+          <span className="content">
+            <div className="tagList">#태그목록</div>
+            <div className="added-tag-list">
+              {arrayTags.map((list, index) =>
+                list === "" ? (
+                  ""
+                ) : (
+                  <span className="show-tag" key={index}>
+                    {`#${list} `}
+                    <button
+                      className="closeBtn"
+                      onClick={() => {
+                        handleTagList(index);
+                      }}
+                    >
+                      <i className="fas fa-times"></i>
+                    </button>
+                  </span>
+                )
+              )}
+            </div>
           </span>
-          <span className="content">#태그추가
-          <input
+          <span className="content">
+            #태그추가
+            <input
               className="input-tag"
               name="tags"
               type="text"
@@ -94,10 +114,9 @@ const WritingForm = ({ handleChange, handleTags, handleImg }) => {
           />
           {/* <input className="uploadImg" value="선택된 이미지가 없습니다!" />
         </div> */}
-
         </ContainerItem>
       </Container>
-    </Font >
+    </Font>
   );
 };
 
@@ -106,99 +125,106 @@ export default WritingForm;
 const BREAK_POINT_MOBILE = 580;
 const BREAK_POINT_TABLET = 1111;
 
-const Font = styled.div`     
-font-family: 'S-CoreDream-3Light';
-font-weight: normal;
-font-style: normal;
-line-height : 180%;
+const Font = styled.div`
+  font-family: "S-CoreDream-3Light";
+  font-weight: normal;
+  font-style: normal;
+  line-height: 180%;
 
-/* label {
-   display: inline-block;
-   padding: 10px 20px;
-   color: #999;
-   vertical-align: middle;
-   background-color: #fdfdfd;
-   cursor: pointer;
-   border: 1px solid #ebebeb;
-   border-radius: 5px;
-   font-size:0.9em;
- }
-
- .uploadImg{
-  display: inline-block;
-  height: 40px;
-  font-size:0.9em; 
-  padding: 0 10px;
-  vertical-align: middle;
-  border: 1px solid #ebebeb;
-  border-radius: 5px;
- } */
-
-.input-image{
-font-size: 0.9em;
-margin-bottom: 0.7rem;
-}
-
-.input-tag {
-  margin-left: 0.8em;
-  margin-bottom:0.5em;
-}
-
-.content{
-  margin: 1em 0em 0.4em 0em;
-}
-
-.icon {
-  color: #4caf50;
-  margin-right:7px;
-  font-size: 2.7rem;
+  .tagList {
+    margin-bottom: 0.5rem;
   }
 
-input {
-  height: 40px;
-  font-size: 20px;
-  min-width: 350px;
-  font-family: "S-CoreDream-3Light";
-  font-style: normal;
-  font-weight: normal;
+  .input-image {
+    font-size: 0.9em;
+    margin-bottom: 0.7rem;
   }
 
-li {
-  font-family: "S-CoreDream-3Light";
-  font-style: normal;
-  font-weight: normal;
-  list-style: none;
-  margin-bottom:1em;
+  .input-tag {
+    margin-left: 0.8em;
+    margin-bottom: 5em;
+    width: 60%;
+    min-width: 300px;
   }
 
-textarea {
-  font-family: "S-CoreDream-3Light";
-  font-style: normal;
-  font-weight: normal;
-  height: 400px;
-  resize: none;
-  font-size: 20px;
-  min-width: 350px;
+  .content {
+    margin: 1em 0em 0.4em 1em;
+  }
+
+  .icon {
+    color: #4caf50;
+    margin-right: 7px;
+    font-size: 2.7rem;
+  }
+
+  input {
+    height: 40px;
+    font-size: 20px;
+    min-width: 350px;
+    font-family: "S-CoreDream-3Light";
+    font-style: normal;
+    font-weight: normal;
+  }
+
+  li {
+    font-family: "S-CoreDream-3Light";
+    font-style: normal;
+    font-weight: normal;
+    list-style: none;
+    margin-bottom: 1em;
+  }
+
+  textarea {
+    font-family: "S-CoreDream-3Light";
+    font-style: normal;
+    font-weight: normal;
+    height: 400px;
+    resize: none;
+    font-size: 20px;
+    min-width: 350px;
+  }
+
+  .show-tag {
+    display: inline-block;
+    background: #81c784;
+    margin-right: 2px;
+    margin-top: 3px;
+
+    padding: 0.3rem;
+    .closeBtn {
+      display: none;
+    }
+  }
+
+  .show-tag:hover {
+    background: #a1a1a1;
+    transition: 200ms ease all;
+    .closeBtn {
+      display: inline;
+      align-items: center;
+      background: transparent;
+      border: none;
+    }
   }
 `;
 
 const Title = styled.h1`
- margin : 1.9em 8em 1em 4.4em;
- font-size: 50px;
- color:#484848; 
+  margin: 1.9em 8em 1em 4.4em;
+  font-size: 50px;
+  color: #484848;
 
- @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
-      font-size: 25px;
-      font-weight: 500;
-      letter-spacing: 15px;
-      padding-left: 45px;
-    }
-    @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
-      font-size: 35px;
-      font-weight: 530;
-      letter-spacing: 15px;
-      padding-left: 45px;
-    }
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    font-size: 25px;
+    font-weight: 500;
+    letter-spacing: 15px;
+    padding-left: 45px;
+  }
+  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+    font-size: 35px;
+    font-weight: 530;
+    letter-spacing: 15px;
+    padding-left: 45px;
+  }
 `;
 
 const Container = styled.ul`
@@ -211,7 +237,8 @@ const Container = styled.ul`
   margin-bottom: 5px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   border: 1px solid #66bb6a;
-  margin : 3em 13em 1.5em 13em;
+  margin: 3em 13em 1.5em 13em;
+  min-width: 400px;
 `;
 
 const ContainerItem = styled.li`
@@ -222,4 +249,17 @@ const ContainerItem = styled.li`
   box-sizing: border-box;
   width: 78%;
   font-size: 1.5rem;
+  width: 60%;
+
+  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 96%;
+  }
+
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 96%;
+  }
 `;

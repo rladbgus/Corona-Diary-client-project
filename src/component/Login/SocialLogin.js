@@ -41,5 +41,5 @@ const GoogleButton = styled.div`
   font-style: normal;
   line-height: 180%;
   display: flex;
-  margin-left: 0.6rem;
+  margin-left: 0.53rem;
 `;

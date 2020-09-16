@@ -23,8 +23,6 @@ const SubmitButton = ({ data, history, image }) => {
   const submitButton = event => {
     event.preventDefault();
 
-    console.log(data);
-
     const formData = new FormData();
     formData.append("imgFile", image);
     formData.append("title", data.title);
