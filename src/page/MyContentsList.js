@@ -21,7 +21,6 @@ const BREAK_POINT_TABLET = 1024;
 
 const Container = styled.article`
   display: block;
-  /* background: #ffffff; */
   margin-left: 6%;
   margin-right: 6%;
   position: relative;

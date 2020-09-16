@@ -37,7 +37,7 @@ const CheckingModal = ({ children, visible, onClose }) => {
     let data = {};
     data.password = password;
     axios
-      .post(url + "/mypage", data, {
+      .post(`${url}/mypage`, data, {
         headers: {
           "x-access-token": getToken,
         },
@@ -53,7 +53,7 @@ const CheckingModal = ({ children, visible, onClose }) => {
   const handleDelete = () => {
     axios
       .patch(
-        url + "/user/signout",
+        `${url}/user/signout`,
         {
           email: "deleted@deleted.com",
         },
@@ -67,8 +67,8 @@ const CheckingModal = ({ children, visible, onClose }) => {
         if (res.status === 200) {
           value.handleLogin();
           value.handleToken("");
-          value.handleGoogleToken("");
           history.push("/");
+          alert('잘가요...')
           onClose();
         }
       });

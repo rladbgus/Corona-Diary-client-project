@@ -13,6 +13,7 @@ const Mypage = ({ history }) => {
   const getToken = window.sessionStorage.getItem("token");
   const [modal, getModal] = useState(false);
   const [children, getChildren] = useState("");
+  const [didMount, setDidMount] = useState(false);
 
   const openModalModify = () => {
     getModal(!modal);
@@ -38,10 +39,12 @@ const Mypage = ({ history }) => {
       })
       .then((res) => {
         getData(res.data);
+        setDidMount(true);
       });
 
     return () => {
       ac.abort();
+      setDidMount(false);
     };
   }, []);
 
