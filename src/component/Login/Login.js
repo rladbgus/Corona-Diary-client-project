@@ -2,18 +2,20 @@ import React, { useState, useContext } from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import getLogin from "../../Context/Context";
-// import { GoogleLogin } from "react-google-login";
+import { GoogleLogin } from "react-google-login";
 import AlertModal from "../../Modal/AlertModal";
 import styled from "styled-components";
+import SocialLogin from "./SocialLogin";
 
 const Login = () => {
-  const url = "http://localhost:5000/user/login";
+  const url = "http://localhost:5000";
   const value = useContext(getLogin);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [modal, getModal] = useState(false);
   const [children, getChildren] = useState("");
   const [className, getClassName] = useState("");
+  const url = "http://localhost:5000";
 
   const openModal = () => {
     getModal(!modal);
@@ -33,7 +35,7 @@ const Login = () => {
   const submitHandler = e => {
     e.preventDefault();
     axios
-      .post(url, {
+      .post(url + "/user/login", {
         email: email,
         password: password,
       })
@@ -54,6 +56,27 @@ const Login = () => {
       });
   };
 
+  const socialGoogleLogin = googleToken => {
+    axios
+      .post(url + "/user/socialLogin", {
+        token: googleToken,
+      })
+      .then(res => {
+        if (res.status === 200) {
+          value.handleLogin();
+          value.handleToken(googleToken);
+          getChildren("로그인에 성공했습니다");
+          getClassName("login");
+          openModal();
+        }
+      })
+      .catch(() => {
+        getChildren("Google 아이디,비밀번호를 확인해주세요");
+        getClassName("error");
+        return openModal();
+      });
+  };
+
   return (
     <LoginStyled>
       <center className="loginName">
@@ -63,31 +86,32 @@ const Login = () => {
             <label>
               <i class="fas fa-user fa-2x" />
             </label>
-            <input type="email" placeholder="Email" value={email} onChange={emailHandler} className="input" />
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={emailHandler}
+              className="input"
+            />
           </div>
           <div>
             <label>
               <i class="fas fa-unlock-alt fa-2x" />
             </label>
-            <input type="password" placeholder="Password" value={password} onChange={passwordHandler} className="input" />
-          </div>
-          <button onClick={submitHandler}>Log in</button>
-
-          {/* <div>
-            <GoogleLogin
-              clientId="333133070398-amgnp101osuduqvjn2vacf3p20j2kmgn.apps.googleusercontent.com"
-              onSuccess={res => {
-                value.handleLogin();
-                value.handleToken(res.accessToken);
-                getChildren("로그인에 성공했습니다");
-                getClassName("login");
-                openModal();
-              }}
-              onFailure={err => {
-                console.log(err);
-              }}
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={passwordHandler}
+              className="input"
             />
-          </div> */}
+          </div>
+          <div>
+            <button onClick={submitHandler}>Log in</button>
+          </div>
+          <div>
+            <SocialLogin socialGoogleLogin={socialGoogleLogin} />
+          </div>
         </form>
         <AlertModal visible={modal} onClose={closeModal} className={className}>
           {children}
@@ -103,95 +127,98 @@ const BREAK_POINT_MOBILE = 580;
 const BREAK_POINT_TABLET = 1024;
 
 const LoginStyled = styled.div`
-  font-family: 'S-CoreDream-3Light';
+  font-family: "S-CoreDream-3Light";
   font-weight: normal;
   font-style: normal;
-  line-height : 180%;
+  line-height: 180%;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   height: 32em;
-  margin:4em 35em 0em 33em;
+  margin: 4em 35em 0em 33em;
   display: -webkit-flex;
   display: inline-block;
   display: flex;
   -webkit-justify-content: center;
   justify-content: center;
   -webkit-align-items: center;
-  align-items: center; 
+  align-items: center;
   min-width: 250px;
 
-.loginName{
-  margin-bottom:8em;
+  .loginName {
+    margin-bottom: 8em;
   }
 
-i {
- margin-top:0.4em;
-}
+  i {
+    margin-top: 0.4em;
+  }
 
-.input{
-  width: 10rem;
-  height: 3rem;
-  margin: 0rem 0rem 0.1rem 0.7rem;
-  font-size: 1.2rem;
-}
+  .input {
+    width: 10rem;
+    height: 3rem;
+    margin: 0rem 0rem 0.1rem 0.7rem;
+    font-size: 1.2rem;
+  }
 
-.Login{
-  font-size:4.7rem;
-  margin-top: 1.6em;
-  margin-bottom: 1.1em;
-}
+  .Login {
+    font-size: 4.7rem;
+    margin-top: 1.6em;
+    margin-bottom: 1.1em;
+  }
 
-html,body{
-  height:100%;
-}
-body{
-  text-align:center;
-}
-body:before{
-  content:'';
-  height:100%;
-  display:inline-block;
-  vertical-align:middle;
-}
-button{
-  background:black;
-  color:#81c784;
-  border:none;
-  display: inline-block;
-  height:3rem;
-  width: 8.5rem;
-  font-size:1.25em;
-  padding:0 2em;
-  cursor:pointer;
-  transition:800ms ease all;
-  outline:none;
-  margin: 1em 0em 0em 3.5em;
-}
-button:hover{
-  background:#fff;
-  color:#1AAB8A;
-}
-button:before,button:after{
-  content:'';
-  position:absolute;
-  top:0;
-  right:0;
-  height:2px;
-  width:0;
-  background: #1AAB8A;
-  transition:400ms ease all;
-}
-button:after{
-  right:inherit;
-  top:inherit;
-  left:0;
-  bottom:0;
-}
-button:hover:before,button:hover:after{
-  width:100%;
-  transition:800ms ease all;
-}
+  html,
+  body {
+    height: 100%;
+  }
+  body {
+    text-align: center;
+  }
+  body:before {
+    content: "";
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  button {
+    background: black;
+    color: #81c784;
+    border: none;
+    display: inline-block;
+    height: 3rem;
+    width: 8.5rem;
+    font-size: 1.25em;
+    padding: 0 2em;
+    cursor: pointer;
+    transition: 800ms ease all;
+    outline: none;
+    margin: 1em 0em 0em 3.5em;
+  }
+  button:hover {
+    background: #fff;
+    color: #1aab8a;
+  }
+  button:before,
+  button:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 2px;
+    width: 0;
+    background: #1aab8a;
+    transition: 400ms ease all;
+  }
+  button:after {
+    right: inherit;
+    top: inherit;
+    left: 0;
+    bottom: 0;
+  }
+  button:hover:before,
+  button:hover:after {
+    width: 100%;
+    transition: 800ms ease all;
+  }
 
-@media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
     margin-left: 0px;
     margin-right: 0px;
     width: 100%;
@@ -202,5 +229,4 @@ button:hover:before,button:hover:after{
     margin-right: 0px;
     width: 100%;
   }
-
 `;
