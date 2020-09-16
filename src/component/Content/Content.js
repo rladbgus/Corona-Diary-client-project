@@ -137,7 +137,6 @@ const CommentBox = styled.div`
 
   button {
     background: black;
-    /* color: #81c784; */
     color: white;
     border: none;
     position: relative;
@@ -179,7 +178,6 @@ const CommentBox = styled.div`
   }
 `;
 const CommentLi = styled.li`
-  /* background: #ffebee; */
   border: none;
   border-bottom: 4px solid #e0e0e0;
   border-right: 4px solid #e0e0e0;
@@ -188,7 +186,6 @@ const CommentLi = styled.li`
 
   .comment {
     display: flex;
-    /* border-bottom: 4px solid white; */
   }
   .commentU {
     display: block;
@@ -221,6 +218,7 @@ const Container = styled.div`
 `;
 
 const ContentView = () => {
+  const url = `http://localhost:5000`;
   let splitUrl = window.location.href.split("/");
   let contentId = splitUrl[4];
   const value = useContext(getLogin);
@@ -257,7 +255,7 @@ const ContentView = () => {
   useEffect(() => {
     const ac = new AbortController();
     axios
-      .get(`http://localhost:5000/content/${contentId}`, {
+      .get(`${url}/content/${contentId}`, {
         headers: { "x-access-token": getToken },
       })
       .then((res) => {
@@ -286,7 +284,7 @@ const ContentView = () => {
   const userInfo = () => {
     let ac = new AbortController();
     axios
-      .get("http://localhost:5000/mypage", {
+      .get(`${url}/mypage`, {
         headers: {
           "x-access-token": getToken,
         },
@@ -303,7 +301,7 @@ const ContentView = () => {
   const setLikeBtn = () => {
     axios
       .post(
-        `http://localhost:5000/content/${contentId}/like`,
+        `${url}/content/${contentId}/like`,
         { like: countLike },
         { headers: { "x-access-token": getToken } }
       )
@@ -319,7 +317,7 @@ const ContentView = () => {
     setCommneted([comment, ...content.comment]);
     axios
       .post(
-        "http://localhost:5000/comment",
+        `${url}/comment`,
         {
           contentId: contentId,
           comment: comment,
@@ -334,7 +332,7 @@ const ContentView = () => {
   //댓글 삭제
   const deleteComment = (value) => {
     axios
-      .delete(`http://localhost:5000/comment/${value}`, {
+      .delete(`${url}/comment/${value}`, {
         headers: { "x-access-token": getToken },
       })
       .then(() => {
@@ -360,7 +358,7 @@ const ContentView = () => {
   //일기 삭제
   const deleteContent = () => {
     axios
-      .delete(`http://localhost:5000/content/${contentId}`, {
+      .delete(`${url}/content/${contentId}`, {
         headers: { "x-access-token": getToken },
       })
       .then((res) => {
@@ -393,8 +391,8 @@ const ContentView = () => {
                     height="400"
                   />
                 ) : (
-                  <img src={example} alt="" width="420" height="400" />
-                )}
+                    <img src={example} alt="" width="420" height="400" />
+                  )}
 
                 <div className="TextArea">{content.text}</div>
                 <br />
@@ -410,13 +408,13 @@ const ContentView = () => {
                       onClick={setLikeBtn}
                     />
                   ) : (
-                    <img
-                      className="LikeImg"
-                      src={unheart}
-                      alt=""
-                      onClick={setLikeBtn}
-                    />
-                  )}
+                      <img
+                        className="LikeImg"
+                        src={unheart}
+                        alt=""
+                        onClick={setLikeBtn}
+                      />
+                    )}
                   {countLike !== 0 ? <span>{countLike}</span> : <span>0</span>}
                 </LikeButton>
                 <div className="btn">
@@ -481,10 +479,10 @@ const ContentView = () => {
             </CommentBox>
           </>
         ) : (
-          <Container>
-            <EditWritingPageForm content={content} token={getToken} />
-          </Container>
-        )}
+            <Container>
+              <EditWritingPageForm content={content} token={getToken} />
+            </Container>
+          )}
       </>
       <AlertModal
         visible={modal}

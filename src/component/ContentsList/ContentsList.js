@@ -7,11 +7,12 @@ const ContentsListView = () => {
   const [contentList, setContentList] = useState(null);
   const getToken = window.sessionStorage.getItem("token");
   const [searchList, setSearchList] = useState("");
+  const url = "http://localhost:5000/contentList";
 
   useEffect(() => {
     const ac = new AbortController();
     axios
-      .get("http://localhost:5000/contentList", {
+      .get(url, {
         headers: { "x-access-token": getToken },
       })
       .then(res => {

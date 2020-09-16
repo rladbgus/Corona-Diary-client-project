@@ -6,9 +6,9 @@ import getLogin from "../Context/Context";
 import Portal from "./Portal";
 
 const CheckingModal = ({ children, visible, onClose }) => {
+  const url = "http://localhost:5000";
   const [password, getPassWord] = useState("");
   const value = useContext(getLogin);
-  const url = "http://localhost:5000";
   const getToken = window.sessionStorage.getItem("token");
   let history = useHistory();
 

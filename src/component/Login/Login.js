@@ -7,6 +7,7 @@ import AlertModal from "../../Modal/AlertModal";
 import styled from "styled-components";
 
 const Login = () => {
+  const url = "http://localhost:5000/user/login";
   const value = useContext(getLogin);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +33,7 @@ const Login = () => {
   const submitHandler = e => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/user/login", {
+      .post(url, {
         email: email,
         password: password,
       })

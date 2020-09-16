@@ -1,6 +1,24 @@
 import React from "react";
 import styled from "styled-components";
 
+const HomePageIntro = () => {
+  return (
+    <HomeIntroStyle>
+      <div>
+        <div className="homeIntroDescription">
+          <span>소통을 통해,</span>
+          <span>공감대를 형성하고,</span>
+          <span>더 나아가 빠른 회복을 위한 일기,</span>
+        </div>
+        <div className="homeIntroTitle">Corona Diary</div>
+      </div>
+    </HomeIntroStyle>
+  );
+};
+
+export default HomePageIntro;
+
+
 const BREAK_POINT_MOBILE = 580;
 const BREAK_POINT_TABLET = 1024;
 
@@ -50,20 +68,3 @@ const HomeIntroStyle = styled.div`
     margin: 25px 0px 20px 50px;
   }
 `;
-
-const HomePageIntro = () => {
-  return (
-    <HomeIntroStyle>
-      <div>
-        <div className="homeIntroDescription">
-          <span>소통을 통해,</span>
-          <span>공감대를 형성하고,</span>
-          <span>더 나아가 빠른 회복을 위한 일기,</span>
-        </div>
-        <div className="homeIntroTitle">Corona Diary</div>
-      </div>
-    </HomeIntroStyle>
-  );
-};
-
-export default HomePageIntro;
