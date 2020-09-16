@@ -136,9 +136,10 @@ const Font = styled.div`
   }
 
   .input-tag {
+    display: flex;
     margin-left: 0.8em;
     margin-bottom: 5em;
-    width: 60%;
+    width: 80%;
     min-width: 300px;
   }
 
@@ -184,7 +185,6 @@ const Font = styled.div`
     background: #81c784;
     margin-right: 2px;
     margin-top: 3px;
-
     padding: 0.3rem;
     .closeBtn {
       display: none;
@@ -207,18 +207,23 @@ const Title = styled.h1`
   margin: 1.9em 8em 1em 4.4em;
   font-size: 50px;
   color: #484848;
+  width: 60%;
+  margin-left: 20%;
+  min-width: 400px;
 
   @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
     font-size: 25px;
     font-weight: 500;
     letter-spacing: 15px;
-    padding-left: 45px;
+    margin-left: 2%;
+    margin-right: 2%;
   }
   @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
     font-size: 35px;
     font-weight: 530;
     letter-spacing: 15px;
-    padding-left: 45px;
+    margin-left: 2%;
+    margin-right: 2%;
   }
 `;
 
@@ -226,14 +231,26 @@ const Container = styled.ul`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  margin: 0, auto;
   align-items: center;
   padding: 0;
   margin-bottom: 5px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   border: 1px solid #66bb6a;
-  margin: 3em 13em 1.5em 13em;
+  width: 60%;
+  margin-left: 20%;
   min-width: 400px;
+
+  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 96%;
+  }
+
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 96%;
+  }
 `;
 
 const ContainerItem = styled.li`
@@ -244,17 +261,4 @@ const ContainerItem = styled.li`
   box-sizing: border-box;
   width: 78%;
   font-size: 1.5rem;
-  width: 60%;
-
-  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
-    margin-left: 2%;
-    margin-right: 2%;
-    width: 96%;
-  }
-
-  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
-    margin-left: 2%;
-    margin-right: 2%;
-    width: 96%;
-  }
 `;
