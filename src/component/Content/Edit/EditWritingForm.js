@@ -76,7 +76,7 @@ const EditWritingForm = ({ handleChange, handleTags, content, handleImg }) => {
             type="text"
             onChange={handleChange}
           />
-          <span className="content">
+          <div className="content">
             <div className="tagList">#태그목록</div>
             <div className="added-tag-list">
               {arrayTags.map((list, index) =>
@@ -97,19 +97,21 @@ const EditWritingForm = ({ handleChange, handleTags, content, handleImg }) => {
                 )
               )}
             </div>
-          </span>
-          <span className="content">
+          </div>
+          <div className="content">
             #태그추가
-            <input
-              className="input-tag"
-              name="tags"
-              type="text"
-              value={tags}
-              placeholder="  입력 후 'Enter'를 쳐주세요!"
-              onChange={handleValue}
-              onKeyDown={handleKey}
-            />
-          </span>
+            <span>
+              <input
+                className="input-tag"
+                name="tags"
+                type="text"
+                value={tags}
+                placeholder="  입력 후 'Enter'를 쳐주세요!"
+                onChange={handleValue}
+                onKeyDown={handleKey}
+              />
+            </span>
+          </div>
           <input
             type="file"
             onChange={HandleChangeImg}
@@ -135,6 +137,39 @@ const Font = styled.div`
   .tagList {
     margin-bottom: 0.5rem;
   }
+  .added-tag-list {
+    display: inline;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: left;
+    margin: 1em 0em 0.4em 1em;
+  }
+
+  .show-tag {
+    display: inline-block;
+    background: #81c784;
+    margin-right: 2px;
+    margin-top: 3px;
+    padding: 0.3rem;
+    .closeBtn {
+      display: none;
+    }
+  }
+
+  .show-tag:hover {
+    background: #a1a1a1;
+    transition: 200ms ease all;
+    .closeBtn {
+      display: inline;
+      align-items: center;
+      background: transparent;
+      border: none;
+    }
+  }
 
   .input-image {
     font-size: 0.9em;
@@ -142,14 +177,12 @@ const Font = styled.div`
   }
 
   .input-tag {
+    display: block;
     margin-left: 0.8em;
     margin-bottom: 5em;
-    width: 60%;
+    margin-top: 1em;
+    width: 70%;
     min-width: 300px;
-  }
-
-  .content {
-    margin: 1em 0em 0.4em 1em;
   }
 
   .icon {
@@ -184,35 +217,13 @@ const Font = styled.div`
     font-size: 20px;
     min-width: 350px;
   }
-
-  .show-tag {
-    display: inline-block;
-    background: #81c784;
-    margin-right: 2px;
-    margin-top: 3px;
-
-    padding: 0.3rem;
-    .closeBtn {
-      display: none;
-    }
-  }
-
-  .show-tag:hover {
-    background: #a1a1a1;
-    transition: 200ms ease all;
-    .closeBtn {
-      display: inline;
-      align-items: center;
-      background: transparent;
-      border: none;
-    }
-  }
 `;
 
 const Title = styled.h1`
-  margin: 1.9em 8em 1em 4.4em;
+  margin: 1.9em 8em 0 0;
   font-size: 50px;
   color: #484848;
+  width: 400px;
 
   @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
     font-size: 25px;
@@ -232,13 +243,12 @@ const Container = styled.ul`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  margin: 0, auto;
   align-items: center;
   padding: 0;
-  margin-bottom: 5px;
+  margin-bottom: 24px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   border: 1px solid #66bb6a;
-  margin: 3em 13em 1.5em 13em;
+  width: 100%;
   min-width: 400px;
 `;
 
@@ -250,7 +260,6 @@ const ContainerItem = styled.li`
   box-sizing: border-box;
   width: 78%;
   font-size: 1.5rem;
-  width: 60%;
 
   @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
     margin-left: 2%;
