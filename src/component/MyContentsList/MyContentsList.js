@@ -14,7 +14,7 @@ const MyContentsListView = () => {
       .get(url, {
         headers: { "x-access-token": getToken },
       })
-      .then(res => {
+      .then((res) => {
         setMyContentList([...res.data.contentList]);
       });
     return () => {
@@ -28,10 +28,10 @@ const MyContentsListView = () => {
         <span className="icon">
           <i class="fab fa-cuttlefish fa-2x" />
         </span>
-         My Corona Diary
+        My Corona Diary
       </Title>
       <Border>
-        {myContentList?.map(data => (
+        {myContentList?.map((data) => (
           <ContentStyle key={data.id}>
             <Link to={`/content/${data.id}`} className="contentLinkStyle">
               <h1>{data.title}</h1>
@@ -50,69 +50,92 @@ export default MyContentsListView;
 const BREAK_POINT_MOBILE = 580;
 const BREAK_POINT_TABLET = 1111;
 
-const Font = styled.div`     
-font-family: 'S-CoreDream-3Light';
-font-weight: normal;
-font-style: normal;
-line-height : 180%;
+const Font = styled.div`
+  font-family: "S-CoreDream-3Light";
+  font-weight: normal;
+  font-style: normal;
+  line-height: 180%;
 
-.icon {
-   margin-right:7px;
-   color: #4caf50;
+  .icon {
+    margin-right: 7px;
+    color: #4caf50;
   }
 `;
 
 const Title = styled.h1`
- margin : 2.1em 10em 1em 3em;
- font-size: 50px;
- color:#484848; 
- @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
-      font-size: 25px;
-      font-weight: 500;
-      letter-spacing: 15px;
-      padding-left: 45px;
-    }
-    @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
-      font-size: 35px;
-      font-weight: 530;
-      letter-spacing: 15px;
-      padding-left: 45px;
-    }
+  margin: 5% 10% 2% 14%;
+  font-size: 50px;
+  color: #484848;
+  line-height: 160%;
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    font-size: 25px;
+    font-weight: 500;
+    letter-spacing: 15px;
+    /* padding-left: 45px; */
+  }
+  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+    font-size: 35px;
+    font-weight: 530;
+    letter-spacing: 15px;
+    /* padding-left: 45px; */
+  }
 `;
 
 const Border = styled.span`
-  display : flex;
+  display: flex;
   flex-wrap: wrap;
   border: 1px solid #66bb6a;
-  margin : 3em 6em 7em 8em;
+  margin: 3% 8%;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   /* min-width: 100px; */
-  `;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-self: flex-start;
+`;
 
 const ContentStyle = styled.span`
-  width:17em;
+  width: 17em;
   height: 20em;
   line-height: 40px;
-  padding:2.5em;
-  margin: 2em 0em 1em 4em;
+  padding: 2.5em;
+  margin: 3%;
   background: #ffffff;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 
   .contentLinkStyle {
-    display:-webkit-box; 
-    word-wrap:break-word; 
-    -webkit-line-clamp:6; 
-    -webkit-box-orient:vertical; 
-    overflow:hidden; 
-    text-overflow:ellipsis; 
-    line-height:2em; 
-    height: 20em;
-    color:#444; 
-    text-decoration:none;
-    }
-  
+    line-height: 2em;
+    height: 17em;
+    color: #444;
+    text-decoration: none;
+  }
+
   .contentLinkStyle:hover {
+  }
+  h1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+  }
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+  }
+  p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+    height: 134px;
   }
 
   &:hover {
@@ -121,18 +144,9 @@ const ContentStyle = styled.span`
   }
 
   @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
-    margin : 3em;
-    width: 100%;
   }
 
   @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
-    margin : 2em;
-    width: 100%;
-    input {
-      font-size: 13px;
-      padding: 10px 5px;
-      width: 200px;
-    }
     .icon {
       font-size: 8px;
       padding-left: 45px;
