@@ -78,7 +78,7 @@ const Container = styled.div`
 
   button {
     background: black;
-    color: #81c784;
+    color: #fff;
     border: none;
     position: relative;
     height: 3rem;
