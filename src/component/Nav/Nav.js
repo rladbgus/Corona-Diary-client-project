@@ -23,11 +23,11 @@ function Nav() {
   return (
     <Header>
       <Link to="/" className="homelink">
-        <i class="fab fa-cuttlefish fa-2x"></i>
+        <i className="fab fa-cuttlefish fa-2x"></i>
       </Link>
 
       <Link to="/Search" className="search_btn">
-        <i class="fas fa-search fa-2x"></i>
+        <i className="fas fa-search fa-2x"></i>
       </Link>
       <div>
         <button
@@ -36,7 +36,7 @@ function Nav() {
             setIsMenuOpen(!MenuState);
           }}
         >
-          <i class="fas fa-bars fa-2x"></i>
+          <i className="fas fa-bars fa-2x"></i>
         </button>
         <span
           className="logoutstate"
