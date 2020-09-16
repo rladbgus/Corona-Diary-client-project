@@ -59,11 +59,12 @@ const Survey = ({ handleClick, handleNumberChange, handleData }) => {
 
 export default Survey;
 
-const Container = styled.div`
+const Container = styled.span`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+ 
 
   button {
     background: black;
