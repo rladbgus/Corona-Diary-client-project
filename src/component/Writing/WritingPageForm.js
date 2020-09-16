@@ -63,7 +63,7 @@ const WritingPageForm = ({ history }) => {
   };
 
   return (
-    <All>
+    <>
       <WritingForm
         handleChange={handleChange}
         handleTags={handleTags}
@@ -75,12 +75,8 @@ const WritingPageForm = ({ history }) => {
         handleData={handleData}
       />
       <SubmitButton data={data} history={history} image={image} />
-    </All>
+    </>
   );
 };
 
 export default WritingPageForm;
-
-
-const All = styled.div`
-  `;

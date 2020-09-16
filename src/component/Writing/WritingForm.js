@@ -85,11 +85,15 @@ const WritingForm = ({ handleChange, handleTags, handleImg }) => {
             />
           </span>
 
+          {/* <div >
+            <label>이미지 업로드</label> */}
           <input
             type="file"
             onChange={HandleChangeImg}
             className="input-image"
           />
+          {/* <input className="uploadImg" value="선택된 이미지가 없습니다!" />
+        </div> */}
 
         </ContainerItem>
       </Container>
@@ -107,6 +111,28 @@ font-family: 'S-CoreDream-3Light';
 font-weight: normal;
 font-style: normal;
 line-height : 180%;
+
+/* label {
+   display: inline-block;
+   padding: 10px 20px;
+   color: #999;
+   vertical-align: middle;
+   background-color: #fdfdfd;
+   cursor: pointer;
+   border: 1px solid #ebebeb;
+   border-radius: 5px;
+   font-size:0.9em;
+ }
+
+ .uploadImg{
+  display: inline-block;
+  height: 40px;
+  font-size:0.9em; 
+  padding: 0 10px;
+  vertical-align: middle;
+  border: 1px solid #ebebeb;
+  border-radius: 5px;
+ } */
 
 .input-image{
 font-size: 0.9em;
@@ -185,7 +211,7 @@ const Container = styled.ul`
   margin-bottom: 5px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   border: 1px solid #66bb6a;
-  margin : 3em 13em 4em 13em;
+  margin : 3em 13em 1.5em 13em;
 `;
 
 const ContainerItem = styled.li`

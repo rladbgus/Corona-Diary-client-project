@@ -82,7 +82,7 @@ const SubmitButton = ({ data, history, image }) => {
 
 export default SubmitButton;
 
-const Container = styled.div`
+const Container = styled.span`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -104,7 +104,7 @@ const Container = styled.div`
     transition: 800ms ease all;
     outline: none;
     margin: 5px;
-    margin-bottom: 5em;
+    margin-bottom: 6em;
   }
   button:hover {
     background: #fff;
