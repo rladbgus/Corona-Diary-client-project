@@ -11,6 +11,290 @@ import Tags from "./Tags";
 import CheckingModal from "../../Modal/CheckingModal";
 import example from "../../img/corona_logo.png";
 import ReplyComment from "./ReplyComment";
+import { useHistory } from "react-router-dom";
+
+const ContentView = () => {
+  const url = `http://localhost:5000`;
+  let splitUrl = window.location.href.split("/");
+  let contentId = splitUrl[4];
+  const value = useContext(getLogin);
+  const [content, setContent] = useState("");
+  const [comment, newComment] = useState("");
+  const [commented, setCommneted] = useState([]);
+  const [modal, getModal] = useState(false);
+  const [children, getChildren] = useState("");
+  const [className, getClassName] = useState("");
+  const [deleteState, getDelete] = useState(true);
+  const [nickName, setnickName] = useState("");
+  const [data, getData] = useState("");
+  const getToken = window.sessionStorage.getItem("token");
+  const [countLike, setCountLike] = useState(0);
+  const [isLike, setIsLike] = useState(false);
+  const [tags, getTags] = useState([]);
+  const [checkModal, getCheckModal] = useState(false);
+  const [commentId, getCommentId] = useState("");
+  const history = useHistory();
+
+  const openModalModify = () => {
+    getCheckModal(!checkModal);
+    getChildren("일기수정");
+  };
+  const closeCheckModal = () => {
+    getCheckModal(!checkModal);
+  };
+  const openModal = () => {
+    getModal(!modal);
+  };
+  const closeModal = () => {
+    getModal(!modal);
+  };
+
+  useEffect(() => {
+    const ac = new AbortController();
+    axios
+      .get(`${url}/content/${contentId}`, {
+        headers: { "x-access-token": getToken },
+      })
+      .then((res) => {
+        setContent(res.data.Content);
+        setnickName(res.data.Content.user.nickName);
+        getTags(res.data.Content.tag);
+        deleteButton();
+        setCountLike(res.data.like);
+        setIsLike(res.data.userLike);
+      })
+      .catch(() => {
+        if (!getToken) {
+          getChildren("로그인 후 이용하실 수 있습니다^^");
+          getClassName("content");
+          openModal();
+          userInfo();
+        }
+      });
+    return () => {
+      ac.abort();
+    };
+  }, [commented, nickName]);
+
+  const allComment = content.comment;
+
+  const userInfo = () => {
+    let ac = new AbortController();
+    axios
+      .get(`${url}/mypage`, {
+        headers: {
+          "x-access-token": getToken,
+        },
+      })
+      .then((res) => {
+        getData(res.data);
+      });
+    return () => {
+      ac.abort();
+    };
+  };
+
+  // 좋아요 증감
+  const setLikeBtn = () => {
+    axios
+      .post(
+        `${url}/content/${contentId}/like`,
+        { like: countLike },
+        { headers: { "x-access-token": getToken } }
+      )
+      .then((res) => {
+        setCountLike(res.data.count);
+        setIsLike(res.data.like);
+      });
+  };
+
+  //댓글기능
+  const postComment = (e) => {
+    e.preventDefault();
+    setCommneted([comment, ...content.comment]);
+    axios
+      .post(
+        `${url}/comment`,
+        {
+          contentId: contentId,
+          comment: comment,
+        },
+        { headers: { "x-access-token": getToken } }
+      )
+      .then(() => {
+        newComment("");
+        history.go("/");
+      });
+  };
+
+  //댓글 삭제
+  const deleteComment = (value) => {
+    axios
+      .delete(`${url}/comment/${value}`, {
+        headers: { "x-access-token": getToken },
+      })
+      .then(() => {
+        getChildren("댓글이 삭제되었습니다");
+        getClassName("deleteComment");
+        getCommentId(value);
+        openModal();
+      })
+      .catch(() => {
+        getChildren("삭제 권한이 없습니다");
+        getClassName("deleteComment");
+        openModal();
+      });
+  };
+
+  //일기 삭제버튼 생성유무
+  const deleteButton = () => {
+    if (value.nickName === nickName) {
+      getDelete(!deleteState);
+    }
+  };
+
+  //일기 삭제
+  const deleteContent = () => {
+    axios
+      .delete(`${url}/content/${contentId}`, {
+        headers: { "x-access-token": getToken },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          getChildren("일기가 삭제되었습니다");
+          getClassName("deleteCotent");
+          openModal();
+        }
+      })
+      .catch(() => {
+        getClassName("deleteCotentError");
+        return openModal();
+      });
+  };
+
+  return (
+    <center className="ContentViewBox">
+      <>
+        {!value.isChecking ? (
+          <>
+            <ContentBox>
+              <div className="Content">
+                <h1>{content.title}</h1>
+                <span className="contentDate">{content.createdAt}</span>
+                {content.referenceFile ? (
+                  <img
+                    src={content.referenceFile}
+                    alt=""
+                    width="420"
+                    height="400"
+                  />
+                ) : (
+                    <img src={example} alt="" width="420" height="400" />
+                  )}
+
+                <div className="TextArea">{content.text}</div>
+                <br />
+                <div className="tagStyle">
+                  <Tags data={tags} />
+                </div>
+                <LikeButton>
+                  {isLike ? (
+                    <img
+                      className="LikeImg"
+                      src={heart}
+                      alt=""
+                      onClick={setLikeBtn}
+                    />
+                  ) : (
+                      <img
+                        className="LikeImg"
+                        src={unheart}
+                        alt=""
+                        onClick={setLikeBtn}
+                      />
+                    )}
+                  {countLike !== 0 ? <span>{countLike}</span> : <span>0</span>}
+                </LikeButton>
+                <div className="btn">
+                  <button
+                    onClick={openModalModify}
+                    style={
+                      deleteState ? { display: "none" } : { display: "block" }
+                    }
+                    className="btn-style"
+                  >
+                    일기수정
+                  </button>
+                  <CheckingModal visible={checkModal} onClose={closeCheckModal}>
+                    {children}
+                  </CheckingModal>
+                  <button
+                    onClick={deleteContent}
+                    style={
+                      deleteState ? { display: "none" } : { display: "block" }
+                    }
+                    className="btn-style"
+                  >
+                    일기삭제
+                  </button>
+                </div>
+              </div>
+            </ContentBox>
+            <CommentBox>
+              <div className="Comment">
+                <input
+                  type="text"
+                  placeholder="댓글을 작성하세요"
+                  value={comment}
+                  onChange={(e) => newComment(e.target.value)}
+                />
+                <button onClick={postComment}>댓글 작성</button>
+                <>
+                  {allComment
+                    ?.filter((value) => value.depth === 0)
+                    .map((data) => (
+                      <CommentLi key={data.id}>
+                        <div className="comment">
+                          <div className="commentU">
+                            <div className="commentUser">
+                              {data.user.nickName}
+                            </div>
+                            <div className="commentDate">{data.createdAt}</div>
+                          </div>
+
+                          <div className="commentStyle">{data.comment}</div>
+                        </div>
+                        <ReplyComment
+                          data={data}
+                          deleteComment={deleteComment}
+                          contentId={contentId}
+                          allComment={allComment}
+                        ></ReplyComment>
+                      </CommentLi>
+                    ))}
+                </>
+              </div>
+            </CommentBox>
+          </>
+        ) : (
+            <Container>
+              <EditWritingPageForm content={content} token={getToken} />
+            </Container>
+          )}
+      </>
+      <AlertModal
+        visible={modal}
+        onClose={closeModal}
+        className={className}
+        commentId={commentId}
+      >
+        {children}
+      </AlertModal>
+    </center>
+  );
+};
+export default ContentView;
+
 
 const ContentBox = styled.div`
   background: #f5f5f5;
@@ -216,283 +500,3 @@ const Container = styled.div`
   align-items: center;
   margin: 10px; */
 `;
-
-const ContentView = () => {
-  const url = `http://localhost:5000`;
-  let splitUrl = window.location.href.split("/");
-  let contentId = splitUrl[4];
-  const value = useContext(getLogin);
-  const [content, setContent] = useState("");
-  const [comment, newComment] = useState("");
-  const [commented, setCommneted] = useState([]);
-  const [modal, getModal] = useState(false);
-  const [children, getChildren] = useState("");
-  const [className, getClassName] = useState("");
-  const [deleteState, getDelete] = useState(true);
-  const [nickName, setnickName] = useState("");
-  const [data, getData] = useState("");
-  const getToken = window.sessionStorage.getItem("token");
-  const [countLike, setCountLike] = useState(0);
-  const [isLike, setIsLike] = useState(false);
-  const [tags, getTags] = useState([]);
-  const [checkModal, getCheckModal] = useState(false);
-  const [commentId, getCommentId] = useState("");
-
-  const openModalModify = () => {
-    getCheckModal(!checkModal);
-    getChildren("일기수정");
-  };
-  const closeCheckModal = () => {
-    getCheckModal(!checkModal);
-  };
-  const openModal = () => {
-    getModal(!modal);
-  };
-  const closeModal = () => {
-    getModal(!modal);
-  };
-
-  useEffect(() => {
-    const ac = new AbortController();
-    axios
-      .get(`${url}/content/${contentId}`, {
-        headers: { "x-access-token": getToken },
-      })
-      .then((res) => {
-        setContent(res.data.Content);
-        setnickName(res.data.Content.user.nickName);
-        getTags(res.data.Content.tag);
-        deleteButton();
-        setCountLike(res.data.like);
-        setIsLike(res.data.userLike);
-      })
-      .catch(() => {
-        if (!getToken) {
-          getChildren("로그인 후 이용하실 수 있습니다^^");
-          getClassName("content");
-          openModal();
-          userInfo();
-        }
-      });
-    return () => {
-      ac.abort();
-    };
-  }, [commented, nickName]);
-
-  const allComment = content.comment;
-
-  const userInfo = () => {
-    let ac = new AbortController();
-    axios
-      .get(`${url}/mypage`, {
-        headers: {
-          "x-access-token": getToken,
-        },
-      })
-      .then((res) => {
-        getData(res.data);
-      });
-    return () => {
-      ac.abort();
-    };
-  };
-
-  // 좋아요 증감
-  const setLikeBtn = () => {
-    axios
-      .post(
-        `${url}/content/${contentId}/like`,
-        { like: countLike },
-        { headers: { "x-access-token": getToken } }
-      )
-      .then((res) => {
-        setCountLike(res.data.count);
-        setIsLike(res.data.like);
-      });
-  };
-
-  //댓글기능
-  const postComment = (e) => {
-    e.preventDefault();
-    setCommneted([comment, ...content.comment]);
-    axios
-      .post(
-        `${url}/comment`,
-        {
-          contentId: contentId,
-          comment: comment,
-        },
-        { headers: { "x-access-token": getToken } }
-      )
-      .then(() => {
-        newComment("");
-      });
-  };
-
-  //댓글 삭제
-  const deleteComment = (value) => {
-    axios
-      .delete(`${url}/comment/${value}`, {
-        headers: { "x-access-token": getToken },
-      })
-      .then(() => {
-        getChildren("댓글이 삭제되었습니다");
-        getClassName("deleteComment");
-        getCommentId(value);
-        openModal();
-      })
-      .catch(() => {
-        getChildren("삭제 권한이 없습니다");
-        getClassName("deleteComment");
-        openModal();
-      });
-  };
-
-  //일기 삭제버튼 생성유무
-  const deleteButton = () => {
-    if (value.nickName === nickName) {
-      getDelete(!deleteState);
-    }
-  };
-
-  //일기 삭제
-  const deleteContent = () => {
-    axios
-      .delete(`${url}/content/${contentId}`, {
-        headers: { "x-access-token": getToken },
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          getChildren("일기가 삭제되었습니다");
-          getClassName("deleteCotent");
-          openModal();
-        }
-      })
-      .catch(() => {
-        getClassName("deleteCotentError");
-        return openModal();
-      });
-  };
-
-  return (
-    <center className="ContentViewBox">
-      <>
-        {!value.isChecking ? (
-          <>
-            <ContentBox>
-              <div className="Content">
-                <h1>{content.title}</h1>
-                <span className="contentDate">{content.createdAt}</span>
-                {content.referenceFile ? (
-                  <img
-                    src={content.referenceFile}
-                    alt=""
-                    width="420"
-                    height="400"
-                  />
-                ) : (
-                    <img src={example} alt="" width="420" height="400" />
-                  )}
-
-                <div className="TextArea">{content.text}</div>
-                <br />
-                <div className="tagStyle">
-                  <Tags data={tags} />
-                </div>
-                <LikeButton>
-                  {isLike ? (
-                    <img
-                      className="LikeImg"
-                      src={heart}
-                      alt=""
-                      onClick={setLikeBtn}
-                    />
-                  ) : (
-                      <img
-                        className="LikeImg"
-                        src={unheart}
-                        alt=""
-                        onClick={setLikeBtn}
-                      />
-                    )}
-                  {countLike !== 0 ? <span>{countLike}</span> : <span>0</span>}
-                </LikeButton>
-                <div className="btn">
-                  <button
-                    onClick={openModalModify}
-                    style={
-                      deleteState ? { display: "none" } : { display: "block" }
-                    }
-                    className="btn-style"
-                  >
-                    일기수정
-                  </button>
-                  <CheckingModal visible={checkModal} onClose={closeCheckModal}>
-                    {children}
-                  </CheckingModal>
-                  <button
-                    onClick={deleteContent}
-                    style={
-                      deleteState ? { display: "none" } : { display: "block" }
-                    }
-                    className="btn-style"
-                  >
-                    일기삭제
-                  </button>
-                </div>
-              </div>
-            </ContentBox>
-            <CommentBox>
-              <div className="Comment">
-                <input
-                  type="text"
-                  placeholder="댓글을 작성하세요"
-                  value={comment}
-                  onChange={(e) => newComment(e.target.value)}
-                />
-                <button onClick={postComment}>댓글 작성</button>
-                <>
-                  {allComment
-                    ?.filter((value) => value.depth === 0)
-                    .map((data) => (
-                      <CommentLi key={data.id}>
-                        <div className="comment">
-                          <div className="commentU">
-                            <div className="commentUser">
-                              {data.user.nickName}
-                            </div>
-                            <div className="commentDate">{data.createdAt}</div>
-                          </div>
-
-                          <div className="commentStyle">{data.comment}</div>
-                        </div>
-                        <ReplyComment
-                          data={data}
-                          deleteComment={deleteComment}
-                          contentId={contentId}
-                          allComment={allComment}
-                        ></ReplyComment>
-                      </CommentLi>
-                    ))}
-                </>
-              </div>
-            </CommentBox>
-          </>
-        ) : (
-            <Container>
-              <EditWritingPageForm content={content} token={getToken} />
-            </Container>
-          )}
-      </>
-      <AlertModal
-        visible={modal}
-        onClose={closeModal}
-        className={className}
-        commentId={commentId}
-      >
-        {children}
-      </AlertModal>
-    </center>
-  );
-};
-export default ContentView;
