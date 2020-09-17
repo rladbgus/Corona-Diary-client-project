@@ -40,109 +40,160 @@ const EditWritingForm = ({ handleChange, handleTags, content, handleImg }) => {
     }
   };
 
+  const handleTagList = index => {
+    getArrayTasgs(arrayTags.filter((x, i) => index !== i));
+  };
+
+  useEffect(() => {
+    handleTags(arrayTags);
+  }, [arrayTags]);
+
   return (
-    <WritingFormContainer>
-      <h1 title="signup">일기 쓰기</h1>
+    <Font>
+      <Title>
+        <span className="icon">
+          <i className="fab fa-cuttlefish fa-2x" />
+        </span>
+        Diary Edit
+      </Title>
+
       <Container>
         <ContainerItem>
-          <div className="title-content">일기제목</div>
+          <div className="content">일기제목</div>
           <input
             name="title"
             className="input-title"
             type="text"
-            placeholder="일기제목"
+            defaultValue={content.title}
             onChange={handleChange}
-            defaultValue={data.title}
           />
-        </ContainerItem>
-        <ContainerItem>
-          <div className="content-content">일기내용</div>
+
+          <div className="content">일기내용</div>
           <textarea
             name="text"
             className="input-content"
-            placeholder="내용을 입력하세요"
+            defaultValue={content.text}
             type="text"
             onChange={handleChange}
-            defaultValue={data.text}
           />
-        </ContainerItem>
-        <ContainerItem>
-          <div className="added-tags-content">추가된 태그</div>
-          <div className="tags">
-            {arrayTags.length === 0 ? (
-              <br />
-            ) : (
-              arrayTags.map(list => `#${list} `)
-            )}
+          <div className="content">
+            <div className="tagList">#태그목록</div>
+            <div className="added-tag-list">
+              {arrayTags.map((list, index) =>
+                list === "" ? (
+                  ""
+                ) : (
+                  <span className="show-tag" key={index}>
+                    {`#${list} `}
+                    <button
+                      className="closeBtn"
+                      onClick={() => {
+                        handleTagList(index);
+                      }}
+                    >
+                      <i className="fas fa-times"></i>
+                    </button>
+                  </span>
+                )
+              )}
+            </div>
           </div>
-        </ContainerItem>
-        <ContainerItem>
-          <div className="add-tags">태그추가</div>
+          <div className="content">
+            #태그추가
+            <span>
+              <input
+                className="input-tag"
+                name="tags"
+                type="text"
+                value={tags}
+                placeholder="  입력 후 'Enter'를 쳐주세요!"
+                onChange={handleValue}
+                onKeyDown={handleKey}
+              />
+            </span>
+          </div>
           <input
-            className="input-tag"
-            name="tags"
-            type="text"
-            value={tags}
-            onChange={handleValue}
-            onKeyDown={handleKey}
+            type="file"
+            onChange={HandleChangeImg}
+            className="input-image"
           />
-        </ContainerItem>
-        <ContainerItem>
-          <div className="imgpreview">
-            <img src={imgData} width="100%" height="100%" />
-          </div>
-          <label className="input-image-button">
-            <input
-              type="file"
-              onChange={HandleChangeImg}
-              className="input-image"
-            />
-            사진등록
-          </label>
         </ContainerItem>
       </Container>
-    </WritingFormContainer>
+    </Font>
   );
 };
 
 export default EditWritingForm;
 
 const BREAK_POINT_MOBILE = 580;
-const BREAK_POINT_TABLET = 1024;
+const BREAK_POINT_TABLET = 1111;
 
-const Container = styled.ul`
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  padding: 0;
-  margin-bottom: 5px;
-`;
+const Font = styled.div`
+  font-family: "S-CoreDream-3Light";
+  font-weight: normal;
+  font-style: normal;
+  line-height: 180%;
 
-const ContainerItem = styled.li`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  margin-top: 20px;
-  padding: 0 5px;
-  box-sizing: border-box;
-`;
+  .tagList {
+    margin-bottom: 0.5rem;
+  }
+  .added-tag-list {
+    display: inline;
+  }
 
-const WritingFormContainer = styled.div`
-  width: 60%;
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: left;
+    margin: 1em 0em 0.4em 1em;
+  }
 
-  h1 {
-    text-align: center;
-    padding: 10px 0;
-    margin-top: 20px;
-    font-size: 3rem;
-    font-family: "S-CoreDream-3Light";
-    font-style: normal;
-    font-weight: normal;
+  .show-tag {
+    display: inline-block;
+    background: #81c784;
+    margin-right: 2px;
+    margin-top: 3px;
+    padding: 0.3rem;
+    .closeBtn {
+      display: none;
+    }
+  }
+
+  .show-tag:hover {
+    background: #a1a1a1;
+    transition: 200ms ease all;
+    .closeBtn {
+      display: inline;
+      align-items: center;
+      background: transparent;
+      border: none;
+    }
+  }
+
+  .input-image {
+    font-size: 0.9em;
+    margin-bottom: 0.7rem;
+  }
+
+  .input-tag {
+    display: block;
+    margin-left: 0.8em;
+    margin-bottom: 5em;
+    margin-top: 1em;
+    width: 70%;
+    min-width: 300px;
+  }
+
+  .icon {
+    color: #4caf50;
+    margin-right: 7px;
+    font-size: 2.7rem;
   }
 
   input {
-    height: 25px;
-    font-size: 17px;
+    height: 40px;
+    font-size: 20px;
     min-width: 350px;
     font-family: "S-CoreDream-3Light";
     font-style: normal;
@@ -150,12 +201,11 @@ const WritingFormContainer = styled.div`
   }
 
   li {
-    padding: 0;
     font-family: "S-CoreDream-3Light";
     font-style: normal;
     font-weight: normal;
     list-style: none;
-    text-align: left;
+    margin-bottom: 1em;
   }
 
   textarea {
@@ -164,74 +214,52 @@ const WritingFormContainer = styled.div`
     font-weight: normal;
     height: 400px;
     resize: none;
-    font-size: 17px;
+    font-size: 20px;
     min-width: 350px;
   }
+`;
 
-  .imgpreview {
-    flex: auto;
-    width: 50%;
-    min-width: 350px;
-    height: 300px;
-    min-height: 0;
-    margin: 0 auto;
-    align-self: center;
-    border: 1px solid darkgray;
-    margin-top: 20px;
-    box-sizing: padding-box;
-    background: transparent;
-  }
+const Title = styled.h1`
+  margin: 1.9em 8em 0 0;
+  font-size: 50px;
+  color: #484848;
+  width: 400px;
 
-  .input-image {
-    display: none;
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    font-size: 25px;
+    font-weight: 500;
+    letter-spacing: 15px;
+    padding-left: 45px;
   }
+  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+    font-size: 35px;
+    font-weight: 530;
+    letter-spacing: 15px;
+    padding-left: 45px;
+  }
+`;
 
-  label {
-    font-family: "S-CoreDream-3Light";
-    font-style: normal;
-    font-weight: normal;
-    margin-top: 10px;
-    align-self: center;
-    text-align: center;
-    background: black;
-    color: #81c784;
-    border: none;
-    position: relative;
-    height: 2.15rem;
-    width: 10.85rem;
-    font-size: 1.25em;
-    padding: 0 1.5em;
-    padding-top: 0.7em;
-    cursor: pointer;
-    transition: 800ms ease all;
-    outline: none;
-  }
-  label:hover {
-    background: #fff;
-    color: #1aab8a;
-  }
-  label:before,
-  label:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 2px;
-    width: 0;
-    background: #1aab8a;
-    transition: 400ms ease all;
-  }
-  label:after {
-    right: inherit;
-    top: inherit;
-    left: 0;
-    bottom: 0;
-  }
-  label:hover:before,
-  label:hover:after {
-    width: 100%;
-    transition: 800ms ease all;
-  }
+const Container = styled.ul`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 0;
+  margin-bottom: 24px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  border: 1px solid #66bb6a;
+  width: 100%;
+  min-width: 400px;
+`;
+
+const ContainerItem = styled.li`
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5em;
+  padding: 0 5px;
+  box-sizing: border-box;
+  width: 78%;
+  font-size: 1.5rem;
 
   @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
     margin-left: 2%;

@@ -24,21 +24,21 @@ const Login = () => {
     getModal(!modal);
   };
 
-  const emailHandler = (e) => {
+  const emailHandler = e => {
     setEmail(e.target.value);
   };
-  const passwordHandler = (e) => {
+  const passwordHandler = e => {
     setPassword(e.target.value);
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = e => {
     e.preventDefault();
     axios
       .post(url + "/user/login", {
         email: email,
         password: password,
       })
-      .then((res) => {
+      .then(res => {
         if (res.status === 200) {
           value.handleSetNickName(res.data.nickName);
           getChildren("로그인에 성공했습니다");
@@ -55,12 +55,12 @@ const Login = () => {
       });
   };
 
-  const socialGoogleLogin = (googleToken) => {
+  const socialGoogleLogin = googleToken => {
     axios
       .post(url + "/user/socialLogin", {
         token: googleToken,
       })
-      .then((res) => {
+      .then(res => {
         if (res.status === 200) {
           value.handleLogin();
           value.handleToken(googleToken);
@@ -83,7 +83,7 @@ const Login = () => {
         <form>
           <div>
             <label>
-              <i class="fas fa-user fa-2x" />
+              <i className="fas fa-user fa-2x" />
             </label>
             <input
               type="email"
@@ -95,7 +95,7 @@ const Login = () => {
           </div>
           <div>
             <label>
-              <i class="fas fa-unlock-alt fa-2x" />
+              <i className="fas fa-unlock-alt fa-2x" />
             </label>
             <input
               type="password"
@@ -174,7 +174,7 @@ const LoginStyled = styled.div`
   }
   button {
     background: black;
-    color: #81c784;
+    color: #fff;
     border: none;
     display: inline-block;
     height: 3rem;

@@ -78,7 +78,7 @@ const Container = styled.div`
 
   button {
     background: black;
-    color: #81c784;
+    color: #fff;
     border: none;
     position: relative;
     height: 3rem;
@@ -88,6 +88,7 @@ const Container = styled.div`
     cursor: pointer;
     transition: 800ms ease all;
     outline: none;
+    margin-top: 10px;
   }
   button:hover {
     background: #fff;

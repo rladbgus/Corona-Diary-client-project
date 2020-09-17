@@ -24,7 +24,8 @@ const AlertModal = ({
       className === "login" ||
       className === "deleteCotent" ||
       className === "deleteCotentError" ||
-      className === "content"
+      className === "content" ||
+      className === "signout"
     ) {
       onClose();
       history.push("/");

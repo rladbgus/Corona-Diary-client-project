@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import WritingForm from "./WritingForm";
 import Survey from "./Survey";
 import SubmitButton from "./SubmitButton";
-import styled from "styled-components";
 
 const WritingPageForm = ({ history }) => {
   const [data, getData] = useState({
