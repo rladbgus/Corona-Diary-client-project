@@ -19,7 +19,6 @@ const SocialLogin = ({ socialGoogleLogin }) => {
           </button>
         )}
         onSuccess={res => {
-          console.log(res);
           socialGoogleLogin(res.tokenId);
         }}
         onFailure={err => {

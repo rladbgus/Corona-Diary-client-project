@@ -4,7 +4,7 @@ import axios from "axios";
 import AlertModal from "../../Modal/AlertModal";
 import styled from "styled-components";
 
-const SignUpFunction = ({ history }) => {
+const SignUpFunction = () => {
   const url = "http://localhost:5000/user/signup";
   const [email, setEmail] = useState("");
   const [password1, setPassword1] = useState("");
