@@ -17,9 +17,9 @@ const Mypage = ({ history }) => {
   const [children, getChildren] = useState("");
   const [didMount, setDidMount] = useState(false);
   const [surveyData, setSurveyData] =useState('');
-  const [date, setDate] = useState([]);
-  const [temp, setTemp] = useState([]);
   const [contentChart, getInfo] = useState("");
+  const [dateTemp, setDateTemp] = useState({date:[], temp:[]});
+  const [selectData, setselectData] = useState('');
 
   const openModalModify = () => {
     getModal(!modal);
@@ -47,16 +47,25 @@ const Mypage = ({ history }) => {
         setSurveyData(res.data.content)
         getData(res.data.user);
         getInfo(res.data.content);
-
         setDidMount(true);
       });
-
-    return () => {
-      ac.abort();
-      setDidMount(false);
-    };
-  }, []);
-
+      
+      return () => {
+        ac.abort();
+        setDidMount(false);
+      };
+    }, []);
+    
+    useEffect(() => {
+      if(surveyData){
+        surveyData.map((el) => {
+          setDateTemp(dateTemp.date.push(el.createdAt));
+          setDateTemp(dateTemp.temp.push(el.q_temp));
+          setselectData(dateTemp);
+        })
+      }
+    }, [surveyData])
+    
   return (
     <>
       {!value.isChecking ? (
@@ -67,7 +76,7 @@ const Mypage = ({ history }) => {
             <button onClick={openModalDelete}>회원탈퇴</button>
           </div>
           <MyChart contentsInfo={contentChart} history={history} />
-            <TempChart surveyData={surveyData} />
+            <TempChart selectData={selectData} />
           <CheckingModal visible={modal} onClose={closeModal}>
             {children}
           </CheckingModal>

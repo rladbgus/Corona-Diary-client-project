@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+// import styled from "styled-components";
 import { Line } from 'react-chartjs-2';
 
-const TempChart = ({ surveyData }) => {
-  console.log(surveyData);
-  
+const TempChart = ({selectData}) => {
   const [totalData, setTotalData] = useState({});
-  const [date, setDate] = useState([]);
-  const [temp, setTemp] = useState([]);
-  
+
   const chart = () => {
+    if(selectData){
     setTotalData({
-      labels: [surveyData[0].createdAt, '20/4/23', '20/5/16'], // 날짜 넣기
+      labels: selectData.date,
       datasets: [
         {
           label:'Temperature',
-          data:[12, 43, 23], //온도변화 넣기
+          data: selectData.temp,
           backgroundColor:[
             'rgba(75,192,192,0.6)'
           ],
@@ -24,20 +21,11 @@ const TempChart = ({ surveyData }) => {
       ]
     })
   }
+  }
 
   useEffect(() => {
-    if(surveyData){
-      chart();
-      surveyData.map((el) => {
-        setDate([el.createdAt]);
-        setTemp([el.q_temp]);
-      })
-    }
-  }, [surveyData])
-
-  console.log("날짜", date);
-  console.log("온도", temp);
-
+    chart();
+  }, [selectData])
 
   return (
     <div className="a" style={{height: "500px", width:"500px"}}>
