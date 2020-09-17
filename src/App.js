@@ -11,6 +11,7 @@ import Search from "./page/Search";
 import SettingInfo from "./page/SettingInfo";
 import MyContentsList from "./page/MyContentsList";
 import LoginProvider from "./Context/ContextProvider";
+import SocialSignUpPage from "./page/SocialSignUp";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/search" component={Search}></Route>
           <Route path="/settinginfo" component={SettingInfo}></Route>
           <Route path="/mycontentslist" component={MyContentsList}></Route>
+          <Route path="/user/sociallogin" component={SocialSignUpPage}></Route>
         </Switch>
       </LoginProvider>
     </div>
