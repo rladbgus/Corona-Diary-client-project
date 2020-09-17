@@ -67,6 +67,7 @@ const Title = styled.h1`
   font-size: 50px;
   color: #484848;
   line-height: 160%;
+
   @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
     font-size: 25px;
     font-weight: 500;
@@ -87,9 +88,7 @@ const Border = styled.span`
   border: 1px solid #66bb6a;
   margin: 3% 8%;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-  /* min-width: 100px; */
   flex-direction: row;
-  justify-content: space-evenly;
   align-self: flex-start;
 `;
 
@@ -128,6 +127,7 @@ const ContentStyle = styled.span`
     -webkit-box-orient: vertical;
     word-wrap: break-word;
   }
+  
   p {
     overflow: hidden;
     text-overflow: ellipsis;
