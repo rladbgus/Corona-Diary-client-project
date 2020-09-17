@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import SignUpFunction from "./SignUpFunction";
-import SocialSignUp from "./SocialSignUp";
 
 const Signupform = ({ history }) => {
   return (
@@ -9,7 +8,6 @@ const Signupform = ({ history }) => {
       <Container>
         <h1 title="signup">SignUp</h1>
         <SignUpFunction history={history} />
-        <SocialSignUp />
       </Container>
     </>
   );

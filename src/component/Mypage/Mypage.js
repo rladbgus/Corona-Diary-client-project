@@ -5,6 +5,7 @@ import SettingInfo from "./SettingInfo";
 import axios from "axios";
 import getLogin from "../../Context/Context";
 import CheckingModal from "../../Modal/CheckingModal";
+import MyChart from "./MyChart";
 
 const Mypage = ({ history }) => {
   const [data, getData] = useState("");
@@ -57,16 +58,16 @@ const Mypage = ({ history }) => {
             <button onClick={openModalModify}>정보수정</button>
             <button onClick={openModalDelete}>회원탈퇴</button>
           </div>
-
+          <MyChart history={history} />
           <CheckingModal visible={modal} onClose={closeModal}>
             {children}
           </CheckingModal>
         </Container>
       ) : (
-          <Container>
-            <SettingInfo userInfo={data} token={getToken} />
-          </Container>
-        )}
+        <Container>
+          <SettingInfo userInfo={data} token={getToken} />
+        </Container>
+      )}
     </>
   );
 };

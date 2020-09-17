@@ -49,7 +49,7 @@ const AlertModal = ({
       history.go(`/content/${contentId}`);
     } else if (className === "sociallogin") {
       onClose();
-      history.go(`/user/sociallogin`);
+      history.push(`/`);
     } else {
       onClose();
     }
