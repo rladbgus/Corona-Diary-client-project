@@ -47,6 +47,9 @@ const AlertModal = ({
     } else if (className === "contentModify") {
       onClose();
       history.go(`/content/${contentId}`);
+    } else if (className === "sociallogin") {
+      onClose();
+      history.go(`/user/sociallogin`);
     } else {
       onClose();
     }

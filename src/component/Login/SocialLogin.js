@@ -8,25 +8,23 @@ const SocialLogin = ({ socialGoogleLogin }) => {
     <GoogleButton>
       <GoogleLogin
         clientId="333133070398-amgnp101osuduqvjn2vacf3p20j2kmgn.apps.googleusercontent.com"
-        buttonText="Google Login"
+        render={renderProps => (
+          <button
+            style={{ padding: 0 }}
+            onClick={renderProps.onClick}
+            disabled={renderProps.disabled}
+          >
+            <i className="fab fa-google"></i>
+            {"   "}GoogleLogin
+          </button>
+        )}
         onSuccess={res => {
+          console.log(res);
           socialGoogleLogin(res.tokenId);
         }}
         onFailure={err => {
           console.log(err);
         }}
-        render={renderProps => (
-          <button
-            style={{ padding: 0 }}
-            onClick={event => {
-              event.preventDefault();
-              socialGoogleLogin();
-            }}
-          >
-            <i className="fab fa-google"></i>
-            {"    "}GoogleLogin
-          </button>
-        )}
       />
     </GoogleButton>
   );
