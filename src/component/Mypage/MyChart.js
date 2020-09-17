@@ -1,61 +1,40 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
-import axios from "axios";
-import { Chart } from "react-charts";
+import Chart from "chart.js";
+import { render } from "react-dom";
 
-const MyChart = ({ history }) => {
-  const data = React.useMemo(
-    () => [
-      {
-        label: "Series 1",
-        data: [
-          [0, 1],
-          [1, 2],
-          [2, 4],
-          [3, 2],
-          [4, 7],
-        ],
-      },
-      {
-        label: "Series 2",
-        data: [
-          [0, 3],
-          [1, 1],
-          [2, 5],
-          [3, 6],
-          [4, 4],
-        ],
-      },
-    ],
-    []
-  );
+const MyChart = ({ contentsInfo }) => {
+  useEffect(() => {
+    if (contentsInfo) {
+      var ctx = document.getElementsByClassName("ts_canvas");
+      console.log(contentsInfo[0]);
+      var myChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: [
+            contentsInfo[0].createdAt,
+            "Blue",
+            "Yellow",
+            "Green",
+            "Purple",
+            "Orange",
+          ],
+          datasets: [
+            {
+              label: "# of Votes",
+              data: [contentsInfo[0].q_resp, 19, 3, 5, 12, 3],
+            },
+          ],
+        },
+      });
+    }
+  }, [contentsInfo]);
 
-  const axes = React.useMemo(
-    () => [
-      { primary: true, type: "linear", position: "bottom" },
-      { type: "linear", position: "left" },
-    ],
-    []
-  );
   return (
     <>
-      <ChartStyle>
-        <div>Hello World!</div>
-        <div
-          style={{
-            width: "700px",
-            height: "400px",
-          }}
-        >
-          <Chart data={data} axes={axes} />
-        </div>
-      </ChartStyle>
+      <canvas className="ts_canvas" width="400" height="400"></canvas>
     </>
   );
 };
 
 export default MyChart;
-
-const ChartStyle = styled.div`
-  border: 2px solid;
-`;

@@ -16,7 +16,7 @@ const MypageForm = ({ token }) => {
       })
       .then((res) => {
         if (mounted) {
-          getData(res.data);
+          getData(res.data.user);
         }
       });
     return () => {
