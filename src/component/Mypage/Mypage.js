@@ -6,6 +6,7 @@ import axios from "axios";
 import getLogin from "../../Context/Context";
 import CheckingModal from "../../Modal/CheckingModal";
 import MyChart from "./MyChart";
+import TempChart from "./TempChart"
 
 const Mypage = ({ history }) => {
   const [data, getData] = useState("");
@@ -15,6 +16,9 @@ const Mypage = ({ history }) => {
   const [modal, getModal] = useState(false);
   const [children, getChildren] = useState("");
   const [didMount, setDidMount] = useState(false);
+  const [surveyData, setSurveyData] =useState('');
+  const [date, setDate] = useState([]);
+  const [temp, setTemp] = useState([]);
 
   const openModalModify = () => {
     getModal(!modal);
@@ -40,6 +44,7 @@ const Mypage = ({ history }) => {
       })
       .then((res) => {
         getData(res.data);
+        setSurveyData(res.data.content)
         setDidMount(true);
       });
 
@@ -59,6 +64,7 @@ const Mypage = ({ history }) => {
             <button onClick={openModalDelete}>회원탈퇴</button>
           </div>
           <MyChart history={history} />
+          <TempChart surveyData={surveyData} />
           <CheckingModal visible={modal} onClose={closeModal}>
             {children}
           </CheckingModal>
