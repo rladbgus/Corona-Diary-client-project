@@ -215,8 +215,7 @@ const Title = styled.h1`
     font-size: 25px;
     font-weight: 500;
     letter-spacing: 15px;
-    margin-left: 2%;
-    margin-right: 2%;
+    margin: 2em;
   }
   @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
     font-size: 35px;
@@ -241,8 +240,7 @@ const Container = styled.ul`
   min-width: 400px;
 
   @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
-    margin-left: 2%;
-    margin-right: 2%;
+    margin: 2em;
     width: 96%;
   }
 
@@ -250,6 +248,9 @@ const Container = styled.ul`
     margin-left: 2%;
     margin-right: 2%;
     width: 96%;
+    .input{
+    font-size: 15px;
+    }
   }
 `;
 
