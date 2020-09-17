@@ -43,7 +43,7 @@ const SearchComponent = () => {
           className="searchItems"
         />
 
-      <div className="searchBox">
+<Border>
            {searchList
           ? searchList.map((list) => (
             <Searched key={list.id} className="searched">
@@ -55,7 +55,8 @@ const SearchComponent = () => {
             </Searched>
           ))
           : <span className= "empty"></span> }
-      </div>
+            </Border>
+
     </Font>
   );
 };
@@ -63,14 +64,13 @@ const SearchComponent = () => {
 export default SearchComponent;
 
 const BREAK_POINT_MOBILE = 580;
-const BREAK_POINT_TABLET = 1024;
+const BREAK_POINT_TABLET = 1342;
 
 const Font = styled.div`
   font-family: "S-CoreDream-3Light";
   font-weight: normal;
   font-style: normal;
   line-height: 180%;
-  
 
   flex-flow: column wrap;
   justify-content: center;
@@ -88,7 +88,7 @@ const Font = styled.div`
   i {
     position: absolute;
     margin-left: 20px;
-    margin-top: 118px;
+    margin-top: 136px;
     color: #4f5b66;
     font-size: 40px;
   }
@@ -96,22 +96,13 @@ const Font = styled.div`
   input {
     color: #4f5b66;
     padding: 30px 30px 14px 80px;
-    font-size: 30px;
+    font-size: 35px;
     border: none;
     background-color: #ffffff;
     border-bottom: 3px solid #4f5b66;
     display: flex;
   }
 
-  .searchBox{
-    width: 50em;
-    flex-wrap: wrap;
-    height: 23em;
-    display: flex;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-    margin: 4em 0em 0em 23em;
-    border: 1px solid #66bb6a;
-  }
   @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
     width: 100%;
   }
@@ -130,13 +121,22 @@ const Font = styled.div`
   }
   `;
 
+const Border = styled.span`
+  display: flex;
+  flex-wrap: wrap;
+  margin: 4em 21em 5em 23em;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  flex-direction: row;
+  align-self: flex-start;
+`;
+
 const Searched = styled.span`
 width: 17em;
-height: 15em;
 line-height: 40px;
 padding: 2.5em;
 margin: 3%;
 background: #ffffff;
+flex-wrap: wrap;
 box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 
 .contentLinkStyle {
@@ -179,4 +179,15 @@ p {
   box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.5);
   transition: opacity 200ms;
 }
+
+@media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+    margin : 2em;
+    width: 90%;
+  }
+
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    font-size: 0.7rem;
+    margin: 2em;
+    width: 90%;
+  }
 `;
