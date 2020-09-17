@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import getLogin from "../../Context/Context";
-import { GoogleLogin } from "react-google-login";
 import AlertModal from "../../Modal/AlertModal";
 import styled from "styled-components";
 import SocialLogin from "./SocialLogin";
@@ -55,8 +54,9 @@ const Login = () => {
       });
   };
 
-  const socialGoogleLogin = googleToken => {
-    axios
+  const socialGoogleLogin = async googleToken => {
+    console.log(googleToken);
+    await axios
       .post(url + "/user/socialLogin", {
         token: googleToken,
       })
@@ -65,7 +65,7 @@ const Login = () => {
           value.handleLogin();
           value.handleToken(googleToken);
           getChildren("로그인에 성공했습니다");
-          getClassName("login");
+          getClassName("sociallogin");
           openModal();
         }
       })
