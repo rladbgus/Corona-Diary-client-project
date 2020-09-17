@@ -19,6 +19,7 @@ const Mypage = ({ history }) => {
   const [surveyData, setSurveyData] =useState('');
   const [date, setDate] = useState([]);
   const [temp, setTemp] = useState([]);
+  const [contentChart, getInfo] = useState("");
 
   const openModalModify = () => {
     getModal(!modal);
@@ -43,8 +44,10 @@ const Mypage = ({ history }) => {
         },
       })
       .then((res) => {
-        getData(res.data);
         setSurveyData(res.data.content)
+        getData(res.data.user);
+        getInfo(res.data.content);
+
         setDidMount(true);
       });
 
@@ -63,8 +66,8 @@ const Mypage = ({ history }) => {
             <button onClick={openModalModify}>정보수정</button>
             <button onClick={openModalDelete}>회원탈퇴</button>
           </div>
-          <MyChart history={history} />
-          <TempChart surveyData={surveyData} />
+          <MyChart contentsInfo={contentChart} history={history} />
+            <TempChart surveyData={surveyData} />
           <CheckingModal visible={modal} onClose={closeModal}>
             {children}
           </CheckingModal>
