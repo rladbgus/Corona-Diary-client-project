@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, useHistory } from "react-router-dom";
 import axios from "axios";
 import getLogin from "../../Context/Context";
 import AlertModal from "../../Modal/AlertModal";
@@ -14,6 +14,7 @@ const Login = () => {
   const [modal, getModal] = useState(false);
   const [children, getChildren] = useState("");
   const [className, getClassName] = useState("");
+  let history = useHistory();
 
   const openModal = () => {
     getModal(!modal);
@@ -55,7 +56,6 @@ const Login = () => {
   };
 
   const socialGoogleLogin = async googleToken => {
-    console.log(googleToken);
     await axios
       .post(url + "/user/socialLogin", {
         token: googleToken,
@@ -63,10 +63,16 @@ const Login = () => {
       .then(res => {
         if (res.status === 200) {
           value.handleLogin();
-          value.handleToken(googleToken);
+          value.handleToken(res.data.token);
           getChildren("로그인에 성공했습니다");
           getClassName("sociallogin");
           openModal();
+        }
+        if (res.status === 201) {
+          history.push({
+            pathname: "/user/sociallogin",
+            state: res.data.token,
+          });
         }
       })
       .catch(() => {
