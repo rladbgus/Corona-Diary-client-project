@@ -19,7 +19,8 @@ const AlertModal = ({
   const handleClose = () => {
     if (className === "complete") {
       onClose();
-      value.handleIsChecking();
+      // value.handleIsChecking();
+      history.go("/mypage");
     } else if (
       className === "login" ||
       className === "deleteCotent" ||

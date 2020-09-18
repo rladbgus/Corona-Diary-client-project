@@ -78,7 +78,7 @@ const CheckingModal = ({ children, visible, onClose }) => {
         if (res.status === 200) {
           value.handleLogin();
           value.handleToken("");
-          getChildren("잘가요~건강하세요");
+          getChildren("항상 건강하세요 :)");
           getClassName("removeId");
           openModal();
           onClose();
