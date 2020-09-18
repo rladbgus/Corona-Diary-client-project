@@ -4,6 +4,7 @@ import styled from "styled-components";
 import axios from "axios";
 import getLogin from "../Context/Context";
 import Portal from "./Portal";
+import AlertModal from "./AlertModal";
 
 const CheckingModal = ({ children, visible, onClose }) => {
   const url = "http://localhost:5000";
@@ -11,6 +12,9 @@ const CheckingModal = ({ children, visible, onClose }) => {
   const value = useContext(getLogin);
   const getToken = window.sessionStorage.getItem("token");
   let history = useHistory();
+  const [modal, getModal] = useState(false);
+  const [childrenAlert, getChildren] = useState("");
+  const [className, getClassName] = useState("");
 
   useEffect(() => {
     let ac = new AbortController();
@@ -18,6 +22,13 @@ const CheckingModal = ({ children, visible, onClose }) => {
       ac.abort();
     };
   }, []);
+
+  const openModal = () => {
+    getModal(!modal);
+  };
+  const closeModal = () => {
+    getModal(!modal);
+  };
 
   const handleClose = () => {
     getPassWord("");
@@ -67,8 +78,9 @@ const CheckingModal = ({ children, visible, onClose }) => {
         if (res.status === 200) {
           value.handleLogin();
           value.handleToken("");
-          history.push("/");
-          alert('잘가요...')
+          getChildren("잘가요~건강하세요");
+          getClassName("removeId");
+          openModal();
           onClose();
         }
       });
@@ -96,6 +108,9 @@ const CheckingModal = ({ children, visible, onClose }) => {
           </div>
         </ModalInner>
       </ModalWrapper>
+      <AlertModal visible={modal} onClose={closeModal} className={className}>
+        {childrenAlert}
+      </AlertModal>
     </Portal>
   );
 };
