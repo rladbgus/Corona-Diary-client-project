@@ -59,7 +59,7 @@ const Mypage = ({ history }) => {
     useEffect(() => {
       if(surveyData){
         surveyData.map((el) => {
-          setDateTemp(dateTemp.date.push(el.createdAt));
+          setDateTemp(dateTemp.date.push(el.createdAt.slice(2,10)));
           setDateTemp(dateTemp.temp.push(el.q_temp));
           setselectData(dateTemp);
         })
