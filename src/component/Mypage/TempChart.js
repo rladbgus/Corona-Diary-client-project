@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-// import styled from "styled-components";
 import { Line } from 'react-chartjs-2';
 
 const TempChart = ({selectData}) => {
   const [totalData, setTotalData] = useState({});
 
-  console.log(selectData);
   const chart = () => {
     if(selectData){
     setTotalData({
@@ -37,16 +35,3 @@ const TempChart = ({selectData}) => {
 };
 
 export default TempChart;
-
-function solution(arr) {
-  var answer = [];
-  if(arr.length <= 1){
-      return -1;
-  }
-
-      const min = Math.min.apply(null, arr);
-      answer = arr.filter(value => { 
-        return value !== min
-        });
-  return answer;
-}

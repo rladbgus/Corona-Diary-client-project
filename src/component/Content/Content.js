@@ -324,6 +324,7 @@ const ContentBox = styled.div`
     text-align: left;
     font-size: 18px;
     line-height: 200%;
+    word-break: break-all;
   }
   .tagStyle {
     margin: 0% 20%;
