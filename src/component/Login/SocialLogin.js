@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { withRouter } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
 import styled from "styled-components";
+import getLogin from "../../Context/ContextProvider";
 
 const SocialLogin = ({ socialGoogleLogin }) => {
   return (
