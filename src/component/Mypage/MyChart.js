@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Chart from "chart.js";
 
@@ -78,7 +78,7 @@ const MyChart = ({ contentsInfo }) => {
 
   useEffect(() => {
     if (contentsInfo) {
-      contentsInfo.map((each) => {
+      contentsInfo.map(each => {
         addData(
           chart,
           each.createdAt.slice(2, 10),

@@ -21,10 +21,10 @@ const LoginProvider = ({ children }) => {
     window.sessionStorage.setItem("token", value);
   };
 
-  const handleSetNickName = (value) => {
+  const handleSetNickName = value => {
     setNickName(value);
-    window.sessionStorage.setItem("nickName", value)
-  }
+    window.sessionStorage.setItem("nickName", value);
+  };
 
   useEffect(() => {
     let ac = new AbortController();
