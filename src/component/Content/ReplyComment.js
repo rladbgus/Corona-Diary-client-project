@@ -3,42 +3,6 @@ import axios from "axios";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
-const ReplyCommment = styled.div`
-  .btn {
-    display: inline-flex;
-    margin: 10px;
-  }
-`;
-
-const ReplyCommentDiv = styled.div`
-  display: flex;
-  width: 70%;
-  border-bottom: 4px solid white;
-  margin-top: 20px;
-  margin-bottom: 30px;
-  flex-direction: row;
-
-  .replyU {
-    display: block;
-  }
-  .replyName,
-  .replyDate {
-    width: 170px;
-    padding: 5px 10px 0px 10px;
-  }
-
-  .replyName {
-    font-weight: bold;
-  }
-  .replyComment {
-    justify-content: start;
-    padding: 15px 40px 10px 40px;
-    text-align: left;
-    font-size: 18px;
-    line-height: 200%;
-  }
-`;
-
 const ReplyComment = ({ data, deleteComment, contentId, allComment }) => {
   const getToken = window.sessionStorage.getItem("token");
   const getNickName = window.sessionStorage.getItem("nickName");
@@ -120,3 +84,41 @@ const ReplyComment = ({ data, deleteComment, contentId, allComment }) => {
 };
 
 export default ReplyComment;
+
+const ReplyCommment = styled.div`
+  .btn {
+    display: inline-flex;
+    margin: 10px;
+  }
+`;
+
+const ReplyCommentDiv = styled.div`
+  display: flex;
+  width: 70%;
+  border-bottom: 4px solid white;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  flex-direction: row;
+  word-break: break-all;
+
+
+  .replyU {
+    display: block;
+  }
+  .replyName,
+  .replyDate {
+    width: 170px;
+    padding: 5px 10px 0px 10px;
+  }
+
+  .replyName {
+    font-weight: bold;
+  }
+  .replyComment {
+    justify-content: start;
+    padding: 15px 40px 10px 40px;
+    text-align: left;
+    font-size: 18px;
+    line-height: 200%;
+  }
+`;

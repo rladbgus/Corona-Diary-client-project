@@ -286,6 +286,7 @@ const ContentBox = styled.div`
   background: #f5f5f5;
   border: 40px solid white;
   border-radius: 50px;
+  
   .Content {
   }
 
@@ -325,7 +326,6 @@ const ContentBox = styled.div`
 
   .btn-style {
     background: black;
-    /* color: #81c784; */
     color: white;
     border: none;
     position: relative;
@@ -387,6 +387,7 @@ const LikeButton = styled.div`
 const CommentBox = styled.div`
   background: #f5f5f5;
   border-radius: 20px;
+  word-break: break-all;
 
   input {
     margin: 5px 10px 5px 0px;
