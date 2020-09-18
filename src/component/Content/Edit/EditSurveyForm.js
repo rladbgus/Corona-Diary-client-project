@@ -1,17 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 
-const EditSurveyForm = ({ data, handleClick }) => {
+const EditSurveyForm = ({ data, handleClick, initOption }) => {
+  const handleOption = () => {
+    initOption(document.getElementsByClassName("option"));
+  };
   return (
     <Container>
       <div className={data.name} className="question">
         {data.data}
       </div>
-      <SurveyContainer>
+      <SurveyContainer ref={handleOption}>
         <span>
           나쁨
           <div>
             <input
+              className="option"
               type="radio"
               name={`question${data.id}`}
               value="1"
@@ -23,6 +27,7 @@ const EditSurveyForm = ({ data, handleClick }) => {
           <br></br>
           <div>
             <input
+              className="option"
               type="radio"
               name={`question${data.id}`}
               value="2"
@@ -34,6 +39,7 @@ const EditSurveyForm = ({ data, handleClick }) => {
           <br></br>
           <div>
             <input
+              className="option"
               type="radio"
               name={`question${data.id}`}
               value="3"
@@ -45,6 +51,7 @@ const EditSurveyForm = ({ data, handleClick }) => {
           <br></br>
           <div>
             <input
+              className="option"
               type="radio"
               name={`question${data.id}`}
               value="4"
@@ -56,6 +63,7 @@ const EditSurveyForm = ({ data, handleClick }) => {
           <br></br>
           <div>
             <input
+              className="option"
               type="radio"
               name={`question${data.id}`}
               value="5"
@@ -67,6 +75,7 @@ const EditSurveyForm = ({ data, handleClick }) => {
           <br></br>
           <div>
             <input
+              className="option"
               type="radio"
               name={`question${data.id}`}
               value="6"
@@ -78,6 +87,7 @@ const EditSurveyForm = ({ data, handleClick }) => {
           <br></br>
           <div>
             <input
+              className="option"
               type="radio"
               name={`question${data.id}`}
               value="7"
@@ -89,6 +99,7 @@ const EditSurveyForm = ({ data, handleClick }) => {
           <br></br>
           <div>
             <input
+              className="option"
               type="radio"
               name={`question${data.id}`}
               value="8"
@@ -100,6 +111,7 @@ const EditSurveyForm = ({ data, handleClick }) => {
           <br></br>
           <div>
             <input
+              className="option"
               type="radio"
               name={`question${data.id}`}
               value="9"
@@ -111,6 +123,7 @@ const EditSurveyForm = ({ data, handleClick }) => {
           좋음
           <div>
             <input
+              className="option"
               type="radio"
               name={`question${data.id}`}
               value="10"

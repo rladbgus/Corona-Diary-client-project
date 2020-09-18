@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import SurveyForm from "./SurveyForm";
 import { surveydata } from "./surveydata";
@@ -15,10 +15,25 @@ const Survey = ({ handleClick, handleNumberChange, handleData }) => {
     getModal(false);
   };
 
+  const initOption = value => {
+    if (modal === false) {
+      for (let i = 0; i < value.length; i++) {
+        if (value[i].checked) {
+          value[i].checked = false;
+        }
+      }
+    }
+  };
+
   return (
     <Container>
       <button onClick={openModal}>설문조사</button>
-      <SurveyModal visible={modal} onClose={closeModal} handleData={handleData}>
+      <SurveyModal
+        visible={modal}
+        onClose={closeModal}
+        handleData={handleData}
+        initOption={initOption}
+      >
         <h3 title="survey">설문조사</h3>
         <div className="survey-text">
           <label>
@@ -45,7 +60,12 @@ const Survey = ({ handleClick, handleNumberChange, handleData }) => {
           </label>
         </div>
         {surveydata.map(list => (
-          <SurveyForm data={list} key={list.id} handleClick={handleClick} />
+          <SurveyForm
+            data={list}
+            key={list.id}
+            handleClick={handleClick}
+            initOption={initOption}
+          />
         ))}
       </SurveyModal>
     </Container>

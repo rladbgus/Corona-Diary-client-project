@@ -1,17 +1,22 @@
 import React from "react";
 import styled from "styled-components";
 
-const SurveyForm = ({ data, handleClick }) => {
+const SurveyForm = ({ data, handleClick, initOption }) => {
+  const handleOption = () => {
+    initOption(document.getElementsByClassName("option"));
+  };
+
   return (
     <Container>
       <div className={data.name} className="question">
         {data.data}
       </div>
-      <SurveyContainer onSubmit={e => e.preventDefault()} id="initial">
+      <SurveyContainer ref={handleOption}>
         <span>
           나쁨
           <div>
             <input
+              className="option"
               type="radio"
               name={`question${data.id}`}
               value="1"
@@ -23,6 +28,7 @@ const SurveyForm = ({ data, handleClick }) => {
           <br></br>
           <div>
             <input
+              className="option"
               type="radio"
               name={`question${data.id}`}
               value="2"
@@ -34,6 +40,7 @@ const SurveyForm = ({ data, handleClick }) => {
           <br></br>
           <div>
             <input
+              className="option"
               type="radio"
               name={`question${data.id}`}
               value="3"
@@ -45,6 +52,7 @@ const SurveyForm = ({ data, handleClick }) => {
           <br></br>
           <div>
             <input
+              className="option"
               type="radio"
               name={`question${data.id}`}
               value="4"
@@ -56,6 +64,7 @@ const SurveyForm = ({ data, handleClick }) => {
           <br></br>
           <div>
             <input
+              className="option"
               type="radio"
               name={`question${data.id}`}
               value="5"
@@ -67,6 +76,7 @@ const SurveyForm = ({ data, handleClick }) => {
           <br></br>
           <div>
             <input
+              className="option"
               type="radio"
               name={`question${data.id}`}
               value="6"
@@ -78,6 +88,7 @@ const SurveyForm = ({ data, handleClick }) => {
           <br></br>
           <div>
             <input
+              className="option"
               type="radio"
               name={`question${data.id}`}
               value="7"
@@ -89,6 +100,7 @@ const SurveyForm = ({ data, handleClick }) => {
           <br></br>
           <div>
             <input
+              className="option"
               type="radio"
               name={`question${data.id}`}
               value="8"
@@ -100,6 +112,7 @@ const SurveyForm = ({ data, handleClick }) => {
           <br></br>
           <div>
             <input
+              className="option"
               type="radio"
               name={`question${data.id}`}
               value="9"
@@ -111,6 +124,7 @@ const SurveyForm = ({ data, handleClick }) => {
           좋음
           <div>
             <input
+              className="option"
               type="radio"
               name={`question${data.id}`}
               value="10"
@@ -133,7 +147,7 @@ const Container = styled.div`
   margin-left: 20px;
 `;
 
-const SurveyContainer = styled.form`
+const SurveyContainer = styled.div`
   display: flex;
   flex-direction: row;
   .question {

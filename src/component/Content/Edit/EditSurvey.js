@@ -10,7 +10,6 @@ const EditSurvey = ({
   content,
   handleData,
 }) => {
-  const [data, getData] = useState("");
   const [modal, getModal] = useState(false);
 
   const openModal = () => {
@@ -21,9 +20,16 @@ const EditSurvey = ({
     getModal(false);
   };
 
-  useEffect(() => {
-    getData(content);
-  });
+  const initOption = value => {
+    if (modal === false) {
+      for (let i = 0; i < value.length; i++) {
+        if (value[i].checked) {
+          value[i].checked = false;
+        }
+      }
+    }
+  };
+
   return (
     <Container>
       <button onClick={openModal}>설문조사</button>
@@ -33,7 +39,7 @@ const EditSurvey = ({
           <label>
             코로나걸린시기{" "}
             <input
-              defaultValue={data.covid_date}
+              defaultValue={content.covid_date}
               name="covid_date"
               className="input_since"
               type="text"
@@ -46,7 +52,7 @@ const EditSurvey = ({
           <label>
             현재 체온은{" "}
             <input
-              defaultValue={data.q_temp}
+              defaultValue={content.q_temp}
               name="q_temp"
               className="input_temperature"
               type="text"
@@ -60,7 +66,7 @@ const EditSurvey = ({
             data={list}
             key={list.id}
             handleClick={handleClick}
-            checking={false}
+            initOption={initOption}
           />
         ))}
       </SurveyModal>
