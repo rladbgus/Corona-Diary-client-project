@@ -15,7 +15,7 @@ const MyChart = ({ contentsInfo }) => {
           backgroundColor: ["#ffebee"],
           border: ["1px"],
           borderColor: ["#f44336"],
-          borderWidth: 3,
+          borderWidth: 2,
         },
         {
           label: "기침 증상",
@@ -23,7 +23,7 @@ const MyChart = ({ contentsInfo }) => {
           backgroundColor: ["#ede7f6"],
           border: ["1px"],
           borderColor: ["#673ab7"],
-          borderWidth: 3,
+          borderWidth: 2,
         },
         {
           label: "식욕 상태",
@@ -31,7 +31,7 @@ const MyChart = ({ contentsInfo }) => {
           backgroundColor: ["#e3f2fd"],
           border: ["1px"],
           borderColor: ["#2196f3"],
-          borderWidth: 3,
+          borderWidth: 2,
         },
         {
           label: "수면 상태",
@@ -39,7 +39,7 @@ const MyChart = ({ contentsInfo }) => {
           backgroundColor: ["#e0f2f1"],
           border: ["1px"],
           borderColor: ["#009688"],
-          borderWidth: 3,
+          borderWidth: 2,
         },
         {
           label: "피로도",
@@ -47,7 +47,7 @@ const MyChart = ({ contentsInfo }) => {
           backgroundColor: ["#fffde7"],
           border: ["1px"],
           borderColor: ["#ffeb3b"],
-          borderWidth: 3,
+          borderWidth: 2,
         },
         {
           label: "심리 상태",
@@ -55,7 +55,7 @@ const MyChart = ({ contentsInfo }) => {
           backgroundColor: ["#fff3e0"],
           border: ["1px"],
           borderColor: ["#ff9800"],
-          borderWidth: 3,
+          borderWidth: 2,
         },
       ],
     },
@@ -99,8 +99,8 @@ const MyChart = ({ contentsInfo }) => {
         <canvas
           className="canvas"
           display="block"
-          width="770px"
-          height="350px"
+          width="870px"
+          height="450px"
         ></canvas>
       </ChartStyle>
     </>
@@ -109,6 +109,9 @@ const MyChart = ({ contentsInfo }) => {
 
 export default MyChart;
 
+const BREAK_POINT_MOBILE = 580;
+const BREAK_POINT_TABLET = 1024;
+
 const ChartStyle = styled.div`
   display: block;
   margin: 10px 0px 90px 0px;
@@ -116,5 +119,15 @@ const ChartStyle = styled.div`
   canvas {
     max-width: 900px;
     max-height: 700px;
+  }
+
+  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+    width: 670px;
+    height: 350px;
+  }
+
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    width: 470px;
+    height: 250px;
   }
 `;

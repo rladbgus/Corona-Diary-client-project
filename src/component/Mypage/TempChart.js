@@ -1,52 +1,74 @@
 import React, { useState, useEffect } from "react";
-// import styled from "styled-components";
-import { Line } from 'react-chartjs-2';
+import styled from "styled-components";
+import { Line } from "react-chartjs-2";
 
-const TempChart = ({selectData}) => {
+const TempChart = ({ selectData }) => {
   const [totalData, setTotalData] = useState({});
 
-  console.log(selectData);
+  // console.log(selectData);
   const chart = () => {
-    if(selectData){
-    setTotalData({
-      labels: selectData.date,
-      datasets: [
-        {
-          label:'Temperature',
-          data: selectData.temp,
-          backgroundColor:[
-            'rgba(75,192,192,0.6)'
-          ],
-          borderwidth:4
-        }
-      ]
-    })
-  }
-  }
+    if (selectData) {
+      setTotalData({
+        labels: selectData.date,
+        datasets: [
+          {
+            label: "체온",
+            data: selectData.temp,
+            backgroundColor: ["rgba(75,192,192,0.6)"],
+            borderwidth: 2,
+          },
+        ],
+      });
+    }
+  };
 
   useEffect(() => {
     chart();
-  }, [selectData])
+  }, [selectData]);
 
   return (
-    <div className="a" style={{height: "500px", width:"500px"}}>
-        <Line data={totalData} 
-        />
-    </div>
+    <ChartStyle>
+      <div className="a" display="block" height="450px" width="870px">
+        <Line data={totalData} />
+      </div>
+    </ChartStyle>
   );
 };
 
 export default TempChart;
 
+const BREAK_POINT_MOBILE = 580;
+const BREAK_POINT_TABLET = 1024;
+
+const ChartStyle = styled.div`
+  display: block;
+  margin: 10px 0px 90px 0px;
+
+  .a {
+    max-width: 900px;
+    max-height: 700px;
+
+    @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+      width: 670px;
+      height: 350px;
+    }
+
+    @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+      width: 470px;
+      height: 250px;
+    }
+  }
+`;
+
 function solution(arr) {
   var answer = [];
-  if(arr.length <= 1){
-      return -1;
+  if (arr.length <= 1) {
+    return -1;
   }
 
-      const min = Math.min.apply(null, arr);
-      answer = arr.filter(value => { 
-        return value !== min
-        });
+  const min = Math.min.apply(null, arr);
+  answer = arr.filter((value) => {
+    return value !== min;
+  });
   return answer;
 }
