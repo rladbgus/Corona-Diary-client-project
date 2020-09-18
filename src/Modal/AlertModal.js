@@ -50,6 +50,9 @@ const AlertModal = ({
     } else if (className === "sociallogin") {
       onClose();
       history.push(`/`);
+    } else if (className === "removeId") {
+      onClose();
+      history.push("/");
     } else {
       onClose();
     }

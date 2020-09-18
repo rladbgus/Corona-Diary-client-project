@@ -49,7 +49,7 @@ const HomeGraphView = () => {
       //     `${url}?$serviceKey=${serviceKey}&pageNo=${pageNo}&numOfRows=${numOfRows}&startCreateDt=${startCreateDt}&endCreateDt=${endCreateDt}`,
       //     { headers: { "Access-Control-Allow-Origin": "*" } }
       //   )
-      .then((res) => {
+      .then(res => {
         console.log("Status", res.statusCode);
         console.log("Headers", JSON.stringify(res.headers));
         console.log("Reponse received", res.body);
@@ -66,7 +66,7 @@ const HomeGraphView = () => {
       <div className="homeGraphView">
         <div className="homeGraphContainer">
           <br />
-          {/* {data} */}
+          {data}
           <img></img>
         </div>
       </div>
