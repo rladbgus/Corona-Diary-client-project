@@ -95,6 +95,12 @@ const SignUpFunction = () => {
       getClassName("inputEmail");
       return openModal();
     }
+    if (/\s/.test(nickName, "gi") === true) {
+      getChildren("띄워쓰기는 사용불가!");
+      getClassName("inputEmail");
+      setNickName("");
+      return openModal();
+    }
     axios
       .post(url + "/nickName", checkNickName)
       .then(res => {
@@ -145,7 +151,10 @@ const SignUpFunction = () => {
       setPassword2("");
       return openModal();
     }
-    if (/(\w+\d)|(\d+\w)/.test(password2, "gi") === false) {
+    if (
+      /(\w+\d)|(\d+\w)/.test(password2, "gi") === false ||
+      /\s/.test(password2, "gi") === true
+    ) {
       getChildren("문자와 숫자 조합으로 만들어 주세요");
       getClassName("passwordcheck3");
       setPassword1("");
