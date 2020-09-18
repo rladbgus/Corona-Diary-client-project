@@ -6,7 +6,7 @@ import axios from "axios";
 import getLogin from "../../Context/Context";
 import CheckingModal from "../../Modal/CheckingModal";
 import MyChart from "./MyChart";
-import TempChart from "./TempChart"
+import TempChart from "./TempChart";
 
 const Mypage = ({ history }) => {
   const [data, getData] = useState("");
@@ -17,9 +17,10 @@ const Mypage = ({ history }) => {
   const [children, getChildren] = useState("");
   const [didMount, setDidMount] = useState(false);
   const [surveyData, setSurveyData] =useState('');
-  const [date, setDate] = useState([]);
-  const [temp, setTemp] = useState([]);
+
   const [contentChart, getInfo] = useState("");
+  const [dateTemp, setDateTemp] = useState({date:[], temp:[]});
+  const [selectData, setselectData] = useState('');
 
   const openModalModify = () => {
     getModal(!modal);
@@ -44,19 +45,28 @@ const Mypage = ({ history }) => {
         },
       })
       .then((res) => {
-        setSurveyData(res.data.content)
+        setSurveyData(res.data.content);
         getData(res.data.user);
         getInfo(res.data.content);
-
         setDidMount(true);
       });
-
-    return () => {
-      ac.abort();
-      setDidMount(false);
-    };
-  }, []);
-
+      
+      return () => {
+        ac.abort();
+        setDidMount(false);
+      };
+    }, []);
+    
+    useEffect(() => {
+      if(surveyData){
+        surveyData.map((el) => {
+          setDateTemp(dateTemp.date.push(el.createdAt.slice(2,10)));
+          setDateTemp(dateTemp.temp.push(el.q_temp));
+          setselectData(dateTemp);
+        })
+      }
+    }, [surveyData])
+    
   return (
     <>
       {!value.isChecking ? (
@@ -66,8 +76,12 @@ const Mypage = ({ history }) => {
             <button onClick={openModalModify}>정보수정</button>
             <button onClick={openModalDelete}>회원탈퇴</button>
           </div>
-          <MyChart contentsInfo={contentChart} history={history} />
-            <TempChart surveyData={surveyData} />
+
+          <div className="chartStyle">
+            <MyChart contentsInfo={contentChart} history={history} />
+            <TempChart selectData={selectData} />
+         </div>
+
           <CheckingModal visible={modal} onClose={closeModal}>
             {children}
           </CheckingModal>
@@ -90,6 +104,9 @@ const Container = styled.div`
   align-items: center;
   margin: 80px;
 
+  .chartStyle {
+    display: block;
+  }
   .btn {
     display: inline-block;
     padding-bottom: 100px;

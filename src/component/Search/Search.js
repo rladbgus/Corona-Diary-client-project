@@ -35,17 +35,17 @@ const SearchComponent = () => {
 
   return (
     <Font>
-        <i className="fas fa-search fa-1x"></i>
-        <input
-          type="text"
-          placeholder="검색어를 입력하세요."
-          onChange={handelSearch}
-          className="searchItems"
-        />
+      <i className="fas fa-search fa-1x"></i>
+      <input
+        type="text"
+        placeholder="검색어를 입력하세요."
+        onChange={handelSearch}
+        className="searchItems"
+      />
 
-<Border>
-           {searchList
-          ? searchList.map((list) => (
+      <Border>
+        {searchList ? (
+          searchList.map((list) => (
             <Searched key={list.id} className="searched">
               <Link to={`/content/${list.id}`} className="contentLinkStyle">
                 <h1>{list.title}</h1>
@@ -54,9 +54,10 @@ const SearchComponent = () => {
               </Link>
             </Searched>
           ))
-          : <span className= "empty"></span> }
-            </Border>
-
+        ) : (
+          <span className="empty"></span>
+        )}
+      </Border>
     </Font>
   );
 };
@@ -78,7 +79,7 @@ const Font = styled.div`
   align-content: center;
   text-align: center;
 
-.searchItems {
+  .searchItems {
     display: inline-block;
     width: 350px;
     margin-top: 3em;
@@ -119,69 +120,70 @@ const Font = styled.div`
       display: none;
     }
   }
-  `;
+`;
 
 const Border = styled.span`
   display: flex;
   flex-wrap: wrap;
-  margin: 4em 21em 5em 23em;
+  margin: 2%;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   flex-direction: row;
   align-self: flex-start;
+  justify-content: space-evenly;
 `;
 
 const Searched = styled.span`
-width: 17em;
-line-height: 40px;
-padding: 2.5em;
-margin: 3%;
-background: #ffffff;
-flex-wrap: wrap;
-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  width: 17em;
+  line-height: 40px;
+  padding: 2.5em;
+  margin: 3%;
+  background: #ffffff;
+  flex-wrap: wrap;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 
-.contentLinkStyle {
-  line-height: 2em;
-  height: 17em;
-  color: #444;
-  text-decoration: none;
-}
+  .contentLinkStyle {
+    line-height: 2em;
+    height: 17em;
+    color: #444;
+    text-decoration: none;
+  }
 
-.contentLinkStyle:hover {
-}
-h1 {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  word-wrap: break-word;
-}
-span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 6;
-  -webkit-box-orient: vertical;
-  word-wrap: break-word;
-}
+  .contentLinkStyle:hover {
+  }
+  h1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+  }
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+  }
 
-p {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  word-wrap: break-word;
-  height: 134px;
-}
+  p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+    height: 134px;
+  }
 
-&:hover {
-  box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.5);
-  transition: opacity 200ms;
-}
+  &:hover {
+    box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.5);
+    transition: opacity 200ms;
+  }
 
-@media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
-    margin : 2em;
+  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+    margin: 2em;
     width: 90%;
   }
 
