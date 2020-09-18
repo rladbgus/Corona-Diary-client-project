@@ -133,8 +133,8 @@ const SignUpFunction = () => {
     }
     let data = {};
     data.email = email;
-    data.password = password2;
-    data.nickName = nickName;
+    data.password = password2.trim();
+    data.nickName = nickName.trim();
     data.age = Number(age);
     data.city = city;
     if (password1 !== password2) {
