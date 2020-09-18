@@ -15,12 +15,10 @@ const Mypage = ({ history }) => {
   const getToken = window.sessionStorage.getItem("token");
   const [modal, getModal] = useState(false);
   const [children, getChildren] = useState("");
-  const [didMount, setDidMount] = useState(false);
-  const [surveyData, setSurveyData] =useState('');
-
+  const [surveyData, setSurveyData] = useState("");
   const [contentChart, getInfo] = useState("");
-  const [dateTemp, setDateTemp] = useState({date:[], temp:[]});
-  const [selectData, setselectData] = useState('');
+  const [dateTemp, setDateTemp] = useState({ date: [], temp: [] });
+  const [selectData, setselectData] = useState("");
 
   const openModalModify = () => {
     getModal(!modal);
@@ -44,29 +42,27 @@ const Mypage = ({ history }) => {
           "x-access-token": getToken,
         },
       })
-      .then((res) => {
+      .then(res => {
         setSurveyData(res.data.content);
         getData(res.data.user);
         getInfo(res.data.content);
-        setDidMount(true);
       });
-      
-      return () => {
-        ac.abort();
-        setDidMount(false);
-      };
-    }, []);
-    
-    useEffect(() => {
-      if(surveyData){
-        surveyData.map((el) => {
-          setDateTemp(dateTemp.date.push(el.createdAt.slice(2,10)));
-          setDateTemp(dateTemp.temp.push(el.q_temp));
-          setselectData(dateTemp);
-        })
-      }
-    }, [surveyData])
-    
+
+    return () => {
+      ac.abort();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (surveyData) {
+      surveyData.map(el => {
+        setDateTemp(dateTemp.date.push(el.createdAt.slice(2, 10)));
+        setDateTemp(dateTemp.temp.push(el.q_temp));
+        setselectData(dateTemp);
+      });
+    }
+  }, [surveyData]);
+
   return (
     <>
       {!value.isChecking ? (
@@ -80,7 +76,7 @@ const Mypage = ({ history }) => {
           <div className="chartStyle">
             <MyChart contentsInfo={contentChart} history={history} />
             <TempChart selectData={selectData} />
-         </div>
+          </div>
 
           <CheckingModal visible={modal} onClose={closeModal}>
             {children}
