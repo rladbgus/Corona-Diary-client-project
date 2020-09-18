@@ -50,7 +50,7 @@ const ContentView = () => {
   useEffect(() => {
     const ac = new AbortController();
     const getNickName = window.sessionStorage.getItem("nickName");
-    const getGoogleId = window.sessionStorage.getItem("handleGoogleId");
+
     axios
       .get(`${url}/content/${contentId}`, {
         headers: { "x-access-token": getToken },
@@ -64,14 +64,13 @@ const ContentView = () => {
         if (getNickName === nickName) {
           deleteButton();
         }
-        console.log(res)
       })
-      .catch( ()  => {
+      .catch(() => {
         if (!getToken) {
           getChildren("로그인 후 이용하실 수 있습니다^^");
           getClassName("content");
           openModal();
-        }else{
+        } else {
           getChildren("존재하지 않는 페이지입니다.");
           getClassName("content");
           openModal();
