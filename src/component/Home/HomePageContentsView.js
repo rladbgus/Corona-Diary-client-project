@@ -1,26 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { withRouter, Link } from "react-router-dom";
-import axios from "axios";
 
-const HomePageContentsView = ({ history }) => {
-  const url = "http://localhost:5000/mainContentList";
-  const [mainContentList, setMainCotentList] = useState(null);
-  const getToken = window.sessionStorage.getItem("token");
-
-  useEffect(() => {
-    let ac = new AbortController();
-    axios
-      .get(url, {
-        headers: { "x-access-token": getToken },
-      })
-      .then((res) => {
-        setMainCotentList([...res.data.contentList]);
-      });
-    return () => {
-      ac.abort();
-    };
-  }, []);
+const HomePageContentsView = ({ history, mainContentList }) => {
 
   return (
     <HomeContentsViewStyle>
@@ -37,7 +19,6 @@ const HomePageContentsView = ({ history }) => {
       </div>
       <div className="addButton">
         <button onClick={() => history.push("./contentslist")}>
-          {/* <i class="far fa-plus-square fa-4x"></i> */}
           <div className="moreContent">오늘의 일기 더 알아보기</div>
         </button>
       </div>

@@ -1,4 +1,5 @@
-import React, { Fragment } from "react";
+import React, { Fragment,useEffect, useState } from "react";
+import axios from "axios";
 import Nav from "../component/Nav/Nav";
 import styled from "styled-components";
 import HomePageIntro from "../component/Home/HomePageIntro";
@@ -7,13 +8,33 @@ import HomeGraphView from "../component/Home/HomeGraphView";
 import HomeFooterView from "../component/Home/HomeFooterView";
 
 const Home = () => {
+  const url = "http://localhost:5000/mainContentList";
+  const [mainContentList, setMainCotentList] = useState(null);
+  const [coronaData, setCoronaData] = useState('');
+  const getToken = window.sessionStorage.getItem("token");
+
+  useEffect(() => {
+    let ac = new AbortController();
+    axios
+      .get(url, {
+        headers: { "x-access-token": getToken },
+      })
+      .then((res) => {
+        setCoronaData(res.data.coronaData);
+        setMainCotentList([...res.data.contentList]);
+      });
+    return () => {
+      ac.abort();
+    };
+  }, []);
+
   return (
     <Fragment>
       <Container>
         <Nav>Home</Nav>
         <HomePageIntro />
-        <HomePageContentsView />
-        <HomeGraphView />
+        <HomePageContentsView mainContentList={mainContentList} />
+        <HomeGraphView coronaData={coronaData}/>
       </Container>
       <HomeFooterView />
     </Fragment>
