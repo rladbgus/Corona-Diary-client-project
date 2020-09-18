@@ -64,6 +64,7 @@ const Login = () => {
         if (res.status === 200) {
           value.handleLogin();
           value.handleToken(res.data.token);
+          value.handleSetNickName(res.data.nickName);
           getChildren("로그인에 성공했습니다");
           getClassName("sociallogin");
           openModal();

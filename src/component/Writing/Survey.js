@@ -15,31 +15,10 @@ const Survey = ({ handleClick, handleNumberChange, handleData }) => {
     getModal(false);
   };
 
-  // cancelCourse = () => {
-  //   this.myFormRef.reset();
-  // }
-
-  // render() {
-  //   return (
-  //     <form ref={(el) => this.myFormRef = el;}>
-  //       <input />
-  //       <input />
-  //       ...
-  //       <input />
-  //     </form>
-
-  // const handleReset = () => {
-  //   console.log(1);
-  // };
   return (
     <Container>
       <button onClick={openModal}>설문조사</button>
-      <SurveyModal
-        visible={modal}
-        onClose={closeModal}
-        handleData={handleData}
-        // handleReset={handleReset}
-      >
+      <SurveyModal visible={modal} onClose={closeModal} handleData={handleData}>
         <h3 title="survey">설문조사</h3>
         <div className="survey-text">
           <label>
@@ -66,12 +45,7 @@ const Survey = ({ handleClick, handleNumberChange, handleData }) => {
           </label>
         </div>
         {surveydata.map(list => (
-          <SurveyForm
-            data={list}
-            key={list.id}
-            handleClick={handleClick}
-            // handleReset={handleReset}
-          />
+          <SurveyForm data={list} key={list.id} handleClick={handleClick} />
         ))}
       </SurveyModal>
     </Container>

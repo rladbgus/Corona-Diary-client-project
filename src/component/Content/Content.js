@@ -50,6 +50,7 @@ const ContentView = () => {
   useEffect(() => {
     const ac = new AbortController();
     const getNickName = window.sessionStorage.getItem("nickName");
+    const getGoogleId = window.sessionStorage.getItem("handleGoogleId");
     axios
       .get(`${url}/content/${contentId}`, {
         headers: { "x-access-token": getToken },
