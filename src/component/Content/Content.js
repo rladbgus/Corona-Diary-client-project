@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
-import "../../style.css";
 import axios from "axios";
 import getLogin from "../../Context/Context";
 import AlertModal from "../../Modal/AlertModal";
@@ -26,7 +25,6 @@ const ContentView = () => {
   const [className, getClassName] = useState("");
   const [deleteState, getDelete] = useState(true);
   const [nickName, setnickName] = useState("");
-  const [data, getData] = useState("");
   const getToken = window.sessionStorage.getItem("token");
   const [countLike, setCountLike] = useState(0);
   const [isLike, setIsLike] = useState(false);
@@ -51,24 +49,26 @@ const ContentView = () => {
 
   useEffect(() => {
     const ac = new AbortController();
+    const getNickName = window.sessionStorage.getItem("nickName");
     axios
       .get(`${url}/content/${contentId}`, {
         headers: { "x-access-token": getToken },
       })
-      .then((res) => {
+      .then(res => {
         setContent(res.data.Content);
         setnickName(res.data.Content.user.nickName);
         getTags(res.data.Content.tag);
-        deleteButton();
         setCountLike(res.data.like);
         setIsLike(res.data.userLike);
+        if (getNickName === nickName) {
+          deleteButton();
+        }
       })
       .catch(() => {
         if (!getToken) {
           getChildren("로그인 후 이용하실 수 있습니다^^");
           getClassName("content");
           openModal();
-          userInfo();
         }
       });
     return () => {
@@ -78,22 +78,6 @@ const ContentView = () => {
 
   const allComment = content.comment;
 
-  const userInfo = () => {
-    let ac = new AbortController();
-    axios
-      .get(`${url}/mypage`, {
-        headers: {
-          "x-access-token": getToken,
-        },
-      })
-      .then((res) => {
-        getData(res.data);
-      });
-    return () => {
-      ac.abort();
-    };
-  };
-
   // 좋아요 증감
   const setLikeBtn = () => {
     axios
@@ -102,14 +86,14 @@ const ContentView = () => {
         { like: countLike },
         { headers: { "x-access-token": getToken } }
       )
-      .then((res) => {
+      .then(res => {
         setCountLike(res.data.count);
         setIsLike(res.data.like);
       });
   };
 
   //댓글기능
-  const postComment = (e) => {
+  const postComment = e => {
     e.preventDefault();
     setCommneted([comment, ...content.comment]);
     axios
@@ -128,7 +112,7 @@ const ContentView = () => {
   };
 
   //댓글 삭제
-  const deleteComment = (value) => {
+  const deleteComment = value => {
     axios
       .delete(`${url}/comment/${value}`, {
         headers: { "x-access-token": getToken },
@@ -148,9 +132,7 @@ const ContentView = () => {
 
   //일기 삭제버튼 생성유무
   const deleteButton = () => {
-    if (value.nickName === nickName) {
-      getDelete(!deleteState);
-    }
+    getDelete(!deleteState);
   };
 
   //일기 삭제
@@ -159,7 +141,7 @@ const ContentView = () => {
       .delete(`${url}/content/${contentId}`, {
         headers: { "x-access-token": getToken },
       })
-      .then((res) => {
+      .then(res => {
         if (res.status === 200) {
           getChildren("일기가 삭제되었습니다");
           getClassName("deleteCotent");
@@ -246,13 +228,13 @@ const ContentView = () => {
                   type="text"
                   placeholder="댓글을 작성하세요"
                   value={comment}
-                  onChange={(e) => newComment(e.target.value)}
+                  onChange={e => newComment(e.target.value)}
                 />
                 <button onClick={postComment}>댓글 작성</button>
                 <>
                   {allComment
-                    ?.filter((value) => value.depth === 0)
-                    .map((data) => (
+                    ?.filter(value => value.depth === 0)
+                    .map(data => (
                       <CommentLi key={data.id}>
                         <div className="comment">
                           <div className="commentU">

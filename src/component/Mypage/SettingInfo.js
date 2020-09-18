@@ -31,7 +31,7 @@ const SettingInfo = ({ token, userInfo }) => {
     getModal(!modal);
   };
 
-  const handleModifiedButton = async (event) => {
+  const handleModifiedButton = async event => {
     event.preventDefault();
     let data = {};
     data.email = userInfo.email;
@@ -70,17 +70,17 @@ const SettingInfo = ({ token, userInfo }) => {
           "x-access-token": token,
         },
       })
-      .then((res) => {
+      .then(res => {
         if (res.status === 201) {
           getChildren("수정완료!!");
           getClassName("complete");
           openModal();
         }
       })
-      .catch((err) => {
+      .catch(err => {
         if (err) {
-          children = "서버오류입니다!";
-          className = "error";
+          getChildren("서버오류입니다!");
+          getClassName("error");
           return openModal();
         }
       });
@@ -90,7 +90,7 @@ const SettingInfo = ({ token, userInfo }) => {
     value.handleIsChecking();
   };
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     if (event.target.name === "password1") {
       setPassword1(event.target.value);
     }
@@ -102,7 +102,7 @@ const SettingInfo = ({ token, userInfo }) => {
     }
   };
 
-  const handleClick = (event) => {
+  const handleClick = event => {
     setAge(Number(event.target.value));
   };
 
