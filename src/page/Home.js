@@ -8,7 +8,7 @@ import HomeGraphView from "../component/Home/HomeGraphView";
 import HomeFooterView from "../component/Home/HomeFooterView";
 
 const Home = () => {
-  const url = "http://localhost:5000/mainContentList";
+  const url = "https://coronadiary.ga/mainContentList";
   const [mainContentList, setMainCotentList] = useState(null);
   const [coronaData, setCoronaData] = useState('');
   const getToken = window.sessionStorage.getItem("token");

@@ -7,7 +7,7 @@ import Portal from "./Portal";
 import AlertModal from "./AlertModal";
 
 const CheckingModal = ({ children, visible, onClose }) => {
-  const url = "http://localhost:5000";
+  const url = "https://coronadiary.ga";
   const [password, getPassWord] = useState("");
   const value = useContext(getLogin);
   const getToken = window.sessionStorage.getItem("token");

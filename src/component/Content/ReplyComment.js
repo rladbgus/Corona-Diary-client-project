@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
 const ReplyComment = ({ data, deleteComment, contentId, allComment }) => {
-  const url = "http://localhost:5000/comment";
+  const url = "https://coronadiary.ga/comment";
   const getToken = window.sessionStorage.getItem("token");
   const getNickName = window.sessionStorage.getItem("nickName");
   const [replyComment, setReplyComment] = useState("");

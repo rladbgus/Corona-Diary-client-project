@@ -3,7 +3,7 @@ import styled from "styled-components";
 import axios from "axios";
 
 const MypageForm = ({ token }) => {
-  const url = "http://localhost:5000";
+  const url = "https://coronadiary.ga";
   const [data, getData] = useState("");
 
   useEffect(() => {

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const SearchComponent = () => {
-  const url = "http://localhost:5000/contentList";
+  const url = "https://coronadiary.ga/contentList";
   const getToken = window.sessionStorage.getItem("token");
   const [searchList, setSearchList] = useState("");
   const [contentList, setContentList] = useState(null);

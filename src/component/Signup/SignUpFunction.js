@@ -5,7 +5,7 @@ import AlertModal from "../../Modal/AlertModal";
 import styled from "styled-components";
 
 const SignUpFunction = () => {
-  const url = "http://localhost:5000/user/signup";
+  const url = "https://coronadiary.ga/user/signup";
   const [email, setEmail] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");

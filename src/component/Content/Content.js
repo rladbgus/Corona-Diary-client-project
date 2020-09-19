@@ -13,7 +13,7 @@ import ReplyComment from "./ReplyComment";
 import { useHistory } from "react-router-dom";
 
 const ContentView = () => {
-  const url = `http://localhost:5000`;
+  const url = `https://coronadiary.ga`;
   let splitUrl = window.location.href.split("/");
   let contentId = splitUrl[4];
   const value = useContext(getLogin);
@@ -282,6 +282,9 @@ const ContentView = () => {
 };
 export default ContentView;
 
+const BREAK_POINT_MOBILE = 580;
+const BREAK_POINT_TABLET = 1024;
+
 const ContentBox = styled.div`
   background: #f5f5f5;
   border: 40px solid white;
@@ -296,6 +299,7 @@ const ContentBox = styled.div`
     letter-spacing: 10px;
     line-height: 160%;
     margin: 0% 7%;
+
   }
 
   .contentDate {
@@ -365,6 +369,20 @@ const ContentBox = styled.div`
   .btn-style:hover:after {
     width: 100%;
     transition: 800ms ease all;
+  }
+
+  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+    width: 670px;
+    height: 350px;
+  }
+
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    width: 470px;
+    height: 250px;
+
+    h1{
+      font-size:20px;
+    }
   }
 `;
 

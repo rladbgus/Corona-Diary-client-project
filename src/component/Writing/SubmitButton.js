@@ -6,7 +6,7 @@ import AlertModal from "../../Modal/AlertModal";
 const FormData = require("form-data");
 
 const SubmitButton = ({ data, history, image }) => {
-  const url = "http://localhost:5000/content";
+  const url = "https://coronadiary.ga/content";
   const [modal, getModal] = useState(false);
   const [children, getChildren] = useState("");
   const [className, getClassName] = useState("");

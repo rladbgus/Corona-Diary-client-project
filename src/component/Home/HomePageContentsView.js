@@ -1,4 +1,3 @@
-
 import React from "react";
 import styled from "styled-components";
 import { withRouter, Link } from "react-router-dom";
@@ -29,6 +28,9 @@ const HomePageContentsView = ({ history, mainContentList }) => {
 
 export default withRouter(HomePageContentsView);
 
+const BREAK_POINT_MOBILE = 580;
+const BREAK_POINT_TABLET = 1024;
+
 const HomeContentsViewStyle = styled.div`
   text-align: center;
 
@@ -55,6 +57,15 @@ const HomeContentsViewStyle = styled.div`
       letter-spacing: 2px;
       padding: 20px 100px;
     }
+  }
+  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+    width: 670px;
+    height: 350px;
+  }
+
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    width: 470px;
+    height: 250px;
   }
 `;
 
@@ -110,6 +121,15 @@ const MainContent = styled.div`
   &:hover {
     box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.5);
     transition: opacity 200ms;
+  }
+  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+    width: 670px;
+    height: 350px;
+  }
+
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    width: 470px;
+    height: 250px;
   }
 `;
 

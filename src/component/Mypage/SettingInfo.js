@@ -6,7 +6,7 @@ import AlertModal from "../../Modal/AlertModal";
 import { useLocation } from "react-router-dom";
 
 const SettingInfo = ({ token, userInfo }) => {
-  const url = "http://localhost:5000";
+  const url = "https://coronadiary.ga";
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const [age, setAge] = useState("0");

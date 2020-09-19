@@ -15,7 +15,7 @@ const EditSubmitButton = ({ data, image }) => {
   const getToken = window.sessionStorage.getItem("token");
   let splitUrl = window.location.href.split("/");
   let contentId = splitUrl[4];
-  const url = `http://localhost:5000/content/${contentId}`;
+  const url = `https://coronadiary.ga/content/${contentId}`;
   let history = useHistory();
   let location = useLocation();
 

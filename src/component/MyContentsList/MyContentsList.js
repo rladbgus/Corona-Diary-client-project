@@ -4,7 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 const MyContentsListView = () => {
-  const url = "http://localhost:5000/myContentList";
+  const url = "https://coronadiary.ga/myContentList";
   const [myContentList, setMyContentList] = useState(null);
   const getToken = window.sessionStorage.getItem("token");
 

@@ -11,7 +11,7 @@ import TempChart from "./TempChart";
 const Mypage = ({ history }) => {
   const [data, getData] = useState("");
   const value = useContext(getLogin);
-  const url = "http://localhost:5000/mypage";
+  const url = "https://coronadiary.ga/mypage";
   const getToken = window.sessionStorage.getItem("token");
   const [modal, getModal] = useState(false);
   const [children, getChildren] = useState("");

@@ -5,7 +5,7 @@ import AlertModal from "../../Modal/AlertModal";
 import styled from "styled-components";
 
 const SocialSignUp = ({ history }) => {
-  const url = "http://localhost:5000/user";
+  const url = "https://coronadiary.ga/user";
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const [nickName, setNickName] = useState("");
