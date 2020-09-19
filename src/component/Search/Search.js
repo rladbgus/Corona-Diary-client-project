@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const SearchComponent = () => {
+  const url = "http://localhost:5000/contentList";
   const getToken = window.sessionStorage.getItem("token");
   const [searchList, setSearchList] = useState("");
   const [contentList, setContentList] = useState(null);
-  const url = "http://localhost:5000/contentList";
 
   useEffect(() => {
     const ac = new AbortController();

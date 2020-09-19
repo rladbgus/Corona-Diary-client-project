@@ -4,13 +4,13 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
 const ReplyComment = ({ data, deleteComment, contentId, allComment }) => {
+  const url = "http://localhost:5000/comment";
   const getToken = window.sessionStorage.getItem("token");
   const getNickName = window.sessionStorage.getItem("nickName");
   const [replyComment, setReplyComment] = useState("");
   const [addReply, setAddReply] = useState(false);
   const history = useHistory();
   const depth1Arr = allComment.filter((data) => data.depth === 1);
-  const url = "http://localhost:5000/comment";
 
   const addReplyComment = () => {
     axios
@@ -75,7 +75,6 @@ const ReplyComment = ({ data, deleteComment, contentId, allComment }) => {
               <div className="replyName">{getNickName}</div>
               <div className="replyDate">{value.createdAt}</div>
             </div>
-
             <div className="replyComment">{value.comment}</div>
           </ReplyCommentDiv>
         ))}
@@ -100,7 +99,6 @@ const ReplyCommentDiv = styled.div`
   margin-bottom: 30px;
   flex-direction: row;
   word-break: break-all;
-
 
   .replyU {
     display: block;

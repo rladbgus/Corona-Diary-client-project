@@ -39,14 +39,13 @@ const HomeContentsViewStyle = styled.div`
     align-items: center;
     justify-content: center;
   }
-
+  
   button {
     color: black;
     border-radius: 2px;
     background: #fff;
     border: 1px solid #d9d9d9;
   }
-
   button:hover {
     background: #eeeeee;
   }
