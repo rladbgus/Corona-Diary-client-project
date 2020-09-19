@@ -171,12 +171,13 @@ const ContentView = () => {
                 {content.referenceFile ? (
                   <img
                     src={content.referenceFile}
+                    className="mainImg"
                     alt=""
                     width="420"
                     height="400"
                   />
                 ) : (
-                  <img src={example} alt="" width="420" height="400" />
+                  <img className="mainImg" src={example} alt="" width="420" height="400" />
                 )}
 
                 <div className="TextArea">{content.text}</div>
@@ -282,6 +283,8 @@ const ContentView = () => {
 };
 export default ContentView;
 
+const BREAK_POINT_MOBILE = 580;
+
 const ContentBox = styled.div`
   background: #f5f5f5;
   border: 40px solid white;
@@ -365,6 +368,25 @@ const ContentBox = styled.div`
   .btn-style:hover:after {
     width: 100%;
     transition: 800ms ease all;
+  }
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+
+    h1{
+      font-size: 32px;
+    }
+    .contentDate{
+      font-size: 16px;
+      letter-spacing: 3px;
+    }
+    .TextArea{
+      font-size: 16px;
+      letter-spacing: 3px;
+    }
+
+    .mainImg{
+      width: 200px;
+      height: 200px;
+    }
   }
 `;
 
