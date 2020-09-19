@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const ContentsListView = () => {
+  const url = "http://localhost:5000/contentList";
   const [contentList, setContentList] = useState(null);
   const getToken = window.sessionStorage.getItem("token");
   const [searchList, setSearchList] = useState("");
-  const url = "http://localhost:5000/contentList";
 
   useEffect(() => {
     const ac = new AbortController();
@@ -35,7 +35,6 @@ const ContentsListView = () => {
 
   return (
     <Font>
-      {/* <center className="ContentsList"> */}
       <div className="SerchInput">
         <i className="fas fa-search fa-1x"></i>
         <input
@@ -60,7 +59,6 @@ const ContentsListView = () => {
           ))
           : ""}
       </Border>
-      {/* </center> */}
     </Font>
   );
 };
@@ -159,7 +157,6 @@ const Font = styled.div`
   align-items: center;
   align-content: center;
   text-align: center;
-  /* position: relative; */
 
   .searchItems {
     display: inline-block;
@@ -187,13 +184,9 @@ const Font = styled.div`
   }
 
   @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
-    /* margin: 5em;
-    width: 100%; */
   }
 
   @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
-    /* margin: 2em;
-    width: 100%; */
     input {
       font-size: 20px;
       padding: 10px 5px;

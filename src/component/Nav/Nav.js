@@ -103,8 +103,6 @@ function Nav() {
 
 export default Nav;
 
-// advanced:마우스를 소개글 위로 가져가면, 색이 변화되는 애니메이션 동작 추가
-
 const Header = styled.div`
   background-color: #f5f5f5;
   height: 6vh;
